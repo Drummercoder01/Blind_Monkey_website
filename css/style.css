@@ -1,0 +1,2597 @@
+/* Fix crítico para habilitar scroll */
+html, body {
+    overflow-x: hidden;
+    overflow-y: auto !important; /* CRÍTICO: Habilitar scroll vertical */
+    width: 100vw;
+    height: auto !important; /* Cambiar de 100% a auto */
+    scroll-behavior: smooth; /* Habilitar smooth scroll */
+}
+
+/* Asegurar que el contenido principal tenga altura suficiente */
+body {
+    min-height: 100vh;
+    position: relative;
+}
+
+.container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Fondo principal para toda la página */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        url('../img/big-lights-city-banner.webp') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+    transition: background 0.5s ease;
+}
+
+/* Ajuste de fondo para móviles */
+@media (max-width: 768px) {
+    .background {
+        background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+            url('../img/big-lights-city-banner.webp') no-repeat center center;
+        background-size: cover;
+        background-attachment: scroll;
+    }
+}
+
+/* Para tablets en orientación vertical */
+@media (max-width: 1024px) and (orientation: portrait) {
+    .background {
+        background-position: center top;
+    }
+}
+
+/* Para pantallas muy anchas */
+@media (min-width: 2000px) {
+    .background {
+        background-size: contain;
+        background-color: #000; /* Fondo negro para los bordes */
+    }
+}
+
+.background {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+/* Mejorar contraste del texto en todas las secciones */
+.text-white {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* Mejorar contraste de cards y contenedores */
+.ticket-sale,
+.events-container {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Asegurar que los elementos interactivos sean visibles */
+.song:hover,
+.press-item:hover,
+.event-card:hover {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/**************Navbar**********************/
+/* NAVBAR QUE INICIA ABAJO Y SE MUEVE ARRIBA AL HACER SCROLL */
+
+/* Estado inicial: Navbar abajo */
+.navbar {
+    position: fixed !important;
+    bottom: 0 !important; /* Iniciar abajo */
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    padding: 10px 0 !important;
+    z-index: 1000 !important;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3) !important; /* Sombra hacia arriba */
+    transition: all 0.5s ease !important; /* Transición suave */
+    
+    /* Sin overflow */
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+/* Estado cuando está arriba (después del scroll) */
+.navbar.navbar-top {
+    top: 0 !important;
+    bottom: auto !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important; /* Sombra hacia abajo */
+}
+
+/* CRÍTICO: Sin padding inicial en body */
+body {
+    padding-top: 0 !important; /* Sin padding inicial */
+    padding-bottom: 80px !important; /* Padding abajo para el navbar */
+    margin: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+/* Cuando navbar está arriba, cambiar padding del body */
+body.navbar-is-top {
+    padding-top: 80px !important;
+    padding-bottom: 0 !important;
+}
+
+/* Contenedor del navbar */
+.navbar .container {
+    overflow: hidden !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Eliminar scroll del collapse */
+.navbar-collapse {
+    overflow: visible !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+/* Enlaces del navbar */
+.navbar-nav {
+    display: flex !important;
+    justify-content: space-around !important;
+    width: 100% !important;
+    overflow: visible !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    padding: 10px 20px !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+}
+
+/* Línea blanca del ítem activo */
+.navbar-nav .nav-item .nav-link.active::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 50% !important;
+    bottom: -2px !important;
+    width: 80% !important;
+    height: 3px !important;
+    background-color: white !important;
+    transform: translateX(-50%) !important;
+    z-index: 1 !important;
+    animation: slideInLine 0.3s ease-out !important;
+}
+
+/* Cuando navbar está arriba, la línea va abajo */
+.navbar.navbar-top .navbar-nav .nav-item .nav-link.active::after {
+    bottom: -2px !important;
+}
+
+/* Cuando navbar está abajo, la línea va arriba */
+.navbar:not(.navbar-top) .navbar-nav .nav-item .nav-link.active::after {
+    top: -2px !important;
+    bottom: auto !important;
+}
+
+/* Animación para la línea */
+@keyframes slideInLine {
+    from {
+        width: 0%;
+        opacity: 0;
+    }
+    to {
+        width: 80%;
+        opacity: 1;
+    }
+}
+
+/* Hover effect */
+.navbar-nav .nav-item .nav-link:not(.active):hover {
+    color: #ccc !important;
+    transform: translateY(-2px) !important;
+}
+
+/* RESPONSIVE PARA MÓVILES */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 70px !important;
+    }
+    
+    body.navbar-is-top {
+        padding-top: 70px !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .navbar {
+        padding: 8px 0 !important;
+    }
+    
+    .navbar-nav {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .navbar-nav .nav-link {
+        text-align: center !important;
+        padding: 15px !important;
+        font-size: 16px !important;
+    }
+}
+
+/* Para móviles - collapse específico */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        overflow: visible !important;
+        max-height: none !important;
+        background-color: rgba(0, 0, 0, 0.95) !important;
+        padding: 10px !important;
+        border-radius: 8px !important;
+        margin-top: 10px !important;
+        overflow-x: hidden !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* Ajustar posición del collapse según ubicación del navbar */
+    .navbar:not(.navbar-top) .navbar-collapse {
+        margin-top: -10px !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+/* Forzar sin scroll en elementos del navbar */
+.navbar,
+.navbar *,
+.navbar-brand,
+.navbar-toggler,
+.navbar-collapse,
+.navbar-nav,
+.nav-item,
+.nav-link {
+    overflow: visible !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+/* Estados de collapse */
+.navbar-collapse.collapsing,
+.navbar-collapse.show {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* Ocultar scrollbars completamente */
+.navbar-collapse::-webkit-scrollbar,
+.navbar-nav::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+}
+
+.navbar-collapse,
+.navbar-nav {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
+
+/* ESTILOS PARA LOGO EN NAVBAR MÓVIL */
+
+/* Logo principal del navbar - solo visible en móviles */
+.navbar-logo {
+    height: 40px; /* Altura del logo */
+    width: auto; /* Mantener proporción */
+    max-width: 150px; /* Ancho máximo */
+    object-fit: contain; /* Mantener proporción sin distorsión */
+    transition: all 0.3s ease;
+    filter: brightness(1.1); /* Hacer el logo un poco más brillante */
+}
+
+/* Texto fallback si no carga el logo */
+.navbar-text-fallback {
+    display: none; /* Oculto por defecto */
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Brand container para móviles */
+.navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+    padding: 5px 0 !important;
+    text-decoration: none !important;
+}
+
+.navbar-brand:hover {
+    text-decoration: none !important;
+}
+
+/* Efecto hover para el logo */
+.navbar-logo:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+
+/* RESPONSIVE - Solo mostrar en pantallas pequeñas */
+@media (min-width: 992px) {
+    /* Ocultar completamente en desktop */
+    .navbar-brand {
+        display: none !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    /* Estilos específicos para móviles */
+    .navbar-brand {
+        display: flex !important;
+    }
+    
+    /* Ajustar tamaño en pantallas muy pequeñas */
+    @media (max-width: 576px) {
+        .navbar-logo {
+            height: 35px;
+            max-width: 120px;
+        }
+    }
+    
+    /* Para pantallas extra pequeñas */
+    @media (max-width: 400px) {
+        .navbar-logo {
+            height: 30px;
+            max-width: 100px;
+        }
+    }
+}
+
+/* Manejo de errores - Si el logo no carga */
+.navbar-logo:not([src]),
+.navbar-logo[src=""],
+.navbar-logo[src="#"] {
+    display: none;
+}
+
+.navbar-logo:not([src]) + .navbar-text-fallback,
+.navbar-logo[src=""] + .navbar-text-fallback,
+.navbar-logo[src="#"] + .navbar-text-fallback {
+    display: inline-block;
+}
+
+/* JavaScript fallback - clase para mostrar texto si falla la imagen */
+.navbar-brand.logo-failed .navbar-logo {
+    display: none;
+}
+
+.navbar-brand.logo-failed .navbar-text-fallback {
+    display: inline-block;
+}
+
+/* Ajustes al navbar para acomodar el logo */
+@media (max-width: 991.98px) {
+    .navbar {
+        padding: 8px 0 !important;
+    }
+    
+    .navbar .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* Asegurar que el botón hamburguesa esté bien posicionado */
+    .navbar-toggler {
+        padding: 4px 8px !important;
+        margin-left: auto !important;
+        order: 2 !important; /* Mover a la derecha */
+    }
+    
+    .navbar-brand {
+        order: 1 !important; /* Mover a la izquierda */
+        margin-right: auto !important;
+    }
+}
+
+/* Transiciones suaves para cambios de estado del navbar */
+.navbar-brand,
+.navbar-logo,
+.navbar-text-fallback {
+    transition: all 0.3s ease !important;
+}
+
+/* Ajustes cuando el navbar cambia de posición (abajo/arriba) */
+.navbar:not(.navbar-top) .navbar-logo {
+    /* Cuando está abajo, el logo puede ser un poco más grande */
+    height: 42px;
+}
+
+.navbar.navbar-top .navbar-logo {
+    /* Cuando está arriba, logo normal */
+    height: 40px;
+}
+
+/* Asegurar que el logo sea clickeable como enlace */
+.navbar-brand:focus,
+.navbar-brand:active {
+    outline: none;
+    transform: scale(0.98);
+}
+
+/* Optimización para pantallas de alta resolución */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .navbar-logo {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+
+
+/***************Widgets-Home-section***************************/
+
+
+.home-box {
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    border-radius: 10px; /* Bordes redondeados */
+    max-width: 800px; /* Limita el ancho máximo del cuadro */
+    margin: 0 auto; /* Centra el cuadro en la pantalla */
+    padding: 30px; /* Espaciado dentro del cuadro */
+    color: white; /* Color de texto blanco */
+}
+
+.ticket-sale {
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+
+/*Ticket*/
+
+.ticket-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 0;
+    position: relative;
+}
+
+.ticket-image-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.ticket-image {
+    max-width: 336px; /* 20% más grande que 280px */
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.8s forwards 0.3s;
+    opacity: 0;
+}
+
+.ticket-image:hover {
+    transform: scale(1.05);
+}
+
+.ticket-text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    animation: fadeIn 0.8s forwards 0.6s;
+    opacity: 0;
+}
+
+.ticket-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #faf6f6;
+    text-align: center;
+    margin: 0;
+}
+
+.arrow {
+    font-size: 1.8rem;
+    color: #26e3ff;
+    animation: bounceUp 1.5s infinite;
+}
+
+.arrow-up {
+    transform: rotate(-90deg);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceUp {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) rotate(-90deg);
+    }
+    40% {
+        transform: translateY(-10px) rotate(-90deg);
+    }
+    60% {
+        transform: translateY(-5px) rotate(-90deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .ticket-image {
+        max-width: 280px;
+    }
+    
+    .ticket-text {
+        font-size: 1.3rem;
+    }
+    
+    .arrow {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .ticket-image {
+        max-width: 240px;
+    }
+    
+    .ticket-text {
+        font-size: 1.1rem;
+    }
+    
+    .ticket-text-container {
+        gap: 0.5rem;
+    }
+}
+
+/*******/
+
+
+/* Asegúrate de que los iconos estén alineados horizontalmente y debajo del título */
+.social-icons {
+    background-color: transparent; /* Fondo transparente para el contenedor */
+    padding: 10px 0; /* Espaciado superior e inferior */
+    display: flex; /* Flexbox para los iconos */
+    justify-content: center; /* Alinea los iconos horizontalmente */
+    gap: 15px; /* Añade un espacio entre los iconos */
+}
+
+/* Estilo para los círculos de cada icono */
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; /* Ajusta el tamaño del círculo */
+    height: 50px; /* Ajusta el tamaño del círculo */
+    background-color: rgba(255, 255, 255, 1); /* Fondo blanco semi-transparente */    
+    border-radius: 50%; /* Hace el círculo */
+    font-size: 24px; /* Tamaño del icono */
+    color: rgba(0, 0, 0, 1); /* Color negro semi-transparente */    
+    text-decoration: none; /* Eliminar subrayado */
+    transition: all 0.3s ease; /* Transición suave para el color */
+}
+
+/* Efecto hover para los iconos */
+.social-icon:hover {
+    color: #007bff; /* Color cuando pasas el ratón */
+    transform: scale(1.1); /* Agranda el icono al pasar el ratón */
+}
+
+/* Centro el contenido de la sección */
+.bg-image {
+    display: flex;
+    flex-direction: column; /* Alinea el contenido verticalmente */
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    /*height: 100vh;*/ /* Asegura que cubra toda la pantalla */
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo para el título */
+.bg-image h1 {
+    margin-bottom: 30px; /* Añade un margen para separar el título de los iconos */
+}
+
+/* Asegura que el texto sea blanco */
+.text-white {
+    color: white !important;
+}
+
+
+/************ Sección About ************/
+
+/***************** Limiting the height of the about text section ****************************/
+#about-text-short, #about-text-full {
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+    overflow: hidden;
+}
+
+#about-text-short {
+    max-height: 500px; /* Suficiente para mostrar los bullets */
+    opacity: 1;
+}
+
+#about-text-full {
+    max-height: 0;
+    opacity: 0;
+    display: block; /* Importante: siempre visible pero oculto por max-height */
+}
+
+#about-text-full.expanded {
+    max-height: 5000px; /* Valor suficientemente alto */
+    opacity: 1;
+}
+
+#about-text-short.collapsed {
+    max-height: 0;
+    opacity: 0;
+}
+
+.about {
+    background-color: transparent; /* Fondo transparente */
+}
+
+.about-box {
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro con opacidad */
+    border-radius: 10px; /* Bordes redondeados */
+    max-width: 800px; /* Limita el ancho máximo del cuadro */
+    margin: 0 auto; /* Centra el cuadro en la pantalla */
+    padding: 30px; /* Espaciado dentro del cuadro */
+    color: white; /* Color de texto blanco */
+}
+
+.about-image {
+    width: 150px; /* Tamaño de la imagen */
+    height: 150px; /* Tamaño de la imagen */
+    border-radius: 50%; /* Hace que la imagen sea redonda */
+    object-fit: cover; /* Asegura que la imagen mantenga su proporción dentro del círculo */
+    border: 5px solid white; /* Borde blanco alrededor de la imagen */
+}
+
+.about-text {
+    text-align: justify; /* Justifica el texto */
+    line-height: 1.8; /* Aumenta el interlineado para mejor legibilidad */
+    font-size: 1.1rem; /* Tamaño de fuente agradable */
+    margin-top: 20px; /* Espacio entre la imagen y el texto */
+}
+
+/* Asegura que el cuadro no toque los bordes del container */
+@media (max-width: 768px) {
+    .about-box {
+        padding: 20px; /* Ajuste de padding para dispositivos móviles */
+    }
+    .about-image {
+        width: 120px; /* Ajusta el tamaño de la imagen en dispositivos pequeños */
+        height: 120px;
+    }
+}
+
+/***************** Limiting the height of the about text section ****************************/
+#about-text-short, #about-text-full {
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+    overflow: hidden;
+}
+
+#about-text-short {
+    max-height: 180px;
+    opacity: 1;
+}
+
+#about-text-full {
+    max-height: 0;
+    opacity: 0;
+    display: block; /* Importante para las transiciones */
+}
+
+#about-text-full.expanded {
+    max-height: 5000px; /* Valor suficientemente alto */
+    opacity: 1;
+}
+
+#about-text-short.collapsed {
+    max-height: 0;
+    opacity: 0;
+}
+
+/* Style for the "Read More" button */
+#toggle-button {
+    margin-top: 15px;
+    display: block;
+   text-align: center;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+#toggle-button:hover {
+    background-color: #f8f9fa;
+}
+
+
+/* ========== CORRECCIÓN PARA SECCIÓN DE MÚSICA ========== */
+
+/* Contenedor principal de música */
+#music {
+    position: relative;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.music-container {
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* CORRECCIÓN: Grid de 2 columnas en desktop */
+.music-columns-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en desktop */
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.music-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* CORRECCIÓN: Items de música centrados y con márgenes adecuados */
+.song {
+    background-color: rgba(0, 0, 0, 0.678);
+    padding: 15px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    margin: 0 auto; /* Centrado automático */
+}
+
+.song:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.song h4 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: white;
+    text-align: center;
+}
+
+/* CORRECCIÓN: Responsive para móvil - 1 columna y centrado */
+@media (max-width: 768px) {
+    #music {
+        padding: 0 15px;
+    }
+    
+    .music-columns-container {
+        grid-template-columns: 1fr; /* 1 columna en móvil */
+        gap: 15px;
+    }
+    
+    .music-container {
+        padding: 15px;
+    }
+    
+    .song {
+        margin: 0 auto; /* Centrado en móvil */
+        max-width: 100%; /* Asegurar que no se salga */
+    }
+}
+
+/* CORRECCIÓN: Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    #music {
+        padding: 0 10px;
+    }
+    
+    .music-container {
+        padding: 10px;
+    }
+    
+    .song {
+        padding: 12px;
+        margin: 0 5px; /* Pequeño margen a los lados */
+    }
+}
+
+/* Asegurar que los iframes sean responsivos */
+.song-embed iframe {
+    width: 100%;
+    height: 166px;
+    border: none;
+    border-radius: 10px;
+}
+
+/* Botón de carga más música */
+.music-button-container {
+    margin-top: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#load-more-music {
+    display: block;
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 12px 24px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1.5px solid #ffffff !important;
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    font-size: 1rem;
+}
+
+#load-more-music:hover {
+    background-color: #111111 !important;
+    border-color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+/* Animaciones para items de música */
+.music-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.music-item.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/**************************************Press***********************************************************************/
+/* ========== SECCIÓN ESPECÍFICA: PRESS ========== */
+
+/* Press container mejorado */
+.press-container {
+/*     background-color: rgba(0, 0, 0, 0.7) !important;
+ */    border-radius: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    position: relative;
+}
+
+/* Press items con animaciones */
+.press-item {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #fff;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.6s ease;
+}
+
+.press-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Press loading states */
+#press-loading {
+    color: white;
+}
+
+#press-loading .spinner-border {
+    border-color: rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+}
+
+/* Press no items state */
+#no-press-state i {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Text styles dentro de press items */
+.press-excerpt {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.press-author {
+    font-size: 0.95rem;
+}
+
+.press-time {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.text-gray-custom {
+    color: #6c757d !important;
+}
+
+/**********************/
+/* Animaciones para la sección de prensa */
+.press-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.press-item.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilos específicos para items de prensa */
+.press-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.press-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.press-excerpt {
+    line-height: 1.6;
+    border-left: 3px solid #1abc9c;
+    padding-left: 15px;
+}
+
+.press-author {
+    color: #aaa;
+}
+
+.press-time {
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.press-link:hover .press-time {
+    color: #1abc9c !important;
+}
+
+.text-gray-custom {
+    color: #aaa;
+}
+
+/*Seccion Events******************************************************************/
+
+/************ Sección Events - Mejoras ************/
+.events-container {
+    background-color: rgba(0, 0, 0, 0) !important;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.events-content {
+    width: 100%;
+}
+
+.event-item {
+    margin-bottom: 1.5rem;
+}
+
+.event-card {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.event-date {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.event-time,
+.event-location {
+    font-size: 0.9rem;
+    color: lightgray;
+    margin-bottom: 0.5rem;
+}
+
+.event-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    margin: 10px 0;
+}
+
+#events-button-container {
+    margin-top: 2rem;
+}
+
+#toggleEvents {
+    transition: all 0.3s ease;
+    min-width: 200px;
+    padding: 12px 24px;
+    font-weight: 600;
+}
+
+#toggleEvents.btn-outline-light {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+#toggleEvents.btn-outline-light:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Responsive: una sola columna en pantallas pequeñas */
+@media (max-width: 768px) {
+    .events-container {
+        padding: 20px;
+    }
+    
+    .event-card {
+        padding: 15px;
+    }
+    
+    .event-name {
+        font-size: 1.1rem;
+    }
+}
+
+/* Loading animation para eventos */
+@keyframes fadeInUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.event-item {
+    animation: fadeInUp 0.6s ease;
+}
+
+/* Animaciones para la sección de eventos */
+.event-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.event-item.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilos específicos para eventos */
+.event-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.event-date {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.event-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.event-location {
+    font-size: 1rem;
+}
+
+.event-description {
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Badge styles */
+.badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+}
+/*************************************************************************************/
+
+/*****************************Sección Videos - ACTUALIZADO******************************************/
+
+/* Estilos para la sección de videos */
+.videos-container {
+/*     background-color: rgba(0, 0, 0, 0.7);
+ */    border-radius: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    color: white;
+}
+
+/* Video Cards */
+#videos .card {
+    background-color: #111;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+#videos .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Video Wrapper */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* Video Thumbnail */
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover img {
+    transform: scale(1.05);
+}
+
+/* Play Overlay */
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.video-thumbnail:hover .play-overlay {
+    color: #ff6b6b;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Video Embed Container */
+.video-embed-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.video-embed-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+/* Video Order Badge - OCULTO en frontend */
+.video-order-badge {
+    display: none !important; /* Ocultar completamente en frontend */
+}
+
+/* Loading States */
+#videos-loading {
+    color: white;
+}
+
+#videos-loading .spinner-border {
+    border-color: rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+}
+
+/* Botón Toggle Videos */
+#toggleVideos {
+    transition: all 0.3s ease;
+    border: 2px solid #f8f9fa;
+    color: #212529;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#toggleVideos:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+#toggleVideos i {
+    transition: transform 0.3s ease;
+}
+
+#toggleVideos:hover i {
+    transform: scale(1.1);
+}
+
+/* Animaciones */
+.video-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.video-item.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estados No Videos / Error */
+#no-videos-state i,
+.text-warning {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .videos-container {
+        padding: 20px;
+        margin: 0 15px;
+    }
+    
+    .video-wrapper {
+        height: 200px;
+    }
+    
+    .play-overlay {
+        font-size: 3rem;
+    }
+    
+    .video-order-badge {
+        top: 8px;
+        left: 8px;
+    }
+    
+    .video-order-badge .badge {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+    
+    #toggleVideos {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .videos-container {
+        padding: 15px;
+        border-radius: 8px;
+    }
+    
+    .video-wrapper {
+        height: 180px;
+    }
+    
+    .play-overlay {
+        font-size: 2.5rem;
+    }
+    
+    #videos .card {
+        border-radius: 12px;
+    }
+    
+    .video-wrapper {
+        border-radius: 10px;
+    }
+}
+
+/* Animaciones avanzadas */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Aplicar animaciones escalonadas automáticamente */
+.video-item:nth-child(1) { animation-delay: 0.1s; }
+.video-item:nth-child(2) { animation-delay: 0.2s; }
+.video-item:nth-child(3) { animation-delay: 0.3s; }
+.video-item:nth-child(4) { animation-delay: 0.4s; }
+.video-item:nth-child(5) { animation-delay: 0.5s; }
+.video-item:nth-child(6) { animation-delay: 0.6s; }
+
+/* Hover effects mejorados */
+.video-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.video-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.video-card:hover::before {
+    left: 100%;
+}
+
+/* Loading spinner personalizado */
+.videos-container .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 4px;
+    animation: custom-spin 1s linear infinite;
+}
+
+@keyframes custom-spin {
+    0% { 
+        transform: rotate(0deg); 
+        border-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) white;
+    }
+    25% { 
+        border-color: white rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3);
+    }
+    50% { 
+        border-color: rgba(255, 255, 255, 0.3) white rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3);
+    }
+    75% { 
+        border-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) white rgba(255, 255, 255, 0.3);
+    }
+    100% { 
+        transform: rotate(360deg); 
+        border-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) white;
+    }
+}
+
+/* Efectos de pulsación para botones */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(248, 249, 250, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(248, 249, 250, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(248, 249, 250, 0);
+    }
+}
+
+#toggleVideos:active {
+    animation: pulse 0.6s;
+    transform: translateY(0);
+}
+
+/* ========== ESTILOS PARA VIDEO THUMBNAILS ========== */
+
+/* Video Wrapper - Base container */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* Video Thumbnail container */
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: #111;
+}
+
+/* Thumbnail images */
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.video-thumbnail:hover img {
+    transform: scale(1.05);
+}
+
+/* Placeholder thumbnail cuando no hay imagen */
+.placeholder-thumbnail {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #333 0%, #111 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 3rem;
+}
+
+/* Play Overlay - Botón de play sobre el thumbnail */
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.video-thumbnail:hover .play-overlay {
+    color: #ff6b6b;
+    transform: translate(-50%, -50%) scale(1.1);
+    text-shadow: 0 6px 12px rgba(255, 107, 107, 0.4);
+}
+
+/* Video Embed Container - Para el iframe cargado */
+.video-embed-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-embed-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+/* Overlay adicional al hacer hover en toda la card */
+.video-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 15px;
+    z-index: 1;
+}
+
+.video-card:hover::before {
+    opacity: 1;
+}
+
+/* Responsive Design para thumbnails */
+@media (max-width: 768px) {
+    .video-wrapper {
+        height: 200px;
+    }
+    
+    .play-overlay {
+        font-size: 3rem;
+    }
+    
+    .placeholder-thumbnail {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .video-wrapper {
+        height: 180px;
+    }
+    
+    .play-overlay {
+        font-size: 2.5rem;
+    }
+    
+    .placeholder-thumbnail {
+        font-size: 2rem;
+    }
+}
+
+/* Estados de carga y transiciones */
+.video-thumbnail {
+    background: linear-gradient(45deg, #333, #111, #333);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+.video-thumbnail img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-thumbnail img[src] {
+    opacity: 1;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Mejorar el efecto hover de toda la video card */
+.video-card {
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Efectos especiales para el thumbnail al estar cargando */
+.video-thumbnail.loading {
+    position: relative;
+}
+
+.video-thumbnail.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Estilos para cuando el video ya está cargado */
+.video-loaded .video-thumbnail {
+    display: none;
+}
+
+.video-loaded .video-embed-container {
+    display: block !important;
+}
+
+/* Transición suave al cambiar de thumbnail a video */
+.video-embed-container {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.video-embed-container.loaded {
+    opacity: 1;
+}
+
+/*****************************Seccion Photos ******************************************/
+
+/* Estados de carga y sin fotos */
+#photos-loading .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 4px;
+}
+
+#no-photos-state i {
+    opacity: 0.7;
+}
+
+.d-none {
+    display: none !important;
+}
+
+/* Sección de la galería - SIMPLIFICADA */
+.photos {
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Contenedor de la galería - GRID SIMPLE */
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Items de galería simplificados */
+.gallery-item {
+    width: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.gallery-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    border: 10px solid rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.02);
+}
+
+/* Lightbox mejorado */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.lightbox.show {
+    display: flex;
+}
+
+.lightbox-image {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.close, .prev, .next {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.close:hover, .prev:hover, .next:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.close {
+    top: 20px;
+    right: 30px;
+}
+
+.prev {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.next {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gallery-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+        padding: 15px 0;
+    }
+    
+    .gallery-item img {
+        height: 200px;
+        border-width: 8px;
+    }
+    
+    .photos {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .gallery-item img {
+        height: 180px;
+    }
+}
+
+/*=============================== FOOTER SECTION ====================================================*/
+.footer-section {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 60px 0 0;
+    color: white;
+    position: relative;
+    margin-top: 80px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    align-items: start;
+}
+
+/* Footer Brand Section */
+.footer-brand {
+    text-align: center;
+}
+
+.footer-logo {
+    height: 80px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    filter: brightness(1.1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+    filter: brightness(1.3);
+}
+
+.footer-logo-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.footer-copyright {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ccc;
+    margin-bottom: 8px;
+}
+
+.footer-tagline {
+    font-style: italic;
+    color: #aaa;
+    font-size: 0.95rem;
+}
+
+/* Newsletter Section */
+.footer-newsletter {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.newsletter-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.newsletter-description {
+    color: #bbb;
+    text-align: center;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.newsletter-form {
+    margin-bottom: 20px;
+}
+
+.newsletter-input-group {
+    display: flex;
+    gap: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 14px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-right: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    border-radius: 8px 0 0 8px;
+    transition: all 0.3s ease;
+}
+
+.newsletter-input::placeholder {
+    color: #aaa;
+}
+
+.newsletter-input:focus {
+    outline: none;
+    border-color: #26e3ff;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(38, 227, 255, 0.2);
+}
+
+.newsletter-btn {
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #26e3ff 0%, #1a9fb8 100%);
+    border: 2px solid #26e3ff;
+    color: white;
+    font-weight: 600;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.newsletter-btn:hover {
+    background: linear-gradient(135deg, #1a9fb8 0%, #26e3ff 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(38, 227, 255, 0.3);
+}
+
+.newsletter-btn:active {
+    transform: translateY(0);
+}
+
+.newsletter-btn i {
+    font-size: 0.9rem;
+}
+
+.newsletter-message {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.newsletter-message.success {
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #4ade80;
+}
+
+.newsletter-message.error {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #f87171;
+}
+
+.newsletter-privacy {
+    font-size: 0.8rem;
+    color: #888;
+    text-align: center;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.newsletter-privacy i {
+    font-size: 0.75rem;
+}
+
+/* Social Media Section */
+.footer-social {
+    text-align: center;
+}
+
+.footer-social-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.footer-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.footer-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-social-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(38, 227, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: 0;
+}
+
+.footer-social-link:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.footer-social-link:hover {
+    transform: translateY(-3px) scale(1.1);
+    border-color: #26e3ff;
+    box-shadow: 0 6px 15px rgba(38, 227, 255, 0.3);
+}
+
+.footer-social-link i {
+    position: relative;
+    z-index: 1;
+}
+
+/* Quick Links Section */
+.footer-links {
+    text-align: center;
+}
+
+.footer-links-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.footer-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links-list li {
+    margin-bottom: 12px;
+}
+
+.footer-link {
+    color: #bbb;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 8px 0;
+    display: inline-block;
+}
+
+.footer-link:hover {
+    color: #26e3ff;
+    transform: translateX(5px);
+}
+
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #26e3ff;
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover::after {
+    width: 100%;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 50px;
+    padding: 25px 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.footer-bottom-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-bottom-text {
+    color: #888;
+    font-size: 0.9rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-heart {
+    color: #e74c3c;
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 50%, 100% { transform: scale(1); }
+    25%, 75% { transform: scale(1.1); }
+}
+
+.footer-bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.footer-bottom-link {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom-link:hover {
+    color: #26e3ff;
+}
+
+.footer-divider {
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-section {
+        padding: 40px 0 0;
+        margin-top: 60px;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .footer-newsletter {
+        padding: 25px 20px;
+    }
+    
+    .newsletter-input-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .newsletter-input,
+    .newsletter-btn {
+        border-radius: 8px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .footer-social-icons {
+        gap: 12px;
+    }
+    
+    .footer-social-link {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+    
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-logo {
+        height: 60px;
+    }
+    
+    .newsletter-title {
+        font-size: 1.3rem;
+    }
+    
+    .newsletter-btn-text {
+        display: none;
+    }
+    
+    .newsletter-btn {
+        min-width: 60px;
+        padding: 14px 16px;
+    }
+}
+
+/* ========== ESTILOS ACTUALIZADOS PARA BOTONES - NEGRO CON BORDES BLANCOS ========== */
+
+/* Estilo base para todos los botones principales de secciones - INCLUYENDO #toggleMusic */
+#toggle-button,
+#toggleMusic,
+#load-more-music,
+#togglePress,
+#toggleEvents,
+#toggleVideos,
+#togglePhotos {
+    display: block;
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 12px 24px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1.5px solid #ffffff !important; /* Borde blanco fino */
+    background-color: #000000 !important; /* Fondo negro sólido */
+    color: #ffffff !important; /* Texto e icono blanco */
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto hover elegante - brillo sutil */
+#toggle-button:hover,
+#toggleMusic:hover,
+#load-more-music:hover,
+#togglePress:hover,
+#toggleEvents:hover,
+#toggleVideos:hover,
+#togglePhotos:hover {
+    background-color: #111111 !important; /* Negro ligeramente más claro */
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15); /* Sombra sutil blanca */
+}
+
+/* Efecto activo/presionado */
+#toggle-button:active,
+#toggleMusic:active,
+#load-more-music:active,
+#togglePress:active,
+#toggleEvents:active,
+#toggleVideos:active,
+#togglePhotos:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+}
+
+/* Estados disabled */
+#toggleMusic:disabled,
+#load-more-music:disabled,
+#togglePress:disabled,
+#toggleEvents:disabled,
+#toggleVideos:disabled,
+#togglePhotos:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    background-color: #333333 !important;
+    border-color: #666666 !important;
+}
+
+/* Efecto de transición suave para íconos */
+#toggle-button i,
+#toggleMusic i,
+#load-more-music i,
+#togglePress i,
+#toggleEvents i,
+#toggleVideos i,
+#togglePhotos i {
+    transition: transform 0.3s ease;
+    color: #ffffff !important; /* Asegurar que los íconos sean blancos */
+}
+
+/* Efecto hover para íconos */
+#toggle-button:hover i,
+#toggleMusic:hover i,
+#load-more-music:hover i,
+#togglePress:hover i,
+#toggleEvents:hover i,
+#toggleVideos:hover i,
+#togglePhotos:hover i {
+    transform: scale(1.1);
+    color: #ffffff !important; /* Mantener blancos en hover */
+}
+
+/* CORRECCIÓN ESPECÍFICA: Evitar que las tarjetas de música hereden estilos de botón */
+/* CORRECCIÓN ESPECÍFICA: Tarjetas de música con transiciones suaves */
+.music-card,
+.music-card.bg-black,
+.music-card.border-white,
+.card.music-card,
+.music-item .card {
+    background-color: rgba(0, 0, 0, 0.678) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    padding: 15px !important;
+    cursor: default !important;
+    /* CLAVE: Resetear transformaciones por defecto pero mantener transiciones */
+    transform: translateY(0px) !important;
+    box-shadow: none !important;
+    /* CRÍTICO: Transiciones suaves para el hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Hover específico para tarjetas de música - CON transiciones suaves */
+.music-card:hover,
+.music-card.bg-black:hover,
+.music-card.border-white:hover,
+.card.music-card:hover,
+.music-item .card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    /* Mantener la transición en hover también */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Asegurar que los elementos internos de las tarjetas no interfieran */
+.music-card .card-body,
+.music-item .card .card-body {
+    transition: none !important;
+}
+
+/* Reforzar las transiciones para elementos .song si existen dentro de las tarjetas */
+.song,
+.music-item .song {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
+}
+
+/* Hover específico para tarjetas de música - SIN !important para mantener suavidad */
+.music-card:hover,
+.card.music-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Asegurar que .song también mantenga transiciones suaves si se usa en las tarjetas */
+.song {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* Asegurar que las tarjetas dentro de .music-item mantengan las transiciones */
+.music-item .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Contenedores de botones - estructura consistente */
+#music-button-container,
+#press-button-container,
+#events-button-container,
+#videos-button-container,
+#photos-button-container,
+#about-button-container {
+    margin-top: 25px;
+    text-align: center;
+}
+
+/* Animación sutil al hacer clic */
+@keyframes elegantClick {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.98);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#toggle-button:active,
+#toggleMusic:active,
+#load-more-music:active,
+#togglePress:active,
+#toggleEvents:active,
+#toggleVideos:active,
+#togglePhotos:active {
+    animation: elegantClick 0.2s ease;
+}
+
+/* Efecto de brillo sutil en el borde al hacer hover */
+#toggle-button::before,
+#toggleMusic::before,
+#load-more-music::before,
+#togglePress::before,
+#toggleEvents::before,
+#toggleVideos::before,
+#togglePhotos::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+#toggle-button:hover::before,
+#toggleMusic:hover::before,
+#load-more-music:hover::before,
+#togglePress:hover::before,
+#toggleEvents:hover::before,
+#toggleVideos:hover::before,
+#togglePhotos:hover::before {
+    opacity: 1;
+}
+
+/* Responsive para botones */
+@media (max-width: 768px) {
+    #toggle-button,
+    #toggleMusic,
+    #load-more-music,
+    #togglePress,
+    #toggleEvents,
+    #toggleVideos,
+    #togglePhotos {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    /* Ajustar márgenes en móviles */
+    #music-button-container,
+    #press-button-container,
+    #events-button-container,
+    #videos-button-container,
+    #photos-button-container,
+    #about-button-container {
+        margin-top: 20px;
+    }
+}
+
+/* Estilo específico para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    #toggle-button,
+    #toggleMusic,
+    #load-more-music,
+    #togglePress,
+    #toggleEvents,
+    #toggleVideos,
+    #togglePhotos {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Asegurar que los botones mantengan buena legibilidad */
+#toggle-button .button-text,
+#toggleMusic .button-text,
+#load-more-music .button-text,
+#togglePress .button-text,
+#toggleEvents .button-text,
+#toggleVideos .button-text,
+#togglePhotos .button-text {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #ffffff !important; /* Asegurar texto blanco */
+}
+
+/* Efecto de transición suave para el texto del botón */
+#toggle-button .button-text,
+#toggleMusic .button-text,
+#load-more-music .button-text,
+#togglePress .button-text,
+#toggleEvents .button-text,
+#toggleVideos .button-text,
+#togglePhotos .button-text {
+    transition: all 0.3s ease;
+}
+
+#toggle-button:hover .button-text,
+#toggleMusic:hover .button-text,
+#load-more-music:hover .button-text,
+#togglePress:hover .button-text,
+#toggleEvents:hover .button-text,
+#toggleVideos:hover .button-text,
+#togglePhotos:hover .button-text {
+    letter-spacing: 0.7px;
+    color: #ffffff !important; /* Mantener blanco en hover */
+}
+
+/* ========== CORRECCIÓN PARA BOTÓN DE FOTOS EN MÓVIL ========== */
+
+/* Asegurar que las imágenes adicionales se muestren correctamente en móviles */
+@media (max-width: 768px) {
+    .gallery-item.additional {
+        display: block !important;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    
+    .gallery-item.additional.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Ajustar el ancho de las columnas para mejor visualización */
+    .gallery-column {
+        width: 100% !important; /* Ocupar todo el ancho */
+        margin: 0 auto;
+    }
+    
+    /* Asegurar que el contenedor muestre correctamente todas las imágenes */
+    .gallery-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    /* Ajustar el padding para móviles */
+    #photos-1 {
+        padding: 0 10px;
+    }
+}
+
+/* Corrección específica para cuando se muestran todas las fotos */
+.showing-all-photos .gallery-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.showing-all-photos .gallery-column {
+    width: 100%;
+}
+
+/* Asegurar que las imágenes tengan el mismo estilo en todas las vistas */
+.gallery-item img {
+    width: 100%;
+    display: block;
+    border: 12px solid rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.02);
+}
+
+ /* Esta línea ya existe - añadir después de ella */
+

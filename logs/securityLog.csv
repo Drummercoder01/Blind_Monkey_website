@@ -1,0 +1,229 @@
+
+"22-04-2018 16:14:29",test,"Logon niet gekend"
+"22-04-2018 16:15:44",test,"Logon niet gekend"
+"22-04-2018 16:16:04",test,"Logon niet gekend"
+"22-04-2018 16:16:08",test,"Logon niet gekend"
+"22-04-2018 16:17:51",test,"Logon niet gekend"
+"22-04-2018 16:19:07",test,"Logon niet gekend"
+"22-04-2018 16:19:33",test,"Logon niet gekend"
+"22-04-2018 16:19:44",test,"Logon niet gekend"
+"22-04-2018 16:20:32",test,"Logon niet gekend"
+"22-04-2018 16:21:10",test,"Logon niet gekend"
+"22-04-2018 16:21:17",admin,Ingelogd
+"22-04-2018 16:28:41",admin,Ingelogd
+"23-04-2018 12:09:54",admin,Ingelogd
+"23-04-2018 12:11:06",admin,Ingelogd
+"23-04-2018 12:11:18",admin,Ingelogd
+"23-04-2018 12:14:08",admin,Ingelogd
+"23-04-2018 12:16:06",admin,Ingelogd
+"23-04-2018 12:16:49",admin,Ingelogd
+"23-04-2018 12:17:49",admin,Ingelogd
+"23-04-2018 12:18:11",admin,Ingelogd
+"23-04-2018 12:18:26",admin,Ingelogd
+"23-04-2018 12:18:42",admin,Ingelogd
+"23-04-2018 12:18:57",admin,Ingelogd
+"23-04-2018 12:19:19",admin,Ingelogd
+"23-04-2018 12:20:44",admin,"Foutief paswoord.(nog 2 pogingen)"
+"23-04-2018 12:21:10",admin,Ingelogd
+"24-04-2018 09:50:03",adminb,"Logon niet gekend"
+"24-04-2018 09:50:11",admin,Ingelogd
+"24-04-2018 09:50:49",admin,Ingelogd
+"24-04-2018 09:52:36",admin,Ingelogd
+"29-04-2018 19:48:24",admin,Ingelogd
+"29-04-2018 19:51:48",admin,Ingelogd
+"14-05-2018 19:57:09",admin,Ingelogd
+"17-05-2018 16:11:41","onbekende User","Onbekende reset-key of reset niet meer geldig"
+"17-05-2018 16:12:39","onbekende User","Onbekende reset-key of reset niet meer geldig"
+"17-05-2018 16:17:49","onbekende User","Onbekende reset-key of reset niet meer geldig"
+"17-05-2018 16:17:50","onbekende User","Onbekende reset-key of reset niet meer geldig"
+"17-05-2018 16:17:56","onbekende User","Onbekende reset-key of reset niet meer geldig"
+"17-05-2018 16:23:10","onbekende User","Onbekende reset-key of reset niet meer geldig"
+"17-05-2018 16:23:15","onbekende User","Onbekende reset-key of reset niet meer geldig"
+"17-05-2018 16:27:29","onbekende User","Onbekende reset-key of reset niet meer geldig"
+"17-05-2018 16:27:49",admin,"Logon niet gekend"
+"17-05-2018 16:28:07",admin@oefening.be,"Foutief paswoord.(nog 2 pogingen)"
+"17-05-2018 16:29:17",admin@oefening.be,"Foutief paswoord.(nog 1 pogingen)"
+"21-05-2018 11:25:36",admin@oefening.be,Ingelogd
+"21-05-2018 11:25:50",admin@oefening.be,"Foutief paswoord.(nog 2 pogingen)"
+"21-05-2018 11:25:59",admin@oefening.be,Ingelogd
+"22-05-2018 09:23:27",admin@oefening.be,Ingelogd
+"24-05-2018 09:36:34",admin@oefening.be,Ingelogd
+"28-05-2018 18:41:17",admin@oefening.be,Ingelogd
+"11-05-2020 12:01:45",micky@test.be,"Foutief paswoord.(nog 2 pogingen)"
+"11-05-2020 12:02:10",micky@test.be,"Persistent ingelogd"
+"11-05-2020 12:17:29",micky@test.be,"Persistent aangelogd"
+"11-05-2020 13:37:10",micky@test.be,"Persistent aangelogd"
+"11-05-2020 14:10:50",micky@test.be,"Persistent aangelogd"
+"11-05-2020 14:22:23",micky@test.be,"Persistent ingelogd"
+"11-05-2020 14:25:26",micky@test.be,"Persistent aangelogd"
+"11-05-2020 14:25:34",micky@test.be,"Persistent aangelogd"
+"11-05-2020 14:25:51",micky@test.be,"Persistent aangelogd"
+"11-05-2020 14:30:24",micky@test.be," Uitgelogd"
+"11-05-2020 14:30:45",micky@test.be,"Persistent ingelogd"
+"11-05-2020 14:30:48",micky@test.be," Uitgelogd"
+"11-05-2020 14:30:49",micky@test.be,"Persistent aangelogd"
+"11-05-2020 14:30:53",micky@test.be," Uitgelogd"
+"11-05-2020 14:30:56",micky@test.be,"Persistent aangelogd"
+"11-05-2020 14:31:00",micky@test.be," Persistent uitgelogd"
+"11-05-2020 14:31:11",micky@test.be,"Persistent ingelogd"
+"11-05-2020 15:04:58",micky@test.be,"Persistent aangelogd"
+"11-05-2020 15:36:42",micky@test.be,"Persistent ingelogd"
+"11-05-2020 15:37:08",micky@test.be," Uitgelogd"
+"11-05-2020 15:37:10",micky@test.be,"Persistent aangelogd"
+"11-05-2020 15:56:08",micky@test.be,"Persistent ingelogd"
+"11-05-2020 16:12:15",micky@test.be,"Persistent aangelogd"
+"11-05-2020 16:38:39",micky@test.be,"Persistent aangelogd"
+"11-05-2020 16:44:07",admin@test.be,Ingelogd
+"11-05-2020 16:48:15",micky@test.php,"Logon niet gekend"
+"11-05-2020 16:48:28",micky@test.be,"Persistent ingelogd"
+"11-05-2020 16:49:01",micky@test.be," Uitgelogd"
+"11-05-2020 16:49:04",micky@test.be,"Persistent aangelogd"
+"11-05-2020 16:49:10",micky@test.be," Persistent uitgelogd"
+"11-05-2020 16:51:38",micky@test.be,"Persistent ingelogd"
+"11-05-2020 17:03:17",micky@test;be,"Logon niet gekend"
+"11-05-2020 17:03:33",micky@test.be,"Persistent ingelogd"
+"11-05-2020 17:04:32",micky@test.be," Persistent uitgelogd"
+"17-09-2020 08:35:04",bambino,"Logon niet gekend"
+"17-09-2020 08:46:53",bambino,"Logon niet gekend"
+"29-09-2020 10:55:42",bambino,"Logon niet gekend"
+"29-09-2020 10:59:17",bambino,"Logon niet gekend"
+"29-09-2020 11:00:40",bambino,Ingelogd
+"30-09-2020 17:31:06",bambino,Ingelogd
+"30-09-2020 17:31:23",bambino," Uitgelogd"
+"30-09-2020 17:31:59",bambino,Ingelogd
+"01-10-2020 06:23:08",bambino,Ingelogd
+"02-10-2020 11:49:29",bambino,Ingelogd
+"08-10-2020 07:31:48",bambino,Ingelogd
+"08-10-2020 10:52:48",bambino,Ingelogd
+"08-10-2020 18:28:53",bambino,Ingelogd
+"09-10-2020 15:51:49",bambino,Ingelogd
+"09-10-2020 17:28:08",bambino,Ingelogd
+"10-10-2020 08:55:53",bambino,Ingelogd
+"13-10-2020 05:36:25",bambino,Ingelogd
+"14-10-2020 15:41:13",bambino,Ingelogd
+"14-10-2020 17:41:01",bambino,Ingelogd
+"14-10-2020 18:29:33",bambino,Ingelogd
+"15-10-2020 07:25:39",bambino,Ingelogd
+"16-10-2020 17:21:43",bambino,Ingelogd
+"18-10-2020 12:55:28",bambino,Ingelogd
+"19-10-2020 14:51:13",bambino,Ingelogd
+"19-10-2020 16:09:48",bambino,"Persistent ingelogd"
+"20-10-2020 06:55:03",bambino,Ingelogd
+"20-10-2020 06:58:01",bambino,Ingelogd
+"25-10-2020 12:16:38",bambino,Ingelogd
+"25-10-2020 15:13:41",bambino,"Persistent ingelogd"
+"26-10-2020 18:57:31",bambino,Ingelogd
+"27-10-2020 10:25:33",bambino,Ingelogd
+"27-10-2020 17:25:05",bambino,Ingelogd
+"30-10-2020 17:43:44",bambino,Ingelogd
+"02-11-2020 11:00:28",bambino,Ingelogd
+"03-11-2020 10:47:38",bambino,Ingelogd
+"03-11-2020 11:04:24",bambino,Ingelogd
+"04-11-2020 11:46:04",bambino,Ingelogd
+"04-11-2020 12:18:05",bambino,Ingelogd
+"04-11-2020 17:08:34",bambino,Ingelogd
+"05-11-2020 11:22:26",bambino,Ingelogd
+"08-11-2020 13:57:21",bambino,Ingelogd
+"08-11-2020 14:17:29",bambino,Ingelogd
+"09-11-2020 15:28:30",bambino,Ingelogd
+"11-11-2020 16:07:21",bambino,Ingelogd
+"12-11-2020 18:21:36",bambino,Ingelogd
+"13-11-2020 16:00:20",bambino,Ingelogd
+"15-11-2020 10:54:14",bambino,Ingelogd
+"15-11-2020 18:22:41",bambino,Ingelogd
+"15-11-2020 19:24:25",bambino,Ingelogd
+"27-12-2020 16:33:04",bambino,Ingelogd
+"11-01-2021 19:28:03",bambino,Ingelogd
+"14-01-2021 19:37:40",bambino,Ingelogd
+"14-04-2021 15:35:35",bambino,Ingelogd
+"27-04-2021 15:11:06",bambino,Ingelogd
+"02-05-2021 13:25:07",bambino,Ingelogd
+"19-02-2022 18:03:24",bambino,Ingelogd
+"19-02-2022 18:11:44",bambino," Uitgelogd"
+"15-07-2023 10:54:49",admin,Ingelogd
+"15-07-2023 12:26:15",admin,Ingelogd
+"15-07-2023 12:33:19",admin,Ingelogd
+"15-07-2023 12:36:12",admin,"Foutief paswoord.(nog 2 pogingen)"
+"15-07-2023 12:36:22",admin,Ingelogd
+"15-07-2023 12:37:08",admin,Ingelogd
+"15-07-2023 12:38:54",admin,Ingelogd
+"15-07-2023 12:50:03",admin,Ingelogd
+"15-07-2023 13:26:10",admin,Ingelogd
+"15-07-2023 13:27:04",admin,Ingelogd
+"15-07-2023 13:31:08",admin," Uitgelogd"
+"15-07-2023 13:34:09",admin,Ingelogd
+"15-07-2023 14:05:21",admin," Uitgelogd"
+"15-07-2023 14:06:56",admin,Ingelogd
+"15-07-2023 14:08:07",admin," Persistent uitgelogd"
+"15-07-2023 14:08:17",,"Logon niet gekend"
+"15-07-2023 14:08:31",admin,Ingelogd
+"15-07-2023 15:25:25",admin,Ingelogd
+"15-07-2023 15:36:36",admin," Uitgelogd"
+"15-07-2023 15:52:21",admin,Ingelogd
+"15-07-2023 15:52:32",admin," Uitgelogd"
+"15-07-2023 15:56:59",admin,Ingelogd
+"15-07-2023 15:57:07",admin," Uitgelogd"
+"15-07-2023 17:22:10",admin,Ingelogd
+"16-07-2023 14:12:06",admin," Uitgelogd"
+"16-07-2023 14:12:42",admin,Ingelogd
+"20-07-2023 19:32:16",admin,Ingelogd
+"21-07-2023 09:45:30",admin," Uitgelogd"
+"21-07-2023 13:00:20",admin,Ingelogd
+"21-07-2023 13:04:30",admin," Uitgelogd"
+"21-07-2023 18:04:38",admin,Ingelogd
+"21-07-2023 18:10:45",admin," Uitgelogd"
+"21-07-2023 18:10:55",admin,Ingelogd
+"21-07-2023 18:11:26",logon," Uitgelogd"
+"21-07-2023 18:12:46",admin,Ingelogd
+"21-07-2023 18:53:49",admin," Uitgelogd"
+"21-07-2023 18:53:58",admin,Ingelogd
+"21-07-2023 21:06:14",admin," Uitgelogd"
+"21-07-2023 21:09:15",Admin,"Foutief paswoord.(nog 2 pogingen)"
+"21-07-2023 21:09:25",admin,Ingelogd
+"21-07-2023 21:10:09",admin," Uitgelogd"
+"21-07-2023 21:10:32",admin,Ingelogd
+"21-07-2023 21:12:50",admin," Uitgelogd"
+"22-07-2023 12:48:55",admin,Ingelogd
+"22-07-2023 12:50:25",admin," Uitgelogd"
+"22-07-2023 13:35:58",admin,Ingelogd
+"22-07-2023 18:29:07",admin,Ingelogd
+"22-07-2023 18:30:46",admin," Uitgelogd"
+"23-07-2023 12:40:30",admin,Ingelogd
+"23-07-2023 14:00:28",admin," Uitgelogd"
+"23-07-2023 14:00:56",admin,Ingelogd
+"23-07-2023 14:19:01",admin,Ingelogd
+"23-07-2023 14:19:44",admin," Uitgelogd"
+"23-07-2023 14:56:56",admin," Uitgelogd"
+"24-07-2023 07:30:33",admin,Ingelogd
+"24-07-2023 07:31:01",admin," Uitgelogd"
+"07-09-2023 20:43:47",admin,Ingelogd
+"07-09-2023 20:45:48",admin," Uitgelogd"
+"09-09-2023 12:48:19",admin,Ingelogd
+"11-04-2025 12:25:32",admin,Ingelogd
+"11-04-2025 17:12:35",admin,Ingelogd
+"21-04-2025 09:50:15",admin,Ingelogd
+"21-04-2025 10:00:32",admin,Ingelogd
+"21-04-2025 10:25:39",admin,Ingelogd
+"30-08-2025 10:21:26",admin,Ingelogd
+"01-09-2025 08:32:53",admin,"Foutief paswoord.(nog 2 pogingen)"
+"01-09-2025 08:33:03",admin,Ingelogd
+"03-09-2025 18:02:43",admin,Ingelogd
+"03-09-2025 18:12:04",admin," Uitgelogd"
+"03-09-2025 18:22:36",admin,Ingelogd
+"03-09-2025 18:24:17",admin," Uitgelogd"
+"03-09-2025 18:24:29",admin,Ingelogd
+"03-09-2025 18:26:06",admin,Ingelogd
+"03-09-2025 18:26:31",admin,Ingelogd
+"03-09-2025 18:27:40",admin,Ingelogd
+"03-09-2025 20:18:29",admin," Uitgelogd"
+"05-09-2025 13:08:06",admin,Ingelogd
+"05-09-2025 15:33:43",admin,Ingelogd
+"09-09-2025 18:24:05",admin,Ingelogd
+"12-09-2025 06:46:59",admin,Ingelogd
+"20-09-2025 12:29:30",admin,Ingelogd
+"21-09-2025 08:38:33",admin,Ingelogd
+"21-09-2025 08:50:54",admin," Uitgelogd"
+"21-09-2025 08:58:17",admin,Ingelogd
+"22-09-2025 14:36:45",admin,Ingelogd
+"23-09-2025 17:59:36",admin,Ingelogd
+"27-09-2025 11:33:17",admin,Ingelogd

@@ -569,34 +569,156 @@ body.navbar-is-top {
 /*******/
 
 
-/* Asegúrate de que los iconos estén alineados horizontalmente y debajo del título */
+/* ========== ACTUALIZACIÓN DE ICONOS SOCIALES - SECCIÓN HOME ========== */
+
+/* REEMPLAZAR la sección completa de iconos sociales existente */
+/* Busca en tu CSS las líneas que van desde:
+   "AsegÚrate de que los iconos estén alineados horizontalmente y debajo del título"
+   hasta antes de la sección "Centro el contenido de la sección"
+   
+   Y reemplaza TODO ese bloque con el código de abajo: */
+
+/* Contenedor de iconos sociales extendido por todo el container */
 .social-icons {
-    background-color: transparent; /* Fondo transparente para el contenedor */
-    padding: 10px 0; /* Espaciado superior e inferior */
-    display: flex; /* Flexbox para los iconos */
-    justify-content: center; /* Alinea los iconos horizontalmente */
-    gap: 15px; /* Añade un espacio entre los iconos */
+    background-color: transparent;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between; /* Distribuir iconos por todo el ancho */
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 600px; /* Limitar ancho máximo para no ser demasiado ancho */
+    margin: 30px auto 0 auto; /* Centrar el contenedor */
 }
 
-/* Estilo para los círculos de cada icono */
+/* Estilo base para cada icono social - IGUAL AL FOOTER */
 .social-icon {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 50px; /* Ajusta el tamaño del círculo */
-    height: 50px; /* Ajusta el tamaño del círculo */
-    background-color: rgba(255, 255, 255, 1); /* Fondo blanco semi-transparente */    
-    border-radius: 50%; /* Hace el círculo */
-    font-size: 24px; /* Tamaño del icono */
-    color: rgba(0, 0, 0, 1); /* Color negro semi-transparente */    
-    text-decoration: none; /* Eliminar subrayado */
-    transition: all 0.3s ease; /* Transición suave para el color */
+    justify-content: center;
+    width: 60px; /* Ligeramente más grande que el footer para mejor visibilidad */
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.4rem; /* Tamaño de icono ajustado */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Efecto hover para los iconos */
+/* Efecto de fondo expansivo - IGUAL AL FOOTER */
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(38, 227, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: 0;
+}
+
+.social-icon:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+/* Efectos hover - IGUAL AL FOOTER */
 .social-icon:hover {
-    color: #007bff; /* Color cuando pasas el ratón */
-    transform: scale(1.1); /* Agranda el icono al pasar el ratón */
+    transform: translateY(-3px) scale(1.1);
+    border-color: #26e3ff;
+    box-shadow: 0 6px 15px rgba(38, 227, 255, 0.3);
+    color: white; /* Mantener color blanco */
+}
+
+/* Asegurar que SVG e iconos estén por encima del fondo */
+.social-icon svg,
+.social-icon i {
+    position: relative;
+    z-index: 1;
+    fill: currentColor;
+    transition: all 0.3s ease;
+}
+
+/* Hover específico para SVG */
+.social-icon:hover svg {
+    fill: white;
+}
+
+/* Responsive para la sección home - ACTUALIZADO PARA DISTRIBUCIÓN EXTENDIDA */
+@media (max-width: 768px) {
+    .social-icons {
+        max-width: 100%; /* Usar todo el ancho disponible en tablets */
+        gap: 10px; /* Añadir pequeño gap como fallback */
+        padding: 15px 20px; /* Añadir padding lateral */
+        margin-top: 25px;
+    }
+    
+    .social-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .social-icons {
+        justify-content: space-around; /* Cambiar a space-around para mejor distribución en móviles */
+        max-width: 100%;
+        padding: 10px 15px;
+        gap: 8px; /* Gap mínimo para evitar solapamiento */
+    }
+    
+    .social-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Para pantallas muy pequeñas, cambiar a diseño centrado */
+@media (max-width: 400px) {
+    .social-icons {
+        justify-content: center;
+        gap: 12px;
+    }
+    
+    .social-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Animación de entrada escalonada para los iconos */
+.social-icon:nth-child(1) { animation-delay: 0.1s; }
+.social-icon:nth-child(2) { animation-delay: 0.2s; }
+.social-icon:nth-child(3) { animation-delay: 0.3s; }
+.social-icon:nth-child(4) { animation-delay: 0.4s; }
+.social-icon:nth-child(5) { animation-delay: 0.5s; }
+.social-icon:nth-child(6) { animation-delay: 0.6s; }
+
+/* Animación de entrada */
+@keyframes socialIconFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.social-icon {
+    animation: socialIconFadeIn 0.6s ease-out both;
 }
 
 /* Centro el contenido de la sección */

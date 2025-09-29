@@ -1,6 +1,6 @@
 // ========== VARIABLES GLOBALES ==========
 let allVideos = [];
-let videosToShowInitial = 4; // Número de videos a mostrar inicialmente
+let videosToShowInitial = 4;
 let videosExpanded = false;
 
 // ========== FUNCIONES PRINCIPALES ==========
@@ -62,119 +62,60 @@ function renderVideos() {
     
     if (!videosGrid || !videosAdditional) return;
     
-    // Limpiar containers
     videosGrid.innerHTML = '';
     videosAdditional.innerHTML = '';
     
-    // Separar videos iniciales y adicionales
     const initialVideos = allVideos.slice(0, videosToShowInitial);
     const additionalVideos = allVideos.slice(videosToShowInitial);
     
-    // Renderizar videos iniciales
     initialVideos.forEach((video, index) => {
         const videoElement = createVideoElement(video, index);
         videosGrid.appendChild(videoElement);
     });
     
-    // Renderizar videos adicionales
     additionalVideos.forEach((video, index) => {
         const videoElement = createVideoElement(video, index + videosToShowInitial);
         videosAdditional.appendChild(videoElement);
     });
     
-    // Mostrar el grid
     videosGrid.style.display = 'flex';
-    
-    // Aplicar animaciones escalonadas
     applyStaggeredAnimations();
 }
 
 /**
- * Crear elemento de video individual con thumbnail
+ * Crear elemento de video individual - MUESTRA VIDEO DIRECTO
  */
 function createVideoElement(video, index) {
     const colDiv = document.createElement('div');
     colDiv.className = 'col video-item';
     colDiv.style.animationDelay = `${index * 0.1}s`;
     
-    // Extraer YouTube ID para el thumbnail
-    const youtubeId = extractYouTubeId(video.iframe);
-    const thumbnailUrl = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` : null;
+    // Procesar el iframe para que no se reproduzca automáticamente
+    let processedIframe = video.iframe
+        .replace(/width=["']\d+["']/g, '')
+        .replace(/height=["']\d+["']/g, '')
+        .replace(/autoplay=1/g, 'autoplay=0')
+        .replace(/<iframe/g, '<iframe width="100%" height="100%" style="border: none; border-radius: 12px;"');
     
-    // Crear el HTML con thumbnail
+    // Si no tiene autoplay=0, agregarlo
+    if (!processedIframe.includes('autoplay=')) {
+        processedIframe = processedIframe.replace(/src="([^"]+)"/, 'src="$1?autoplay=0"');
+    }
+    
     colDiv.innerHTML = `
         <div class="card h-100 bg-black border-white video-card" style="border-width: 1.5px !important;">
             <div class="video-wrapper">
-                <div class="video-thumbnail" data-video-index="${index}">
-                    ${thumbnailUrl ? `
-                        <img src="${thumbnailUrl}" alt="Video Thumbnail" 
-                             onerror="this.src='https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg'">
-                    ` : `
-                        <div class="placeholder-thumbnail">
-                            <i class="bi bi-play-circle-fill"></i>
-                        </div>
-                    `}
-                    <div class="play-overlay">
-                        <i class="bi bi-play-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="video-embed-container" style="display: none;">
-                    <!-- El iframe se carga aquí dinámicamente -->
+                <div class="video-embed-container">
+                    ${processedIframe}
                 </div>
             </div>
         </div>
     `;
     
-    // Agregar event listener al thumbnail
-    const thumbnail = colDiv.querySelector('.video-thumbnail');
-    thumbnail.addEventListener('click', function() {
-        loadVideo(this, video.iframe);
-    });
-    
     return colDiv;
 }
 
-/**
- * Cargar video cuando se hace click en el thumbnail
- */
-function loadVideo(thumbnailElement, iframeCode) {
-    const wrapper = thumbnailElement.parentElement;
-    const embedContainer = wrapper.querySelector('.video-embed-container');
-    
-    if (!embedContainer) {
-        console.error('No se encontró el contenedor del video');
-        return;
-    }
-    
-    // Ocultar thumbnail con animación
-    thumbnailElement.style.transition = 'opacity 0.3s ease';
-    thumbnailElement.style.opacity = '0';
-    
-    setTimeout(() => {
-        thumbnailElement.style.display = 'none';
-        
-        // Limpiar y procesar el iframe
-        let processedIframe = iframeCode
-            .replace(/width=["']\d+["']/g, '')
-            .replace(/height=["']\d+["']/g, '')
-            .replace(/<iframe/g, '<iframe width="100%" height="100%" style="border: none; border-radius: 12px;"');
-        
-        // Mostrar el embed container con el iframe
-        embedContainer.innerHTML = processedIframe;
-        embedContainer.style.display = 'block';
-        embedContainer.style.opacity = '0';
-        embedContainer.style.transition = 'opacity 0.3s ease';
-        
-        // Animar la aparición del video
-        setTimeout(() => {
-            embedContainer.style.opacity = '1';
-        }, 50);
-        
-        // Marcar como cargado
-        wrapper.classList.add('video-loaded');
-        
-    }, 300);
-}
+// Funciones de thumbnail eliminadas - ya no son necesarias
 
 /**
  * Configurar el botón de toggle
@@ -185,10 +126,8 @@ function setupToggleButton() {
     
     if (!buttonContainer || !toggleButton) return;
     
-    // Solo mostrar botón si hay más videos de los iniciales
     if (allVideos.length > videosToShowInitial) {
         buttonContainer.style.display = 'block';
-        
         toggleButton.addEventListener('click', toggleVideoVisibility);
     }
 }
@@ -203,10 +142,8 @@ function toggleVideoVisibility() {
     const buttonIcon = toggleButton.querySelector('i');
     
     if (!videosExpanded) {
-        // Expandir - mostrar videos adicionales
         videosAdditional.style.display = 'flex';
         
-        // Animar entrada
         const additionalItems = videosAdditional.querySelectorAll('.video-item');
         additionalItems.forEach((item, index) => {
             setTimeout(() => {
@@ -219,13 +156,11 @@ function toggleVideoVisibility() {
         videosExpanded = true;
         
     } else {
-        // Contraer - ocultar videos adicionales
         videosAdditional.style.display = 'none';
         buttonText.textContent = 'Watch more videos';
         buttonIcon.className = 'bi bi-play-circle me-2';
         videosExpanded = false;
         
-        // Scroll suave hacia la sección de videos
         document.getElementById('videos').scrollIntoView({ 
             behavior: 'smooth',
             block: 'start'

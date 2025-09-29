@@ -1610,11 +1610,11 @@ body {
 /*************************************************************************************/
 
 /*****************************Sección Videos - ACTUALIZADO******************************************/
+/*****************************Sección Videos - SIMPLIFICADO******************************************/
 
 /* Estilos para la sección de videos */
 .videos-container {
-/*     background-color: rgba(0, 0, 0, 0.7);
- */    border-radius: 10px;
+    border-radius: 10px;
     max-width: 1200px;
     margin: 0 auto;
     padding: 30px;
@@ -1644,54 +1644,17 @@ body {
     height: 250px;
     overflow: hidden;
     border-radius: 12px;
+    background: #000;
 }
 
-/* Video Thumbnail */
-.video-thumbnail {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-}
-
-.video-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.video-thumbnail:hover img {
-    transform: scale(1.05);
-}
-
-/* Play Overlay */
-.play-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
-    color: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.video-thumbnail:hover .play-overlay {
-    color: #ff6b6b;
-    transform: translate(-50%, -50%) scale(1.1);
-}
-
-/* Video Embed Container */
+/* Video Embed Container - MOSTRADO DESDE EL INICIO */
 .video-embed-container {
     position: relative;
     width: 100%;
     height: 100%;
     border-radius: 12px;
     overflow: hidden;
+    background: #000;
 }
 
 .video-embed-container iframe {
@@ -1699,11 +1662,12 @@ body {
     height: 100%;
     border: none;
     border-radius: 12px;
+    display: block;
 }
 
 /* Video Order Badge - OCULTO en frontend */
 .video-order-badge {
-    display: none !important; /* Ocultar completamente en frontend */
+    display: none !important;
 }
 
 /* Loading States */
@@ -1719,17 +1683,6 @@ body {
 /* Botón Toggle Videos */
 #toggleVideos {
     transition: all 0.3s ease;
-    border: 2px solid #f8f9fa;
-    color: #212529;
-    font-weight: 600;
-    padding: 12px 30px;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-#toggleVideos:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 #toggleVideos i {
@@ -1744,7 +1697,7 @@ body {
 .video-item {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.6s ease;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .video-item.animate-in {
@@ -1758,6 +1711,17 @@ body {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
+/* Video card styles */
+.video-card {
+    transition: all 0.3s ease;
+    background: #1a1a1a !important;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .videos-container {
@@ -1767,25 +1731,6 @@ body {
     
     .video-wrapper {
         height: 200px;
-    }
-    
-    .play-overlay {
-        font-size: 3rem;
-    }
-    
-    .video-order-badge {
-        top: 8px;
-        left: 8px;
-    }
-    
-    .video-order-badge .badge {
-        font-size: 0.7rem;
-        padding: 4px 8px;
-    }
-    
-    #toggleVideos {
-        padding: 10px 20px;
-        font-size: 0.9rem;
     }
 }
 
@@ -1799,39 +1744,8 @@ body {
         height: 180px;
     }
     
-    .play-overlay {
-        font-size: 2.5rem;
-    }
-    
     #videos .card {
         border-radius: 12px;
-    }
-    
-    .video-wrapper {
-        border-radius: 10px;
-    }
-}
-
-/* Animaciones avanzadas */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInFromRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
     }
 }
 
@@ -1843,280 +1757,11 @@ body {
 .video-item:nth-child(5) { animation-delay: 0.5s; }
 .video-item:nth-child(6) { animation-delay: 0.6s; }
 
-/* Hover effects mejorados */
-.video-card {
-    position: relative;
-    overflow: hidden;
-}
-
-.video-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.6s ease;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.video-card:hover::before {
-    left: 100%;
-}
-
 /* Loading spinner personalizado */
 .videos-container .spinner-border {
     width: 3rem;
     height: 3rem;
     border-width: 4px;
-    animation: custom-spin 1s linear infinite;
-}
-
-@keyframes custom-spin {
-    0% { 
-        transform: rotate(0deg); 
-        border-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) white;
-    }
-    25% { 
-        border-color: white rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3);
-    }
-    50% { 
-        border-color: rgba(255, 255, 255, 0.3) white rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3);
-    }
-    75% { 
-        border-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) white rgba(255, 255, 255, 0.3);
-    }
-    100% { 
-        transform: rotate(360deg); 
-        border-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.3) white;
-    }
-}
-
-/* Efectos de pulsación para botones */
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(248, 249, 250, 0.4);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(248, 249, 250, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(248, 249, 250, 0);
-    }
-}
-
-#toggleVideos:active {
-    animation: pulse 0.6s;
-    transform: translateY(0);
-}
-
-/* ========== ESTILOS PARA VIDEO THUMBNAILS ========== */
-
-/* Video Wrapper - Base container */
-.video-wrapper {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-    border-radius: 12px;
-}
-
-/* Video Thumbnail container */
-.video-thumbnail {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    background: #111;
-}
-
-/* Thumbnail images */
-.video-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-    display: block;
-}
-
-.video-thumbnail:hover img {
-    transform: scale(1.05);
-}
-
-/* Placeholder thumbnail cuando no hay imagen */
-.placeholder-thumbnail {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #333 0%, #111 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 3rem;
-}
-
-/* Play Overlay - Botón de play sobre el thumbnail */
-.play-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
-    color: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    z-index: 2;
-}
-
-.video-thumbnail:hover .play-overlay {
-    color: #ff6b6b;
-    transform: translate(-50%, -50%) scale(1.1);
-    text-shadow: 0 6px 12px rgba(255, 107, 107, 0.4);
-}
-
-/* Video Embed Container - Para el iframe cargado */
-.video-embed-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #000;
-}
-
-.video-embed-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 12px;
-}
-
-/* Overlay adicional al hacer hover en toda la card */
-.video-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    border-radius: 15px;
-    z-index: 1;
-}
-
-.video-card:hover::before {
-    opacity: 1;
-}
-
-/* Responsive Design para thumbnails */
-@media (max-width: 768px) {
-    .video-wrapper {
-        height: 200px;
-    }
-    
-    .play-overlay {
-        font-size: 3rem;
-    }
-    
-    .placeholder-thumbnail {
-        font-size: 2.5rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .video-wrapper {
-        height: 180px;
-    }
-    
-    .play-overlay {
-        font-size: 2.5rem;
-    }
-    
-    .placeholder-thumbnail {
-        font-size: 2rem;
-    }
-}
-
-/* Estados de carga y transiciones */
-.video-thumbnail {
-    background: linear-gradient(45deg, #333, #111, #333);
-    background-size: 200% 200%;
-    animation: gradientShift 3s ease infinite;
-}
-
-.video-thumbnail img {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.video-thumbnail img[src] {
-    opacity: 1;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Mejorar el efecto hover de toda la video card */
-.video-card {
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.video-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3) !important;
-}
-
-/* Efectos especiales para el thumbnail al estar cargando */
-.video-thumbnail.loading {
-    position: relative;
-}
-
-.video-thumbnail.loading::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    animation: loading-shimmer 1.5s infinite;
-}
-
-@keyframes loading-shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-/* Estilos para cuando el video ya está cargado */
-.video-loaded .video-thumbnail {
-    display: none;
-}
-
-.video-loaded .video-embed-container {
-    display: block !important;
-}
-
-/* Transición suave al cambiar de thumbnail a video */
-.video-embed-container {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.video-embed-container.loaded {
-    opacity: 1;
 }
 
 /*****************************Seccion Photos ******************************************/

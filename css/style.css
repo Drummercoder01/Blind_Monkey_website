@@ -84,39 +84,37 @@ body {
 }
 
 /**************Navbar**********************/
-/* NAVBAR QUE INICIA ABAJO Y SE MUEVE ARRIBA AL HACER SCROLL */
+/* NAVBAR CON ESTILO DE QUICK LINKS DEL FOOTER */
 
 /* Estado inicial: Navbar abajo */
 .navbar {
     position: fixed !important;
-    bottom: 0 !important; /* Iniciar abajo */
+    bottom: 0 !important;
     top: auto !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    background-color: rgba(0, 0, 0, 0.9) !important;
-    padding: 10px 0 !important;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%) !important;
+    backdrop-filter: blur(10px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 15px 0 !important;
     z-index: 1000 !important;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3) !important; /* Sombra hacia arriba */
-    transition: all 0.5s ease !important; /* Transición suave */
-    
-    /* Sin overflow */
-    overflow: hidden !important;
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
+    transition: all 0.5s ease !important;
 }
 
 /* Estado cuando está arriba (después del scroll) */
 .navbar.navbar-top {
     top: 0 !important;
     bottom: auto !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important; /* Sombra hacia abajo */
+    border-top: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* CRÍTICO: Sin padding inicial en body */
 body {
-    padding-top: 0 !important; /* Sin padding inicial */
-    padding-bottom: 80px !important; /* Padding abajo para el navbar */
+    padding-top: 0 !important;
+    padding-bottom: 80px !important;
     margin: 0 !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
@@ -139,71 +137,60 @@ body.navbar-is-top {
 .navbar-collapse {
     overflow: visible !important;
     max-height: none !important;
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
 }
 
-/* Enlaces del navbar */
+/* NUEVO ESTILO: Enlaces del navbar con animación tipo Quick Links */
 .navbar-nav {
     display: flex !important;
     justify-content: space-around !important;
     width: 100% !important;
     overflow: visible !important;
-    max-height: none !important;
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
 }
 
 .navbar-nav .nav-link {
-    color: white !important;
-    font-size: 18px !important;
-    font-weight: bold !important;
-    padding: 10px 20px !important;
-    transition: all 0.3s ease !important;
+    color: #bbb !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    padding: 12px 20px !important;
+    text-decoration: none !important;
+    transition: all 0.4s ease !important;
     position: relative !important;
+    background: none !important;
+    border: none !important;
 }
 
-/* Línea blanca del ítem activo */
-.navbar-nav .nav-item .nav-link.active::after {
-    content: "" !important;
+/* ANIMACIÓN DE LÍNEA INFERIOR (como el footer) */
+.navbar-nav .nav-link::after {
+    content: '' !important;
     position: absolute !important;
+    bottom: 0 !important;
     left: 50% !important;
-    bottom: -2px !important;
-    width: 80% !important;
-    height: 3px !important;
-    background-color: white !important;
+    width: 0 !important;
+    height: 2px !important;
+    background: #26e3ff !important;
+    transition: all 0.4s ease !important;
     transform: translateX(-50%) !important;
-    z-index: 1 !important;
-    animation: slideInLine 0.3s ease-out !important;
 }
 
-/* Cuando navbar está arriba, la línea va abajo */
-.navbar.navbar-top .navbar-nav .nav-item .nav-link.active::after {
-    bottom: -2px !important;
+/* Enlace activo - línea completa */
+.navbar-nav .nav-link.active::after {
+    width: 80% !important;
 }
 
-/* Cuando navbar está abajo, la línea va arriba */
-.navbar:not(.navbar-top) .navbar-nav .nav-item .nav-link.active::after {
-    top: -2px !important;
-    bottom: auto !important;
-}
-
-/* Animación para la línea */
-@keyframes slideInLine {
-    from {
-        width: 0%;
-        opacity: 0;
-    }
-    to {
-        width: 80%;
-        opacity: 1;
-    }
-}
-
-/* Hover effect */
-.navbar-nav .nav-item .nav-link:not(.active):hover {
-    color: #ccc !important;
+/* Hover effect - como Quick Links */
+.navbar-nav .nav-link:hover {
+    color: #26e3ff !important;
     transform: translateY(-2px) !important;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100% !important;
+}
+
+/* Efecto adicional para enlace activo */
+.navbar-nav .nav-link.active {
+    color: #26e3ff !important;
+    transform: translateY(-1px) !important;
 }
 
 /* RESPONSIVE PARA MÓVILES */
@@ -218,18 +205,25 @@ body.navbar-is-top {
     }
     
     .navbar {
-        padding: 8px 0 !important;
+        padding: 10px 0 !important;
     }
     
     .navbar-nav {
         flex-direction: column !important;
         align-items: center !important;
+        gap: 5px !important;
     }
     
     .navbar-nav .nav-link {
         text-align: center !important;
         padding: 15px !important;
-        font-size: 16px !important;
+        font-size: 1rem !important;
+        width: 100% !important;
+        max-width: 200px !important;
+    }
+    
+    .navbar-nav .nav-link::after {
+        bottom: 8px !important;
     }
 }
 
@@ -238,13 +232,12 @@ body.navbar-is-top {
     .navbar-collapse {
         overflow: visible !important;
         max-height: none !important;
-        background-color: rgba(0, 0, 0, 0.95) !important;
-        padding: 10px !important;
-        border-radius: 8px !important;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.98) 0%, rgba(20, 20, 20, 0.99) 100%) !important;
+        backdrop-filter: blur(15px) !important;
+        padding: 15px !important;
+        border-radius: 12px !important;
         margin-top: 10px !important;
-        overflow-x: hidden !important;
-        overflow-y: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
     }
     
     /* Ajustar posición del collapse según ubicación del navbar */
@@ -254,63 +247,23 @@ body.navbar-is-top {
     }
 }
 
-/* Forzar sin scroll en elementos del navbar */
-.navbar,
-.navbar *,
-.navbar-brand,
-.navbar-toggler,
-.navbar-collapse,
-.navbar-nav,
-.nav-item,
-.nav-link {
-    overflow: visible !important;
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
-}
-
-/* Estados de collapse */
-.navbar-collapse.collapsing,
-.navbar-collapse.show {
-    overflow: visible !important;
-    max-height: none !important;
-    height: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-}
-
-/* Ocultar scrollbars completamente */
-.navbar-collapse::-webkit-scrollbar,
-.navbar-nav::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-}
-
-.navbar-collapse,
-.navbar-nav {
-    -ms-overflow-style: none !important;
-    scrollbar-width: none !important;
-}
-
-/* ESTILOS PARA LOGO EN NAVBAR MÓVIL */
-
-/* Logo principal del navbar - solo visible en móviles */
+/* ESTILOS PARA LOGO EN NAVBAR MÓVIL (MANTENIDOS) */
 .navbar-logo {
-    height: 40px; /* Altura del logo */
-    width: auto; /* Mantener proporción */
-    max-width: 150px; /* Ancho máximo */
-    object-fit: contain; /* Mantener proporción sin distorsión */
+    height: 40px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
     transition: all 0.3s ease;
-    filter: brightness(1.1); /* Hacer el logo un poco más brillante */
+    filter: brightness(1.1);
 }
 
-/* Texto fallback si no carga el logo */
 .navbar-text-fallback {
-    display: none; /* Oculto por defecto */
+    display: none;
     color: white;
     font-weight: bold;
     font-size: 1.2rem;
 }
 
-/* Brand container para móviles */
 .navbar-brand {
     display: flex !important;
     align-items: center !important;
@@ -322,7 +275,6 @@ body.navbar-is-top {
     text-decoration: none !important;
 }
 
-/* Efecto hover para el logo */
 .navbar-logo:hover {
     transform: scale(1.05);
     filter: brightness(1.2);
@@ -330,19 +282,16 @@ body.navbar-is-top {
 
 /* RESPONSIVE - Solo mostrar en pantallas pequeñas */
 @media (min-width: 992px) {
-    /* Ocultar completamente en desktop */
     .navbar-brand {
         display: none !important;
     }
 }
 
 @media (max-width: 991.98px) {
-    /* Estilos específicos para móviles */
     .navbar-brand {
         display: flex !important;
     }
     
-    /* Ajustar tamaño en pantallas muy pequeñas */
     @media (max-width: 576px) {
         .navbar-logo {
             height: 35px;
@@ -350,7 +299,6 @@ body.navbar-is-top {
         }
     }
     
-    /* Para pantallas extra pequeñas */
     @media (max-width: 400px) {
         .navbar-logo {
             height: 30px;
@@ -372,7 +320,6 @@ body.navbar-is-top {
     display: inline-block;
 }
 
-/* JavaScript fallback - clase para mostrar texto si falla la imagen */
 .navbar-brand.logo-failed .navbar-logo {
     display: none;
 }
@@ -381,7 +328,6 @@ body.navbar-is-top {
     display: inline-block;
 }
 
-/* Ajustes al navbar para acomodar el logo */
 @media (max-width: 991.98px) {
     .navbar {
         padding: 8px 0 !important;
@@ -392,52 +338,45 @@ body.navbar-is-top {
         padding-right: 15px !important;
     }
     
-    /* Asegurar que el botón hamburguesa esté bien posicionado */
     .navbar-toggler {
         padding: 4px 8px !important;
         margin-left: auto !important;
-        order: 2 !important; /* Mover a la derecha */
+        order: 2 !important;
     }
     
     .navbar-brand {
-        order: 1 !important; /* Mover a la izquierda */
+        order: 1 !important;
         margin-right: auto !important;
     }
 }
 
-/* Transiciones suaves para cambios de estado del navbar */
+/* Transiciones suaves */
 .navbar-brand,
 .navbar-logo,
 .navbar-text-fallback {
     transition: all 0.3s ease !important;
 }
 
-/* Ajustes cuando el navbar cambia de posición (abajo/arriba) */
 .navbar:not(.navbar-top) .navbar-logo {
-    /* Cuando está abajo, el logo puede ser un poco más grande */
     height: 42px;
 }
 
 .navbar.navbar-top .navbar-logo {
-    /* Cuando está arriba, logo normal */
     height: 40px;
 }
 
-/* Asegurar que el logo sea clickeable como enlace */
 .navbar-brand:focus,
 .navbar-brand:active {
     outline: none;
     transform: scale(0.98);
 }
 
-/* Optimización para pantallas de alta resolución */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .navbar-logo {
         image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
     }
 }
-
 
 
 /***************Widgets-Home-section***************************/
@@ -458,112 +397,471 @@ body.navbar-is-top {
 
 
 
-/*Ticket*/
+/*===================================Ticket======================================*/
+/* ========== ESTILOS MEJORADOS PARA LA SECCIÓN DE TICKETS ========== */
 
+/* Ajustar el padding del ticket-banner para reducir altura */
 .ticket-banner {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 3rem 0;
+    padding: 1rem 0 !important;
     position: relative;
 }
 
+/* Estilos mejorados para la sección de tickets - MÁS ANCHO */
+.ticket-card {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-radius: 15px;
+    padding: 0;
+    position: relative;
+    max-width: 480px !important; /* AUMENTADO de 460px a 480px (+2cm extra) */
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ticket-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* Efecto de perforación de ticket */
+.ticket-perforation {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 12px;
+    background: 
+        radial-gradient(circle at 10px, transparent 4px, #000 4px, #000 5px, transparent 5px),
+        radial-gradient(circle at 20px, transparent 4px, #000 4px, #000 5px, transparent 5px);
+    background-size: 20px 12px;
+    background-repeat: repeat-x;
+    z-index: 2;
+}
+
+/* Mejoras para la imagen - ALTURA AUMENTADA Y MÁS ANCHA */
 .ticket-image-container {
-    text-align: center;
-    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+    height: 195px !important;
+}
+
+.image-overlay {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
 }
 
 .ticket-image {
-    max-width: 336px; /* 20% más grande que 280px */
     width: 100%;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.8s forwards 0.3s;
-    opacity: 0;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+    transition: transform 0.5s ease;
 }
 
-.ticket-image:hover {
+.ticket-link:hover .ticket-image {
     transform: scale(1.05);
 }
 
-.ticket-text-container {
+.overlay-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    animation: fadeIn 0.8s forwards 0.6s;
+    align-items: center;
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.ticket-text {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #faf6f6;
+.ticket-link:hover .overlay-content {
+    opacity: 1;
+}
+
+.cta-text {
+    color: #fff;
+    font-size: 1.15rem !important;
+    font-weight: bold;
+    margin-bottom: 8px !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cta-arrow {
+    color: #26e3ff;
+    font-size: 1.4rem !important;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Información del evento - MÁS ESPACIO ENTRE ELEMENTOS */
+.event-info {
+    padding: 16px !important; /* AUMENTADO de 14px a 16px */
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.event-title {
+    color: #26e3ff;
+    font-size: 1.35rem !important;
+    font-weight: bold;
+    margin-bottom: 12px !important; /* AUMENTADO de 10px a 12px */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.event-details {
+    display: flex;
+    justify-content: space-between; /* CAMBIADO de space-around a space-between */
+    flex-wrap: wrap;
+    gap: 15px; /* NUEVO: Espacio entre elementos */
+    padding: 0 10px; /* NUEVO: Padding lateral para mejor espaciado */
+}
+
+.event-date, .event-location {
+    color: #fff;
+    font-size: 0.95rem !important; /* AUMENTADO de 0.9rem a 0.95rem */
+    display: flex;
+    align-items: center;
+    margin: 5px 0 !important; /* AUMENTADO de 3px a 5px */
+    min-width: 180px; /* NUEVO: Ancho mínimo para cada elemento */
+    justify-content: center; /* Centrar contenido dentro de cada elemento */
+}
+
+.event-date i, .event-location i {
+    margin-right: 8px !important; /* AUMENTADO de 6px a 8px */
+    font-size: 1rem !important; /* AUMENTADO */
+    color: #26e3ff;
+}
+
+/* Indicador de urgencia - AJUSTADO */
+.urgency-indicator {
+    padding: 12px 16px !important; /* AUMENTADO de 10px 14px a 12px 16px */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.limited-tickets {
+    display: flex;
+    align-items: center;
+    color: #eef611;
+    font-weight: bold;
+    font-size: 0.9rem !important;
+}
+
+.limited-tickets i {
+    margin-right: 6px !important;
+    font-size: 1rem !important;
+}
+
+.countdown-timer {
+    color: #fff;
+    font-size: 0.8rem !important;
+}
+
+.countdown-text {
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Botón de acción - AJUSTADO */
+.ticket-action {
+    padding: 16px !important; /* AUMENTADO de 14px a 16px */
     text-align: center;
+}
+
+.btn-ticket-purchase {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #26e3ff 0%, #1a9fb8 100%);
+    color: white;
+    padding: 10px 22px !important;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(38, 227, 255, 0.3);
+    margin-bottom: 8px !important;
+}
+
+.btn-ticket-purchase:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(38, 227, 255, 0.5);
+    color: white;
+    text-decoration: none;
+}
+
+.btn-ticket-purchase i {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.btn-ticket-purchase:hover i {
+    transform: translateX(5px);
+}
+
+.secure-booking {
+    color: #aaa;
+    font-size: 0.75rem !important;
     margin: 0;
 }
 
-.arrow {
-    font-size: 1.8rem;
-    color: #26e3ff;
-    animation: bounceUp 1.5s infinite;
+.secure-booking i {
+    margin-right: 5px;
+    color: #4CAF50;
 }
 
-.arrow-up {
-    transform: rotate(-90deg);
+/* ========== CUADRO NEGRO TRANSPARENTE ALREDEDOR DEL TICKET ========== */
+.ticket-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    padding: 20px;
+    display: inline-block;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@keyframes fadeIn {
-    from {
+.ticket-sale {
+    background-color: transparent !important;
+}
+
+/* Responsive - AJUSTADO PARA NUEVO TAMAÑO */
+@media (max-width: 768px) {
+    .ticket-banner {
+        padding: 0.8rem 0 !important;
+    }
+    
+    .ticket-card {
+        max-width: 420px !important; /* AUMENTADO de 400px a 420px */
+    }
+    
+    .ticket-image-container {
+        height: 175px !important;
+    }
+    
+    .event-details {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* Espacio reducido en móviles */
+        padding: 0 5px;
+    }
+    
+    .event-date, .event-location {
+        min-width: auto; /* Ancho automático en móviles */
+        justify-content: center; /* CAMBIADO: Centrado en lugar de flex-start */
+        width: 100%;
+        margin: 3px 0 !important;
+        text-align: center; /* NUEVO: Asegurar que el texto esté centrado */
+    }
+    
+    .urgency-indicator {
+        flex-direction: column;
+        gap: 8px !important;
+        text-align: center;
+        padding: 10px 12px !important;
+    }
+    
+    .event-title {
+        font-size: 1.25rem !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .btn-ticket-purchase {
+        padding: 9px 18px !important;
+        font-size: 0.95rem !important;
+    }
+    
+    .cta-text {
+        font-size: 1.1rem !important;
+    }
+    
+    .cta-arrow {
+        font-size: 1.3rem !important;
+    }
+    
+    .event-info {
+        padding: 12px !important;
+    }
+    
+    .ticket-action {
+        padding: 12px !important;
+    }
+    
+    .ticket-container {
+        padding: 15px;
+        margin: 0 10px;
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ticket-container {
+        padding: 10px;
+        margin: 0 5px;
+        border-radius: 12px;
+    }
+    
+    .ticket-card {
+        max-width: 380px !important;
+    }
+    
+    .event-date, .event-location {
+        justify-content: center; /* REFUERZO: Centrado en móviles pequeños */
+        text-align: center;
+    }
+}
+
+
+/* Asegurar compatibilidad con los estilos existentes */
+.ticket-sale {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* ========== LOGO ANIMADO EN ESQUINA IZQUIERDA DEL TICKET ========== */
+
+.ticket-logo-overlay {
+    position: absolute;
+    top: -25px;
+    left: -25px;
+    z-index: 10;
+    transform: rotate(-45deg); /* Cambiado a -45 grados */
+    animation: logoEntrance 1.5s ease-out forwards;
+    opacity: 0;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.7));
+}
+
+.ticket-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    transition: all 0.5s ease;
+    filter: brightness(1.1) contrast(1.1);
+}
+
+/* Animación de entrada del logo - AJUSTADO A -45 GRADOS */
+@keyframes logoEntrance {
+    0% {
         opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes bounceUp {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0) rotate(-90deg);
-    }
-    40% {
-        transform: translateY(-10px) rotate(-90deg);
+        transform: rotate(-45deg) scale(0.5) translate(-50px, -50px);
     }
     60% {
-        transform: translateY(-5px) rotate(-90deg);
+        opacity: 1;
+        transform: rotate(-45deg) scale(1.1) translate(0, 0);
+    }
+    80% {
+        transform: rotate(-45deg) scale(0.95) translate(0, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(-45deg) scale(1) translate(0, 0);
     }
 }
 
+/* Efecto hover en el logo - AJUSTADO A -45 GRADOS */
+.ticket-logo-overlay:hover .ticket-logo {
+    transform: rotate(-45deg) scale(1.15);
+    filter: brightness(1.2) contrast(1.1) drop-shadow(0 5px 15px rgba(0, 0, 0, 0.8));
+}
+
+/* Animación sutil continua - AJUSTADO A -45 GRADOS */
+@keyframes logoFloat {
+    0%, 100% {
+        transform: rotate(-45deg) translateY(0);
+    }
+    50% {
+        transform: rotate(-45deg) translateY(-5px);
+    }
+}
+
+.ticket-logo-overlay {
+    animation: logoEntrance 1.5s ease-out forwards, logoFloat 4s ease-in-out infinite 1.5s;
+}
+
+/* Responsive para el logo */
 @media (max-width: 768px) {
-    .ticket-image {
-        max-width: 280px;
+    .ticket-logo-overlay {
+        top: -20px;
+        left: -20px;
     }
     
-    .ticket-text {
-        font-size: 1.3rem;
-    }
-    
-    .arrow {
-        font-size: 1.5rem;
+    .ticket-logo {
+        width: 100px;
+        height: 100px;
     }
 }
 
-@media (max-width: 576px) {
-    .ticket-image {
-        max-width: 240px;
+@media (max-width: 480px) {
+    .ticket-logo-overlay {
+        top: -15px;
+        left: -15px;
     }
     
-    .ticket-text {
-        font-size: 1.1rem;
+    .ticket-logo {
+        width: 80px;
+        height: 80px;
     }
-    
-    .ticket-text-container {
-        gap: 0.5rem;
-    }
+}
+
+/* Asegurar que el contenedor del ticket tenga posición relativa */
+.ticket-container {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    padding: 20px;
+    display: inline-block;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: visible;
+}
+
+/* ========== CORRECCIÓN PARA EL FONDO BLANCO ========== */
+/* Asegurar que la sección home tenga fondo transparente */
+#home {
+    background-color: transparent !important;
+}
+
+.home-content {
+    background-color: transparent !important;
+}
+
+.ticket-banner {
+    background-color: transparent !important;
+}
+
+/* Asegurar que el body no tenga fondo blanco */
+body {
+    background-color: transparent !important;
+}
+
+/* Verificar que el background principal esté funcionando */
+.background {
+    z-index: -1;
+    opacity: 1 !important;
 }
 
 /*******/
@@ -740,6 +1038,8 @@ body.navbar-is-top {
 .text-white {
     color: white !important;
 }
+
+
 
 
 /************ Sección About ************/
@@ -1943,12 +2243,12 @@ body.navbar-is-top {
 }
 
 .footer-container {
-    max-width: 1200px;
+     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas fijas */
+    gap: 40px 60px; /* 40px vertical, 60px horizontal */
     align-items: start;
 }
 

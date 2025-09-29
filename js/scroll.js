@@ -31,21 +31,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Función para actualizar enlace activo
+        // Función para actualizar enlace activo
     function updateActiveLink() {
         let currentSection = "";
         const scrollPosition = window.scrollY + 100;
-
+    
         sections.forEach((section) => {
             const sectionTop = section.offsetTop;
             const sectionBottom = sectionTop + section.offsetHeight;
             const sectionId = section.getAttribute("id");
-
+        
             if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
                 currentSection = sectionId;
             }
         });
-
+    
         navLinks.forEach((link) => {
             link.classList.remove("active");
             const href = link.getAttribute("href");
@@ -57,13 +57,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-
+    
         // Activar home por defecto al inicio
         if (!currentSection && scrollPosition < 200) {
             const homeLink = document.querySelector('a[href="#home"]');
             if (homeLink) homeLink.classList.add("active");
         }
     }
+
+    
 
     // Función combinada para scroll
     function handleScroll() {

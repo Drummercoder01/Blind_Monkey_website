@@ -378,6 +378,45 @@ body.navbar-is-top {
     }
 }
 
+/* Estilos para el botón hamburguesa */
+.navbar-toggler {
+    border: none !important;
+    padding: 4px 8px !important;
+    margin-left: auto !important;
+    order: 2 !important;
+    background: transparent !important;
+}
+
+/* Las tres líneas del hamburguesa - COLOR #26e3ff */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2326e3ff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    width: 1.5em !important;
+    height: 1.5em !important;
+}
+
+/* Estado cuando el menú está abierto - transformar en X */
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2326e3ff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 4 L26 26 M26 4 L4 26'/%3e%3c/svg%3e") !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Animación suave para la transición */
+.navbar-toggler-icon {
+    transition: all 0.3s ease !important;
+}
+
+/* Efecto hover para el botón */
+.navbar-toggler:hover .navbar-toggler-icon {
+    opacity: 0.8 !important;
+    transform: scale(1.1) !important;
+}
+
+/* Quitar el outline por defecto y agregar estilo al focus */
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 2px rgba(38, 227, 255, 0.5) !important;
+    outline: none !important;
+}
+
 
 /***************Widgets-Home-section***************************/
 
@@ -1452,12 +1491,10 @@ body {
 
 .event-date {
     font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
     margin-bottom: 0.5rem;
 }
 
-.event-time,
+.event-date,
 .event-location {
     font-size: 0.9rem;
     color: lightgray;

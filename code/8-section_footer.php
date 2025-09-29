@@ -6,8 +6,8 @@ $_footer = "
         <div class='footer-brand'>
             <img src='../img/5am_Logo_01-01.png' alt='The 5 AM Logo' class='footer-logo' onerror='this.style.display=\"none\"; this.nextElementSibling.style.display=\"block\"'>
             <div class='footer-logo-text' style='display: none;'>The 5 AM</div>
-            <p class='footer-copyright'>© 2017 - " . date('Y') . " The 5 AM</p>
-            <p class='footer-tagline'>Rock your world since 2017</p>
+            <p class='footer-copyright'>© 2015 - " . date('Y') . " The 5 AM</p>
+            <p class='footer-tagline'>Rock your world since 2015</p>
         </div>
 
         <!-- Newsletter Subscription -->

@@ -1,22 +1,75 @@
-// Función simple para mostrar notificaciones
-function showAlert(message, type = 'info') {
-    alert(message);
+// ========== SISTEMA DE NOTIFICACIONES ==========
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="bi ${type === 'success' ? 'bi-check-circle' : type === 'error' ? 'bi-exclamation-circle' : 'bi-info-circle'} me-2"></i>
+            ${message}
+        </div>
+    `;
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        z-index: 10000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        max-width: 350px;
+        display: flex;
+        align-items: center;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 10);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
+    
+    notification.addEventListener('click', function() {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    });
 }
 
 // Cargar items de press
 function loadPressItems() {
+    const container = document.querySelector('.press-items-container');
+    if (container) {
+        container.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+    }
+    
     fetch('get_press.php')
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
                 renderPressItems(data.press_items);
             } else {
-                showAlert('Error loading press items');
+                showNotification('❌ Error loading press items', 'error');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            showAlert('Error loading press items');
+            showNotification('❌ Error loading press items', 'error');
         });
 }
 
@@ -24,6 +77,13 @@ function loadPressItems() {
 function renderPressItems(items) {
     const container = document.querySelector('.press-items-container');
     if (!container) return;
+    
+    container.innerHTML = '';
+    
+    if (items.length === 0) {
+        container.innerHTML = '<div class="text-center text-white py-5"><p>No press items yet. Add your first press item!</p></div>';
+        return;
+    }
     
     let html = '<div class="row">';
     
@@ -62,7 +122,6 @@ function renderPressItems(items) {
             </div>
         </div>`;
     });
-
     
     html += '</div>';
     container.innerHTML = html;
@@ -87,7 +146,10 @@ function renderPressItems(items) {
 function editPressItem(id, items) {
     // Encontrar el item en los datos cargados
     const item = items.find(i => i.id == id);
-    if (!item) return;
+    if (!item) {
+        showNotification('❌ Press item not found', 'error');
+        return;
+    }
     
     // Llenar el modal con todos los datos
     document.getElementById('edit_id').value = item.id;
@@ -117,20 +179,22 @@ function deletePressItem(id) {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            showAlert('Item deleted successfully');
+            showNotification('✅ Press item deleted successfully', 'success');
             loadPressItems(); // Recargar
         } else {
-            showAlert('Error deleting item: ' + (data.message || 'Unknown error'));
+            showNotification('❌ Error deleting press item', 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        showAlert('Error deleting item');
+        showNotification('❌ Error deleting press item', 'error');
     });
 }
 
 // Configurar el formulario
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing press manager...');
+    
     // Inicializar
     loadPressItems();
     
@@ -146,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Validación básica
         if (!formData.get('press_text') || !formData.get('press_author') || !formData.get('press_time')) {
-            showAlert('Please fill all required fields');
+            showNotification('❌ Please fill all required fields', 'error');
             return;
         }
         
@@ -157,19 +221,19 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                showAlert(isEdit ? 'Item updated successfully' : 'Item added successfully');
+                showNotification(isEdit ? '✅ Press item updated successfully' : '✅ Press item added successfully', 'success');
                 const modal = bootstrap.Modal.getInstance(document.getElementById('pressModal'));
                 if (modal) modal.hide();
                 this.reset();
                 document.getElementById('pressTime').value = new Date().toISOString().split('T')[0];
                 loadPressItems(); // Recargar
             } else {
-                showAlert('Error: ' + (data.message || 'Unknown error'));
+                showNotification('❌ Error: ' + (data.message || 'Unknown error'), 'error');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            showAlert('Error saving item');
+            showNotification('❌ Error saving press item', 'error');
         });
     });
     
@@ -180,4 +244,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('pressTime').value = new Date().toISOString().split('T')[0];
         document.getElementById('pressModalLabel').textContent = 'Add Press Item';
     });
+    
+    console.log('Press manager initialized successfully');
 });

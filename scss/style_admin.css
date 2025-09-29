@@ -8,6 +8,13 @@
     transition: all 300ms;
 }
 
+/* Variables CSS para breakpoints consistentes */
+:root {
+    --breakpoint-lg: 992px;
+    --breakpoint-md: 768px;
+    --sidebar-width: 280px;
+}
+
 /*------ NAV ------*/
 
 .logoHeader {
@@ -41,7 +48,7 @@ a:hover {
 
 .nav-link.active {
     color: rgba(255, 255, 255, 1) !important;
-    background: linear-gradient(0deg, #990000, #990000) #4f83dc !important;
+    background: linear-gradient(0deg, #dd7121, #994700) #4f83dc !important;
     border-right: 5px solid #aaa;
 }
 
@@ -425,94 +432,125 @@ div.modal-content{
     border-left: 4px solid #f6e05e;
 }
 
-/* ========== RESPONSIVE DESIGN ========== */
+/* ========== IMPROVED MOBILE LOGO AND BRANDING ========== */
 
-/* Large screens (desktops) */
-@media (min-width: 992px) {
-    .login-form-container {
-        padding: 3rem 4rem;
-    }
-    
-    .logo-img {
-        max-width: 320px;
-    }
-    
-    .welcome-text h2 {
-        font-size: 2.5rem;
-    }
-}
-
-/* Extra large screens */
-@media (min-width: 1200px) {
-    .login-form-container {
-        padding: 4rem 5rem;
-    }
-    
-    .logo-img {
-        max-width: 360px;
-    }
-}
-
-/* Medium screens (tablets) */
 @media (max-width: 991px) {
-    .login-left-panel {
-        min-height: 40vh;
+    .mobile-logo {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        filter: brightness(1.1);
     }
-    
-    .login-form-container {
-        padding: 2rem 1.5rem;
+
+    .mobile-brand-text {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
     }
-    
-    .logo-img {
-        max-width: 220px;
-    }
-    
-    .welcome-text h2 {
-        font-size: 1.8rem;
+
+    .mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
     }
 }
 
-/* Small screens (mobile) */
-@media (max-width: 767px) {
-    .login-left-panel {
-        min-height: 30vh;
-        padding: 2rem 1rem;
+/* ========== ACCESSIBILITY IMPROVEMENTS ========== */
+
+/* Focus states for mobile navigation */
+.mobile-header .nav-link:focus,
+.mobile-header .navbar-toggler:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .mobile-header {
+        background: #000000;
+        border-bottom: 2px solid #ffffff;
     }
     
-    .login-form-container {
-        padding: 1.5rem 1rem;
+    .mobile-header .nav-link {
+        color: #ffffff !important;
+        border: 1px solid transparent;
     }
     
-    .logo-img {
-        max-width: 200px;
+    .mobile-header .nav-link:hover,
+    .mobile-header .nav-link.active {
+        border-color: #ffffff;
+        background: #333333;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .admin-container,
+    .admin-content,
+    .admin-sidebar,
+    .mobile-header .nav-link,
+    .mobile-header .navbar-toggler {
+        transition: none;
     }
     
-    .login-header h1 {
-        font-size: 1.5rem;
+    .mobile-header .navbar-collapse.show,
+    .mobile-header .navbar-collapse.collapsing {
+        animation: none;
+    }
+}
+
+/* ========== FINE-TUNING FOR DIFFERENT SCREEN SIZES ========== */
+
+/* Extra small screens (phones in portrait) */
+@media (max-width: 576px) {
+    .mobile-header .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
     
-    .btn-login {
-        padding: 1rem;
+    .mobile-brand-text {
         font-size: 1rem;
     }
-}
-
-/* Very small screens */
-@media (max-width: 480px) {
-    .login-left-panel {
-        min-height: 25vh;
-        padding: 1.5rem 0.5rem;
+    
+    .mobile-logo {
+        width: 32px;
+        height: 32px;
     }
     
-    .login-form-container {
-        padding: 1rem 0.75rem;
-    }
-    
-    .logo-img {
-        max-width: 180px;
+    .content-wrapper {
+        padding: 1rem;
     }
 }
 
+/* Medium tablets */
+@media (min-width: 577px) and (max-width: 991px) {
+    .content-wrapper {
+        padding: 1.5rem;
+    }
+}
+
+/* ========== Z-INDEX MANAGEMENT ========== */
+
+.mobile-header {
+    z-index: 1030;
+}
+
+.mobile-header .navbar-collapse {
+    z-index: 1031;
+}
+
+.admin-sidebar {
+    z-index: 1000;
+}
+
+/* Ensure dropdowns and modals work properly */
+.dropdown-menu {
+    z-index: 1040;
+}
+
+.modal {
+    z-index: 1050;
+}
 /* ========== ANIMATIONS & EFFECTS ========== */
 
 /* Fade in animation */
@@ -618,7 +656,7 @@ div.modal-content{
 }
 
 .admin-logo {
-    width: 48px;
+    width: 114px;
     height: 48px;
     object-fit: contain;
     filter: brightness(1.1);
@@ -873,8 +911,27 @@ div.modal-content{
 }
 
 @media (min-width: 992px) {
+    .admin-sidebar {
+        width: 280px;
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        color: white;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+        display: block !important;
+    }
+
     .admin-content {
         margin-left: 280px;
+    }
+
+    .mobile-header {
+        display: none !important;
     }
 }
 
@@ -909,9 +966,17 @@ div.modal-content{
     margin-right: 0;
 }
 
-@media (min-width: 992px) {
-    .sidebar-compact + .admin-content {
-        margin-left: 80px;
+@media (max-width: 991px) {
+    .admin-sidebar {
+        display: none !important;
+    }
+    
+    .mobile-header {
+        display: block !important;
+    }
+    
+    .admin-content {
+        margin-left: 0 !important;
     }
 }
 

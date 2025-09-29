@@ -101,10 +101,15 @@ function createPressElement(pressItem, index) {
                     — <span class="press-name">${pressItem.press_author}</span>
                     ${pressItem.press_comment ? ', ' + pressItem.press_comment : ''}
                 </div>
-                <div class="press-link">
-                    <a href="${pressItem.press_link}" target="_blank" class="text-decoration-none">
-                        <div class="press-time text-gray-custom">${formattedDate}</div>
-                    </a>
+                <div class="press-meta d-flex justify-content-between align-items-center">
+                    <div class="press-time text-gray-custom">${formattedDate}</div>
+                    ${pressItem.press_link ? `
+                    <div class="press-link">
+                        <a href="${pressItem.press_link}" target="_blank" class="btn btn-sm btn-outline-info">
+                            <i class="bi bi-box-arrow-up-right me-1"></i>View Article
+                        </a>
+                    </div>
+                    ` : ''}
                 </div>
             </div>
         </div>

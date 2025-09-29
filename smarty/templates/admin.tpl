@@ -53,38 +53,38 @@
                     <ul class="nav-list">
                         <li class="nav-item">
                             <a href="../scripts/admin_about.php" class="nav-link">
-                                <i class="bi bi-person-lines-fill nav-icon"></i>
-                                <span class="nav-text">About</span>
+                                <i class="bi bi-person-lines-fill nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">About</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../scripts/admin_music.php" class="nav-link">
-                                <i class="bi bi-music-note-beamed nav-icon"></i>
-                                <span class="nav-text">Music</span>
+                                <i class="bi bi-music-note-beamed nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Music</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../scripts/admin_press.php" class="nav-link">
-                                <i class="bi bi-newspaper nav-icon"></i>
-                                <span class="nav-text">Press</span>
+                                <i class="bi bi-newspaper nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Press</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../scripts/admin_events.php" class="nav-link">
-                                <i class="bi bi-calendar-event nav-icon"></i>
-                                <span class="nav-text">Events</span>
+                                <i class="bi bi-calendar-event nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Events</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../scripts/admin_videos.php" class="nav-link">
-                                <i class="bi bi-camera-video nav-icon"></i>
-                                <span class="nav-text">Videos</span>
+                                <i class="bi bi-camera-video nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Videos</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../scripts/admin_photos.php" class="nav-link">
-                                <i class="bi bi-camera nav-icon"></i>
-                                <span class="nav-text">Photos</span>
+                                <i class="bi bi-camera nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Photos</span>
                             </a>
                         </li>
                     </ul>
@@ -94,15 +94,15 @@
                     <ul class="nav-list nav-bottom">
                         <li class="nav-item">
                             <a href="/scripts/A_home.php" class="nav-link nav-link-secondary" target="_blank">
-                                <i class="bi bi-globe nav-icon"></i>
-                                <span class="nav-text">View Website</span>
-                                <i class="bi bi-box-arrow-up-right ms-auto text-xs"></i>
+                                <i class="bi bi-globe nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">View Website</span>
+                                <i class="bi bi-box-arrow-up-right ms-auto text-xs text-secondary"></i>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../scripts/Z_uitloggen.php" class="nav-link nav-link-logout">
-                                <i class="bi bi-box-arrow-left nav-icon"></i>
-                                <span class="nav-text">Logout</span>
+                                <i class="bi bi-box-arrow-left nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Logout</span>
                             </a>
                         </li>
                     </ul>
@@ -130,38 +130,38 @@
                     <div class="collapse navbar-collapse" id="mobileNav">
                         <ul class="navbar-nav w-100">
                             <li class="nav-item">
-                                <a class="nav-link" href="../scripts/admin_about.php">
-                                    <i class="bi bi-person-lines-fill"></i>
+                                <a class="nav-link text-secondary" href="../scripts/admin_about.php">
+                                    <i class="bi bi-person-lines-fill text-secondary"></i>
                                     About
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../scripts/admin_music.php">
-                                    <i class="bi bi-music-note-beamed"></i>
+                                <a class="nav-link text-secondary" href="../scripts/admin_music.php">
+                                    <i class="bi bi-music-note-beamed text-secondary"></i>
                                     Music
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../scripts/admin_press.php">
-                                    <i class="bi bi-newspaper"></i>
+                                <a class="nav-link text-secondary" href="../scripts/admin_press.php">
+                                    <i class="bi bi-newspaper text-secondary"></i>
                                     Press
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../scripts/admin_events.php">
-                                    <i class="bi bi-calendar-event"></i>
+                                <a class="nav-link text-secondary" href="../scripts/admin_events.php">
+                                    <i class="bi bi-calendar-event text-secondary"></i>
                                     Events
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../scripts/admin_videos.php">
-                                    <i class="bi bi-camera-video"></i>
+                                <a class="nav-link text-secondary" href="../scripts/admin_videos.php">
+                                    <i class="bi bi-camera-video text-secondary"></i>
                                     Videos
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../scripts/admin_photos.php">
-                                    <i class="bi bi-camera"></i>
+                                <a class="nav-link text-secondary" href="../scripts/admin_photos.php">
+                                    <i class="bi bi-camera text-secondary"></i>
                                     Photos
                                 </a>
                             </li>
@@ -173,15 +173,15 @@
                             
                             <!-- Secondary Links -->
                             <li class="nav-item">
-                                <a class="nav-link" href="/scripts/A_home.php" target="_blank">
-                                    <i class="bi bi-globe"></i>
+                                <a class="nav-link text-secondary" href="/scripts/A_home.php" target="_blank">
+                                    <i class="bi bi-globe text-secondary"></i>
                                     View Website
-                                    <i class="bi bi-box-arrow-up-right ms-auto"></i>
+                                    <i class="bi bi-box-arrow-up-right ms-auto text-secondary"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-danger" href="../scripts/Z_uitloggen.php">
-                                    <i class="bi bi-box-arrow-left"></i>
+                                    <i class="bi bi-box-arrow-left text-secondary"></i>
                                     Logout
                                 </a>
                             </li>

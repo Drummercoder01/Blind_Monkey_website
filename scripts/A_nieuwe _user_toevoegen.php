@@ -4,8 +4,8 @@
 require("../php_lib/encrypt.inc.php");
 $_srv= $_SERVER['PHP_SELF'];
 
-$_string="pas123";
-$_salt= "bambino";
+$_string="WeCouldBeHeroes007"; // password
+$_salt= "info@the5am.be"; //user_name
 $_paswoord= encrypt($_string, $_salt);
 
 //$_salt = 'WEBO'; 
@@ -27,3 +27,4 @@ exit;
 
 
 ?>
+

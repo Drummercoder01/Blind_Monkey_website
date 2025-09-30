@@ -1250,3 +1250,4 @@
 "30-08-2025 13:19:10","Opening security-log failed","D:\Alexis Code Projects\The5AM-Website\1-Full-Site\scripts\YLS_toon_securityLog.php",69
 "03-09-2025 20:12:58","illegal access","D:\Alexis Code Projects\The5AM-Website\1-Full-Site\scripts\P_reset.php",95
 "27-09-2025 11:39:54","Opening security-log failed","D:\Alexis Code Projects\The5AM-Website\1-Full-Site\scripts\YLS_toon_securityLog.php",69
+"30-09-2025 07:06:45","SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_the5am.t_menu' doesn't exist","D:\Alexis Code Projects\The5AM-Website\1-Full-Site\php_lib\menu.inc.php",47

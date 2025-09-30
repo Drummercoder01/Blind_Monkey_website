@@ -4,7 +4,7 @@ require("../code/initialisatie.inc.php");
 header('Content-Type: application/json');
 
 try {
-    $query = "SELECT id, img_path, img_order FROM t_photos ORDER BY img_order ASC, id DESC";
+    $query = "SELECT id, img_path, img_order FROM vw_active_photos ORDER BY img_order ASC, id DESC";
     $result = $_PDO->query($query);
     
     $photos = [];

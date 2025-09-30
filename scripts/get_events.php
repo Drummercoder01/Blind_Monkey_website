@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 
 try {
     $query = "SELECT id, event_name, event_location, event_date, event_time 
-              FROM t_events ORDER BY event_date DESC, event_time DESC";
+              FROM vw_active_events";
     $result = $_PDO->query($query);
     
     $events = [];
@@ -19,7 +19,11 @@ try {
         ];
     }
     
-    echo json_encode(['status' => 'success', 'events' => $events]);
+    echo json_encode([
+        'status' => 'success', 
+        'events' => $events,
+        'count' => count($events)
+    ]);
     
 } catch (PDOException $e) {
     error_log("Database error: " . $e->getMessage());

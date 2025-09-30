@@ -5,8 +5,7 @@ header('Content-Type: application/json');
 
 try {
     $query = "SELECT id, `press-text`, `press-author`, `press-comment`, `press-time`, `press-link` 
-              FROM t_press 
-              ORDER BY `press-time` DESC, id DESC";
+              FROM vw_active_press";
     $result = $_PDO->query($query);
     
     $pressItems = [];
@@ -21,7 +20,11 @@ try {
         ];
     }
     
-    echo json_encode(['status' => 'success', 'press_items' => $pressItems]);
+    echo json_encode([
+        'status' => 'success', 
+        'press_items' => $pressItems,
+        'count' => count($pressItems)
+    ]);
     
 } catch (PDOException $e) {
     error_log("Database error: " . $e->getMessage());

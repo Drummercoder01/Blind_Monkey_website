@@ -7,7 +7,7 @@ require_once("../smarty/mySmarty.inc.php");
 //functie om "menu" samen te stellen
 require_once("../php_lib/menu.inc.php");
 //functie om tekst/html in te lezen
-/* require_once("../php_lib/inlezen.inc.php"); */
+require_once("../php_lib/inlezen.inc.php");
 // We kennen de variabelen toe
 $_smarty->assign('inhoud', $_inhoud);
 $_smarty->assign('nav', $_nav);

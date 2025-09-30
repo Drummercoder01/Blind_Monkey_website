@@ -112,7 +112,7 @@ try{
 				$_timeOut = time()+(60*60*3);
 
 				$_query ="UPDATE ts_authentication
-								           SET d_timeOut = '$_timeOut',
+								           SET d_timeOut = '$_timeOut'
 								               WHERE d_user = $_user;";
 
 				$_result = $_PDO -> query($_query);	

@@ -35,7 +35,7 @@ function menu($_menu)
 {
   global $_PDO;
   $_output[0] = "ERROR";
-  $_rol = (isset($_SESSION [rol]))? $_SESSION['rol'] : 0;
+  $_rol = (isset($_SESSION ['rol']))? $_SESSION['rol'] : 0;
 
   $_query = "SELECT d_item, d_link 
                              FROM t_menu 

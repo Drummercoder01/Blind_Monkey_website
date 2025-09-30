@@ -1,7 +1,6 @@
 <?php
 // session opstarten
 session_start();
-
 // instantiering van $_PDO 
 // (connectie met dbms en selectie van de datbase)
 require_once("../connections/pdo.inc.php");
@@ -13,7 +12,6 @@ authorised();
 $_srv = $_SERVER['PHP_SELF'];
 $_inhoud="";
 $_jsInclude = array();
-
 
 // model (database) based drop-downs  
 /* require_once("../php_lib/dropDown.inc.php"); */

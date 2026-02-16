@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.31, created on 2025-09-22 19:18:40
+/* Smarty version 3.1.31, created on 2026-02-13 10:59:18
   from "D:\Alexis Code Projects\The5AM-Website\1-Full-Site\smarty\templates\home.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.31',
-  'unifunc' => 'content_68d1a1103851a4_96063704',
+  'unifunc' => 'content_698f0406aeedd5_38510453',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '732375d0136cefebed60c90ddafef918bca84d69' => 
     array (
       0 => 'D:\\Alexis Code Projects\\The5AM-Website\\1-Full-Site\\smarty\\templates\\home.tpl',
-      1 => 1758568709,
+      1 => 1770980353,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_68d1a1103851a4_96063704 (Smarty_Internal_Template $_smarty_tpl) {
+function content_698f0406aeedd5_38510453 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,19 +52,19 @@ function content_68d1a1103851a4_96063704 (Smarty_Internal_Template $_smarty_tpl)
     <?php echo $_smarty_tpl->tpl_vars['nav']->value;?>
 
 
-    
+
     <?php echo $_smarty_tpl->tpl_vars['inhoud']->value;?>
 
 
 
     <?php echo $_smarty_tpl->tpl_vars['footer']->value;?>
-   
+
 
     <!-- Bootstrap JS -->
     <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
 >
-    
+
     <!-- Scripts dinámicos desde PHP -->
     <?php
 $__section_teller_0_saved = isset($_smarty_tpl->tpl_vars['__smarty_section_teller']) ? $_smarty_tpl->tpl_vars['__smarty_section_teller'] : false;

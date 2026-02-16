@@ -2,36 +2,61 @@
 $_inhoud .= "
     <section id='music' class='py-5'>
         <div class='container'>
-            <h1 class='text-white display-3 fw-bold text-center py-5' id='nav-music'>Music</h1>
+            <!-- Título de sección mejorado -->
+            <div class='section-header'>
+                <div class='section-icon'>
+                    <i class='bi bi-music-note-beamed'></i>
+                </div>
+                <h1 class='section-title'>Our Music</h1>
+                <p class='section-subtitle'>Explore our latest tracks and albums</p>
+                <div class='section-divider'></div>
+            </div>
         </div>
 
         <!-- Contenedor principal -->
         <div class='music-container'>
             <!-- Contenedor para todas las canciones -->
             <div id='music-content' style='display: none;'>
-                <!-- Grid principal para canciones iniciales -->
-                <div id='music-grid' class='row row-cols-1 row-cols-md-2 g-4'>
+                
+                <!-- Grid principal para canciones iniciales con layout mejorado -->
+                <div id='music-grid' class='music-grid'>
                     <!-- Las canciones iniciales se cargarán aquí -->
                 </div>
                 
                 <!-- Grid adicional para canciones extra (oculto inicialmente) -->
-                <div id='music-additional' class='row row-cols-1 row-cols-md-2 g-4 pt-4' style='display: none;'>
+                <div id='music-additional' class='music-grid' style='display: none;'>
                     <!-- Canciones adicionales se cargarán aquí -->
                 </div>
 
-                <!-- Contenedor del botón -->
-                <div id='music-button-container' class='text-center mt-4'>
-                    <button id='toggleMusic' class='btn px-4 py-2 fw-bold'>
-                        <i class='bi bi-music-note-list me-2'></i>
-                        <span class='button-text'>More Music</span>
+                <!-- Contenedor del botón mejorado -->
+                <div id='music-button-container' class='text-center mt-5'>
+                    <button id='toggleMusic' class='btn-music-toggle'>
+                        <span class='btn-content'>
+                            <i class='bi bi-music-note-list me-2'></i>
+                            <span class='button-text'>Load More Tracks</span>
+                            <i class='bi bi-chevron-down ms-2 chevron-icon'></i>
+                        </span>
+                        <span class='btn-glow'></span>
                     </button>
                 </div>
             </div>
 
-            <!-- Estado cuando no hay música -->
-            <div id='no-music-state' class='text-center py-5' style='display: none;'>
-                <i class='bi bi-music-note text-white-50' style='font-size: 4rem;'></i>
-                <p class='text-white-50 mt-3 fs-5'>No music available at the moment</p>
+            <!-- Estado cuando no hay música - Mejorado -->
+            <div id='no-music-state' class='no-music-state' style='display: none;'>
+                <div class='empty-state'>
+                    <div class='empty-icon'>
+                        <i class='bi bi-music-note-beamed'></i>
+                    </div>
+                    <h3 class='empty-title'>No Music Available</h3>
+                    <p class='empty-text'>Check back soon for new releases</p>
+                    <div class='music-wave'>
+                        <div class='wave-bar'></div>
+                        <div class='wave-bar'></div>
+                        <div class='wave-bar'></div>
+                        <div class='wave-bar'></div>
+                        <div class='wave-bar'></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

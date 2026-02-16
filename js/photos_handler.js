@@ -1,231 +1,434 @@
-// photos_handler.js - VERSIÓN MEJORADA CON MOSTRAR/OCULTAR DINÁMICO
-document.addEventListener("DOMContentLoaded", function () {
-    const galleryContainer = document.getElementById("gallery-container");
-    const photosLoading = document.getElementById("photos-loading");
-    const noPhotosState = document.getElementById("no-photos-state");
-    const photosButtonContainer = document.getElementById("photos-button-container");
-    const toggleButton = document.getElementById("togglePhotos");
+// photos_handler.js - Frontend Photos Handler with CSS Grid
+(function() {
+    'use strict';
     
-    let allImages = [];
-    let showingAll = false;
-    const initialVisibleCount = 8;
-    let additionalImagesElements = []; // Array para guardar elementos de fotos adicionales
-
-    function loadPhotos() {
+    console.log('%c[PHOTOS HANDLER] Script loaded', 'color: #26e3ff; font-weight: bold');
+    
+    // ========== VARIABLES LOCALES ==========
+    let allPhotosData = [];
+    let photosToShowInitial = 8;
+    let photosExpanded = false;
+    let currentLightboxIndex = 0;
+    
+    // ========== INICIALIZACIÓN ==========
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!document.getElementById('photos-1')) {
+            console.log('%c[PHOTOS HANDLER] Photos section not found - exiting', 'color: #ff0000');
+            return;
+        }
+        
+        console.log('%c[PHOTOS HANDLER] Photos section found - initializing...', 'color: #4CAF50');
+        initializePhotos();
+        initializeLightbox();
+    });
+    
+    // ========== FUNCIONES PRINCIPALES ==========
+    
+    function initializePhotos() {
+        console.log('[PHOTOS HANDLER] initializePhotos() called');
+        loadPhotosFromDB();
+    }
+    
+    function loadPhotosFromDB() {
+        console.log('[PHOTOS HANDLER] Loading photos from database...');
+        
+        // Mostrar loading
+        showElement('photos-loading');
+        hideElement('no-photos-state');
+        hideElement('photos-button-container');
+        
         fetch('../scripts/get_photos.php')
             .then(response => {
+                console.log('[PHOTOS HANDLER] Fetch response status:', response.status);
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             })
             .then(data => {
-                if (data.status === 'success' && data.photos.length > 0) {
-                    allImages = data.photos;
-                    renderInitialPhotos();
-                    photosLoading.classList.add('d-none');
+                console.log('[PHOTOS HANDLER] Data received:', data);
+                hideLoadingState();
+                
+                if (data.status === 'success' && data.photos && data.photos.length > 0) {
+                    // Ordenar por img_order (configurado en admin)
+                    allPhotosData = data.photos.sort((a, b) => {
+                        return (a.img_order || 999) - (b.img_order || 999);
+                    });
                     
-                    if (allImages.length > initialVisibleCount) {
-                        photosButtonContainer.classList.remove('d-none');
-                        updateButtonState();
-                    }
+                    console.log('%c[PHOTOS HANDLER] Successfully loaded ' + allPhotosData.length + ' photos', 'color: #4CAF50; font-weight: bold');
+                    renderPhotos();
+                    setupPhotosToggleButton();
                 } else {
+                    console.log('%c[PHOTOS HANDLER] No photos found', 'color: #ff9800');
                     showNoPhotosState();
                 }
             })
             .catch(error => {
-                console.error('Error loading photos:', error);
-                showNoPhotosState();
+                console.error('%c[PHOTOS HANDLER] Error loading photos:', 'color: #f44336; font-weight: bold', error);
+                hideLoadingState();
+                showErrorState();
             });
     }
-
-    function showNoPhotosState() {
-        photosLoading.classList.add('d-none');
-        noPhotosState.classList.remove('d-none');
-        photosButtonContainer.classList.add('d-none');
-    }
-
-    function renderInitialPhotos() {
-        galleryContainer.innerHTML = '';
-        additionalImagesElements = []; // Resetear array
+    
+    function renderPhotos() {
+        console.log('[PHOTOS HANDLER] renderPhotos() called');
         
-        // Crear y mostrar fotos iniciales
-        const initialImages = allImages.slice(0, initialVisibleCount);
+        const galleryContainer = document.getElementById('gallery-container');
         
-        initialImages.forEach((photo, index) => {
-            createImageElement(photo, index, true);
-        });
-        
-        // Pre-crear (pero no mostrar) fotos adicionales
-        if (allImages.length > initialVisibleCount) {
-            const additionalImages = allImages.slice(initialVisibleCount);
-            
-            additionalImages.forEach((photo, index) => {
-                const globalIndex = initialVisibleCount + index;
-                const element = createImageElement(photo, globalIndex, false);
-                additionalImagesElements.push(element);
-            });
-        }
-        
-        updateButtonState();
-    }
-
-    function createImageElement(photo, index, isVisible) {
-        const imgDiv = document.createElement("div");
-        imgDiv.classList.add("gallery-item");
-        if (!isVisible) {
-            imgDiv.style.display = 'none'; // Ocultar inicialmente si no es visible
-        }
-        imgDiv.setAttribute('data-index', index);
-        
-        const img = document.createElement("img");
-        img.src = photo.img_path;
-        img.alt = "Photo " + (index + 1);
-        img.loading = "lazy";
-        img.onclick = () => openLightbox(index);
-        
-        imgDiv.appendChild(img);
-        galleryContainer.appendChild(imgDiv);
-        
-        // Animación de aparición solo si es visible
-        if (isVisible) {
-            setTimeout(() => {
-                imgDiv.classList.add("visible");
-            }, index * 100);
-        }
-        
-        return imgDiv;
-    }
-
-    function showAdditionalPhotos() {
-        // Mostrar fotos adicionales con animación escalonada
-        additionalImagesElements.forEach((imgDiv, index) => {
-            setTimeout(() => {
-                imgDiv.style.display = 'block';
-                // Forzar reflow para que la animación funcione
-                void imgDiv.offsetWidth;
-                imgDiv.classList.add("visible");
-            }, index * 100);
-        });
-        
-        showingAll = true;
-        updateButtonState();
-    }
-
-    function hideAdditionalPhotos() {
-        // Ocultar fotos adicionales con animación
-        additionalImagesElements.forEach((imgDiv, index) => {
-            setTimeout(() => {
-                imgDiv.classList.remove("visible");
-                // Esperar a que termine la animación antes de ocultar
-                setTimeout(() => {
-                    imgDiv.style.display = 'none';
-                }, 300);
-            }, index * 50); // Animación más rápida para ocultar
-        });
-        
-        showingAll = false;
-        updateButtonState();
-        
-        // Scroll suave después de ocultar
-        setTimeout(() => {
-            document.getElementById('photos-1').scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-            });
-        }, 500);
-    }
-
-    function updateButtonState() {
-        if (!toggleButton || !photosButtonContainer) return;
-        
-        if (allImages.length <= initialVisibleCount) {
-            photosButtonContainer.classList.add('d-none');
+        if (!galleryContainer) {
+            console.error('[PHOTOS HANDLER] Gallery container not found');
             return;
         }
         
-        photosButtonContainer.classList.remove('d-none');
+        // Limpiar container
+        galleryContainer.innerHTML = '';
         
-        const buttonText = toggleButton.querySelector('.button-text');
-        const buttonIcon = toggleButton.querySelector('i');
+        // Crear grids para inicial y adicional
+        const initialGrid = document.createElement('div');
+        initialGrid.id = 'photos-grid';
+        initialGrid.className = 'photos-grid';
         
-        if (showingAll) {
-            buttonText.textContent = 'Show less photos';
-            buttonIcon.className = 'bi bi-eye-slash me-2';
-        } else {
-            buttonText.textContent = 'Show more photos';
-            buttonIcon.className = 'bi bi-images me-2';
-        }
+        const additionalGrid = document.createElement('div');
+        additionalGrid.id = 'photos-additional';
+        additionalGrid.className = 'photos-grid';
+        additionalGrid.style.display = 'none';
+        
+        // Separar fotos
+        const initialPhotos = allPhotosData.slice(0, photosToShowInitial);
+        const additionalPhotos = allPhotosData.slice(photosToShowInitial);
+        
+        console.log('[PHOTOS HANDLER] Initial photos:', initialPhotos.length);
+        console.log('[PHOTOS HANDLER] Additional photos:', additionalPhotos.length);
+        
+        // Renderizar fotos iniciales
+        initialPhotos.forEach((photo, index) => {
+            const photoElement = createPhotoElement(photo, index);
+            initialGrid.appendChild(photoElement);
+        });
+        
+        // Renderizar fotos adicionales
+        additionalPhotos.forEach((photo, index) => {
+            const photoElement = createPhotoElement(photo, index + photosToShowInitial);
+            additionalGrid.appendChild(photoElement);
+        });
+        
+        // Agregar grids al container
+        galleryContainer.appendChild(initialGrid);
+        galleryContainer.appendChild(additionalGrid);
+        
+        // Animar entrada
+        setTimeout(() => {
+            applyPhotosStaggeredAnimations('photos-grid');
+        }, 100);
     }
-
-    function togglePhotosView() {
-        if (showingAll) {
-            hideAdditionalPhotos();
-        } else {
-            showAdditionalPhotos();
-        }
-    }
-
-    // Event listener para el botón
-    if (toggleButton) {
-        toggleButton.addEventListener("click", togglePhotosView);
-    }
-
-    // Funcionalidad del lightbox
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
-    let currentIndex = 0;
-
-    function openLightbox(index) {
-        currentIndex = index;
-        lightboxImg.src = allImages[index].img_path;
-        lightbox.classList.add("show");
-        document.body.style.overflow = "hidden";
-    }
-
-    function closeLightbox() {
-        lightbox.classList.remove("show");
-        document.body.style.overflow = "";
-    }
-
-    function showNext() {
-        currentIndex = (currentIndex + 1) % allImages.length;
-        lightboxImg.src = allImages[currentIndex].img_path;
-    }
-
-    function showPrev() {
-        currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
-        lightboxImg.src = allImages[currentIndex].img_path;
-    }
-
-    // Event listeners para lightbox
-    lightbox.addEventListener("click", (e) => {
-        if (e.target === lightbox) closeLightbox();
-    });
-
-    const closeBtn = document.querySelector(".close");
-    const prevBtn = document.querySelector(".prev");
-    const nextBtn = document.querySelector(".next");
     
-    if (closeBtn) closeBtn.onclick = closeLightbox;
-    if (prevBtn) prevBtn.onclick = showPrev;
-    if (nextBtn) nextBtn.onclick = showNext;
-
-    // Navegación con teclado
-    document.addEventListener("keydown", (e) => {
-        if (lightbox.classList.contains("show")) {
-            if (e.key === "Escape") closeLightbox();
-            if (e.key === "ArrowRight") showNext();
-            if (e.key === "ArrowLeft") showPrev();
+    function createPhotoElement(photo, index) {
+        const photoItem = document.createElement('div');
+        photoItem.className = 'photo-item';
+        photoItem.setAttribute('data-photo-id', photo.id || index);
+        photoItem.setAttribute('data-index', index);
+        
+        const img = document.createElement('img');
+        img.src = photo.img_path;
+        img.alt = `Photo ${index + 1}`;
+        img.loading = 'lazy';
+        img.className = 'photo-image';
+        
+        // Click para abrir lightbox
+        img.addEventListener('click', () => {
+            openLightbox(index);
+        });
+        
+        photoItem.appendChild(img);
+        
+        return photoItem;
+    }
+    
+    function setupPhotosToggleButton() {
+        console.log('[PHOTOS HANDLER] setupPhotosToggleButton() called');
+        
+        const buttonContainer = document.getElementById('photos-button-container');
+        const toggleButton = document.getElementById('togglePhotos');
+        
+        if (!buttonContainer || !toggleButton) {
+            console.error('[PHOTOS HANDLER] Button elements not found');
+            return;
         }
-    });
-
-    // Función global para refrescar
-    window.refreshPhotos = function() {
-        showingAll = false;
-        renderInitialPhotos();
+        
+        console.log('[PHOTOS HANDLER] Total photos:', allPhotosData.length);
+        console.log('[PHOTOS HANDLER] Should show button:', allPhotosData.length > photosToShowInitial);
+        
+        if (allPhotosData.length > photosToShowInitial) {
+            console.log('%c[PHOTOS HANDLER] Showing toggle button', 'color: #4CAF50; font-weight: bold');
+            showElement('photos-button-container');
+            
+            // Remover clase d-none si existe
+            buttonContainer.classList.remove('d-none');
+            
+            // Clonar botón para limpiar listeners
+            const newToggleButton = toggleButton.cloneNode(true);
+            toggleButton.parentNode.replaceChild(newToggleButton, toggleButton);
+            
+            // Agregar listener
+            newToggleButton.addEventListener('click', function(e) {
+                console.log('%c[PHOTOS HANDLER] Toggle button clicked!', 'color: #FF5722; font-weight: bold');
+                e.preventDefault();
+                togglePhotosVisibility();
+            });
+            
+            console.log('[PHOTOS HANDLER] Button listener attached');
+        } else {
+            console.log('[PHOTOS HANDLER] NOT showing toggle button');
+            hideElement('photos-button-container');
+        }
+    }
+    
+    function togglePhotosVisibility() {
+        console.log('%c[PHOTOS HANDLER] togglePhotosVisibility() called', 'color: #FF5722; font-weight: bold');
+        console.log('[PHOTOS HANDLER] Current state - photosExpanded:', photosExpanded);
+        
+        const photosAdditional = document.getElementById('photos-additional');
+        const toggleButton = document.getElementById('togglePhotos');
+        const buttonText = toggleButton.querySelector('.button-text');
+        const chevronIcon = toggleButton.querySelector('.chevron-icon');
+        
+        if (!photosExpanded) {
+            console.log('%c[PHOTOS HANDLER] EXPANDING photos', 'color: #4CAF50; font-weight: bold');
+            
+            // Mostrar adicionales
+            showElement('photos-additional');
+            
+            // Animar
+            setTimeout(() => {
+                applyPhotosStaggeredAnimations('photos-additional');
+            }, 50);
+            
+            // Cambiar botón
+            if (buttonText) buttonText.textContent = 'Show Less';
+            if (toggleButton) toggleButton.classList.add('active');
+            photosExpanded = true;
+            
+            console.log('[PHOTOS HANDLER] State updated - photosExpanded:', photosExpanded);
+            
+        } else {
+            console.log('%c[PHOTOS HANDLER] COLLAPSING photos', 'color: #FF9800; font-weight: bold');
+            
+            // Ocultar adicionales
+            hideElement('photos-additional');
+            
+            // Cambiar botón
+            if (buttonText) buttonText.textContent = 'Show More Photos';
+            if (toggleButton) toggleButton.classList.remove('active');
+            photosExpanded = false;
+            
+            console.log('[PHOTOS HANDLER] State updated - photosExpanded:', photosExpanded);
+            
+            // Scroll
+            setTimeout(() => {
+                const photosSection = document.getElementById('photos-1');
+                if (photosSection) {
+                    photosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+    }
+    
+    function applyPhotosStaggeredAnimations(containerId) {
+        console.log('[PHOTOS HANDLER] Applying animations to:', containerId);
+        
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.error('[PHOTOS HANDLER] Animation container not found:', containerId);
+            return;
+        }
+        
+        const items = container.querySelectorAll('.photo-item');
+        console.log('[PHOTOS HANDLER] Animating', items.length, 'items');
+        
+        items.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.8)';
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+            }, index * 80);
+        });
+    }
+    
+    // ========== LIGHTBOX FUNCTIONS ==========
+    
+    function initializeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        const closeBtn = lightbox?.querySelector('.close');
+        const prevBtn = lightbox?.querySelector('.prev');
+        const nextBtn = lightbox?.querySelector('.next');
+        
+        if (!lightbox) {
+            console.log('[PHOTOS HANDLER] Lightbox not found');
+            return;
+        }
+        
+        // Click en lightbox para cerrar
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Botón cerrar
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeLightbox);
+        }
+        
+        // Botones prev/next
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showPrevPhoto();
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showNextPhoto();
+            });
+        }
+        
+        // Teclado
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('show')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') showNextPhoto();
+                if (e.key === 'ArrowLeft') showPrevPhoto();
+            }
+        });
+        
+        console.log('[PHOTOS HANDLER] Lightbox initialized');
+    }
+    
+    function openLightbox(index) {
+        console.log('[PHOTOS HANDLER] Opening lightbox for photo:', index);
+        
+        currentLightboxIndex = index;
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        
+        if (lightbox && lightboxImg && allPhotosData[index]) {
+            lightboxImg.src = allPhotosData[index].img_path;
+            lightbox.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeLightbox() {
+        console.log('[PHOTOS HANDLER] Closing lightbox');
+        
+        const lightbox = document.getElementById('lightbox');
+        if (lightbox) {
+            lightbox.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    function showNextPhoto() {
+        currentLightboxIndex = (currentLightboxIndex + 1) % allPhotosData.length;
+        const lightboxImg = document.getElementById('lightbox-img');
+        if (lightboxImg) {
+            lightboxImg.src = allPhotosData[currentLightboxIndex].img_path;
+        }
+    }
+    
+    function showPrevPhoto() {
+        currentLightboxIndex = (currentLightboxIndex - 1 + allPhotosData.length) % allPhotosData.length;
+        const lightboxImg = document.getElementById('lightbox-img');
+        if (lightboxImg) {
+            lightboxImg.src = allPhotosData[currentLightboxIndex].img_path;
+        }
+    }
+    
+    function hideLoadingState() {
+        console.log('[PHOTOS HANDLER] Hiding loading state');
+        hideElement('photos-loading');
+    }
+    
+    function showNoPhotosState() {
+        console.log('[PHOTOS HANDLER] Showing no photos state');
+        showElement('no-photos-state');
+        const noPhotosState = document.getElementById('no-photos-state');
+        if (noPhotosState) {
+            noPhotosState.classList.remove('d-none');
+        }
+    }
+    
+    function showErrorState() {
+        console.log('[PHOTOS HANDLER] Showing error state');
+        const galleryContainer = document.getElementById('gallery-container');
+        if (galleryContainer) {
+            galleryContainer.innerHTML = `
+                <div class="no-photos-state" style="display: flex;">
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="bi bi-camera"></i>
+                        </div>
+                        <h3 class="empty-title">Unable to Load Photos</h3>
+                        <p class="empty-text">Please try again later</p>
+                        <button class="btn-photos-toggle" onclick="location.reload()" style="margin-top: 20px;">
+                            <span class="btn-content">
+                                <i class="bi bi-arrow-clockwise me-2"></i>
+                                <span>Try Again</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    // ========== FUNCIONES AUXILIARES ==========
+    
+    function showElement(elementId) {
+        const element = document.getElementById(elementId);
+        if (!element) {
+            console.error('[PHOTOS HANDLER] showElement - Element not found:', elementId);
+            return;
+        }
+        
+        console.log('[PHOTOS HANDLER] Showing element:', elementId);
+        
+        // CRITICAL: Limpiar style inline para que CSS tome control
+        element.style.display = '';
+        element.classList.remove('d-none');
+    }
+    
+    function hideElement(elementId) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        
+        console.log('[PHOTOS HANDLER] Hiding element:', elementId);
+        element.style.display = 'none';
+        element.classList.add('d-none');
+    }
+    
+    // ========== FUNCIONES GLOBALES ==========
+    
+    window.refreshFrontendPhotos = function() {
+        console.log('%c[PHOTOS HANDLER] Refresh requested', 'color: #00BCD4; font-weight: bold');
+        photosExpanded = false;
+        initializePhotos();
     };
-
-    // Iniciar carga de fotos
-    loadPhotos();
-});
+    
+    window.debugFrontendPhotos = function() {
+        console.log('%c=== FRONTEND PHOTOS DEBUG ===', 'color: #00BCD4; font-weight: bold');
+        console.log('Total photos:', allPhotosData.length);
+        console.log('Photos expanded:', photosExpanded);
+        console.log('Initial to show:', photosToShowInitial);
+        console.log('Current lightbox index:', currentLightboxIndex);
+        console.log('%c============================', 'color: #00BCD4; font-weight: bold');
+    };
+    
+    console.log('%c[PHOTOS HANDLER] Script initialization complete', 'color: #26e3ff; font-weight: bold');
+    
+})();

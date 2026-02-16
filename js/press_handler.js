@@ -1,211 +1,367 @@
-// press_handler.js - sin spinner
-document.addEventListener('DOMContentLoaded', function() {
-    if (!document.getElementById('press')) return;
+// press_handler.js - Frontend Press Handler with CSS Grid
+(function() {
+    'use strict';
     
-    initializePress();
-});
-
-// ========== VARIABLES GLOBALES ==========
-let allPressItems = [];
-let pressToShowInitial = 3;
-let pressExpanded = false;
-
-// ========== FUNCIONES PRINCIPALES ==========
-
-function initializePress() {
-    loadPressFromDB();
-}
-
-function loadPressFromDB() {
-    // Ocultar elementos al inicio
-    showElement('no-press-state', false);
-    showElement('press-button-container', false);
-    showElement('press-grid', false);
-    showElement('press-additional', false);
+    console.log('%c[PRESS HANDLER] Script loaded', 'color: #26e3ff; font-weight: bold');
     
-    fetch('../scripts/get_press.php')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.status === 'success' && data.press_items && data.press_items.length > 0) {
-                allPressItems = data.press_items;
-                renderPress();
-                setupPressToggleButton();
-            } else {
-                showNoPressState();
-            }
-        })
-        .catch(error => {
-            console.error('Error loading press:', error);
-            showErrorState();
-        });
-}
-
-function renderPress() {
-    const pressGrid = document.getElementById('press-grid');
-    const pressAdditional = document.getElementById('press-additional');
+    // ========== VARIABLES LOCALES ==========
+    let allPressData = [];
+    let pressToShowInitial = 3;
+    let pressExpanded = false;
     
-    if (!pressGrid || !pressAdditional) return;
-    
-    // Limpiar containers
-    pressGrid.innerHTML = '';
-    pressAdditional.innerHTML = '';
-    
-    // Separar items iniciales (3) y adicionales
-    const initialPress = allPressItems.slice(0, pressToShowInitial);
-    const additionalPress = allPressItems.slice(pressToShowInitial);
-    
-    // Renderizar items iniciales
-    initialPress.forEach((pressItem, index) => {
-        const pressElement = createPressElement(pressItem, index);
-        pressGrid.appendChild(pressElement);
-    });
-    
-    // Renderizar items adicionales
-    additionalPress.forEach((pressItem, index) => {
-        const pressElement = createPressElement(pressItem, index + pressToShowInitial);
-        pressAdditional.appendChild(pressElement);
-    });
-    
-    // Mostrar el grid principal
-    showElement('press-grid', true);
-    
-    // Aplicar animaciones escalonadas
-    applyPressStaggeredAnimations();
-}
-
-function createPressElement(pressItem, index) {
-    const colDiv = document.createElement('div');
-    colDiv.className = 'col press-item';
-    colDiv.style.animationDelay = `${index * 0.1}s`;
-    
-    // Formatear fecha
-    const pressDate = new Date(pressItem.press_time);
-    const formattedDate = pressDate.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-    
-    colDiv.innerHTML = `
-        <div class="card h-100 bg-black border-white press-card" style="border-width: 1.5px !important;">
-            <div class="card-body">
-                <div class="press-excerpt text-white fs-5 fst-italic">
-                    "${pressItem.press_text}"
-                </div>
-                <div class="press-author text-gray-custom fw-bold py-3">
-                    — <span class="press-name">${pressItem.press_author}</span>
-                    ${pressItem.press_comment ? ', ' + pressItem.press_comment : ''}
-                </div>
-                <div class="press-meta d-flex justify-content-between align-items-center">
-                    <div class="press-time text-gray-custom">${formattedDate}</div>
-                    ${pressItem.press_link ? `
-                    <div class="press-link">
-                        <a href="${pressItem.press_link}" target="_blank" class="btn btn-sm btn-outline-info">
-                            <i class="bi bi-box-arrow-up-right me-1"></i>View Article
-                        </a>
-                    </div>
-                    ` : ''}
-                </div>
-            </div>
-        </div>
-    `;
-    
-    return colDiv;
-}
-
-function setupPressToggleButton() {
-    const buttonContainer = document.getElementById('press-button-container');
-    const toggleButton = document.getElementById('togglePress');
-    
-    if (!buttonContainer || !toggleButton) return;
-    
-    // Solo mostrar botón si hay más items de los iniciales (3)
-    if (allPressItems.length > pressToShowInitial) {
-        showElement('press-button-container', true);
+    // ========== INICIALIZACIÓN ==========
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!document.getElementById('press')) {
+            console.log('%c[PRESS HANDLER] Press section not found - exiting', 'color: #ff0000');
+            return;
+        }
         
-        toggleButton.addEventListener('click', togglePressVisibility);
-    }
-}
-
-function togglePressVisibility() {
-    const pressAdditional = document.getElementById('press-additional');
-    const toggleButton = document.getElementById('togglePress');
-    const buttonText = toggleButton.querySelector('.button-text');
-    const buttonIcon = toggleButton.querySelector('i');
+        console.log('%c[PRESS HANDLER] Press section found - initializing...', 'color: #4CAF50');
+        initializePress();
+    });
     
-    if (!pressExpanded) {
-        // Expandir - mostrar items adicionales
-        showElement('press-additional', true);
+    // ========== FUNCIONES PRINCIPALES ==========
+    
+    function initializePress() {
+        console.log('[PRESS HANDLER] initializePress() called');
+        loadPressFromDB();
+    }
+    
+    function loadPressFromDB() {
+        console.log('[PRESS HANDLER] Loading press items from database...');
+        
+        // Ocultar estados iniciales
+        hideElement('no-press-state');
+        hideElement('press-button-container');
+        hideElement('press-grid');
+        hideElement('press-additional');
+        
+        fetch('../scripts/get_press.php')
+            .then(response => {
+                console.log('[PRESS HANDLER] Fetch response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('[PRESS HANDLER] Data received:', data);
+                
+                if (data.status === 'success' && data.press_items && data.press_items.length > 0) {
+                    // Ordenar por fecha (más reciente primero)
+                    allPressData = data.press_items.sort((a, b) => {
+                        return new Date(b.press_time) - new Date(a.press_time);
+                    });
+                    
+                    console.log('%c[PRESS HANDLER] Successfully loaded ' + allPressData.length + ' press items', 'color: #4CAF50; font-weight: bold');
+                    renderPress();
+                    setupPressToggleButton();
+                } else {
+                    console.log('%c[PRESS HANDLER] No press items found', 'color: #ff9800');
+                    showNoPressState();
+                }
+            })
+            .catch(error => {
+                console.error('%c[PRESS HANDLER] Error loading press:', 'color: #f44336; font-weight: bold', error);
+                showErrorState();
+            });
+    }
+    
+    function renderPress() {
+        console.log('[PRESS HANDLER] renderPress() called');
+        
+        const pressGrid = document.getElementById('press-grid');
+        const pressAdditional = document.getElementById('press-additional');
+        
+        if (!pressGrid || !pressAdditional) {
+            console.error('[PRESS HANDLER] Grid containers not found');
+            return;
+        }
+        
+        // Limpiar containers
+        pressGrid.innerHTML = '';
+        pressAdditional.innerHTML = '';
+        
+        // Separar items
+        const initialPress = allPressData.slice(0, pressToShowInitial);
+        const additionalPress = allPressData.slice(pressToShowInitial);
+        
+        console.log('[PRESS HANDLER] Initial press:', initialPress.length);
+        console.log('[PRESS HANDLER] Additional press:', additionalPress.length);
+        
+        // Renderizar items iniciales
+        initialPress.forEach((pressItem, index) => {
+            const pressElement = createPressElement(pressItem, index);
+            pressGrid.appendChild(pressElement);
+        });
+        
+        // Renderizar items adicionales
+        additionalPress.forEach((pressItem, index) => {
+            const pressElement = createPressElement(pressItem, index + pressToShowInitial);
+            pressAdditional.appendChild(pressElement);
+        });
+        
+        // Mostrar el grid inicial
+        showElement('press-grid');
         
         // Animar entrada
-        const additionalItems = pressAdditional.querySelectorAll('.press-item');
-        additionalItems.forEach((item, index) => {
-            setTimeout(() => {
-                item.classList.add('animate-in');
-            }, index * 100);
-        });
-        
-        buttonText.textContent = 'Show less press';
-        buttonIcon.className = 'bi bi-eye-slash me-2';
-        pressExpanded = true;
-        
-    } else {
-        // Contraer - ocultar items adicionales
-        showElement('press-additional', false);
-        buttonText.textContent = 'Read more press';
-        buttonIcon.className = 'bi bi-newspaper me-2';
-        pressExpanded = false;
-        
-        // Scroll suave hacia la sección de prensa
-        document.getElementById('press').scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-}
-
-function applyPressStaggeredAnimations() {
-    const pressItems = document.querySelectorAll('.press-item');
-    
-    pressItems.forEach((item, index) => {
         setTimeout(() => {
-            item.classList.add('animate-in');
-        }, index * 150);
-    });
-}
-
-function showNoPressState() {
-    showElement('no-press-state', true);
-}
-
-function showErrorState() {
-    const pressContainer = document.querySelector('.press-container');
-    if (pressContainer) {
-        pressContainer.innerHTML = `
-            <div class="text-center py-5">
-                <i class="bi bi-exclamation-triangle text-warning" style="font-size: 4rem;"></i>
-                <p class="text-white mt-3 fs-5">Unable to load press at the moment</p>
-                <button class="btn mt-2" onclick="initializePress()">
-                    <i class="bi bi-arrow-clockwise me-2"></i>Try Again
-                </button>
+            applyPressStaggeredAnimations('press-grid');
+        }, 100);
+    }
+    
+    function createPressElement(pressItem, index) {
+        // CRITICAL: Crear solo el div item, sin clases de Bootstrap
+        const pressItemDiv = document.createElement('div');
+        pressItemDiv.className = 'press-item';
+        pressItemDiv.setAttribute('data-press-id', pressItem.id || index);
+        
+        // Formatear fecha
+        const pressDate = new Date(pressItem.press_time);
+        const formattedDate = pressDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Estructura profesional
+        pressItemDiv.innerHTML = `
+            <div class="press-card">
+                <!-- Source Badge (opcional) -->
+                ${pressItem.press_source ? `
+                    <div class="press-source">${escapeHtml(pressItem.press_source)}</div>
+                ` : ''}
+                
+                <!-- Press Title (si existe) -->
+                ${pressItem.press_title ? `
+                    <h5>${escapeHtml(pressItem.press_title)}</h5>
+                ` : ''}
+                
+                <!-- Press Excerpt/Quote -->
+                <div class="press-excerpt">
+                    "${escapeHtml(pressItem.press_text)}"
+                </div>
+                
+                <!-- Meta Information -->
+                <div class="press-meta">
+                    <div class="press-author">
+                        <i class="bi bi-person-fill"></i>
+                        <span class="press-name">${escapeHtml(pressItem.press_author)}</span>
+                        ${pressItem.press_comment ? ', ' + escapeHtml(pressItem.press_comment) : ''}
+                    </div>
+                    
+                    <div class="press-time">
+                        <i class="bi bi-clock"></i>
+                        ${formattedDate}
+                    </div>
+                </div>
+                
+                <!-- Read More Link (si existe) -->
+                ${pressItem.press_link ? `
+                    <a href="${escapeHtml(pressItem.press_link)}" target="_blank" rel="noopener noreferrer" class="press-link">
+                        Read Full Article
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                ` : ''}
             </div>
         `;
+        
+        return pressItemDiv;
     }
-}
-
-// Función auxiliar para mostrar/ocultar elementos
-function showElement(elementId, show) {
-    const element = document.getElementById(elementId);
-    if (element) {
-        element.style.display = show ? 'block' : 'none';
+    
+    function setupPressToggleButton() {
+        console.log('[PRESS HANDLER] setupPressToggleButton() called');
+        
+        const buttonContainer = document.getElementById('press-button-container');
+        const toggleButton = document.getElementById('togglePress');
+        
+        if (!buttonContainer || !toggleButton) {
+            console.error('[PRESS HANDLER] Button elements not found');
+            return;
+        }
+        
+        console.log('[PRESS HANDLER] Total press items:', allPressData.length);
+        console.log('[PRESS HANDLER] Should show button:', allPressData.length > pressToShowInitial);
+        
+        if (allPressData.length > pressToShowInitial) {
+            console.log('%c[PRESS HANDLER] Showing toggle button', 'color: #4CAF50; font-weight: bold');
+            showElement('press-button-container');
+            
+            // Clonar botón para limpiar listeners
+            const newToggleButton = toggleButton.cloneNode(true);
+            toggleButton.parentNode.replaceChild(newToggleButton, toggleButton);
+            
+            // Agregar listener
+            newToggleButton.addEventListener('click', function(e) {
+                console.log('%c[PRESS HANDLER] Toggle button clicked!', 'color: #FF5722; font-weight: bold');
+                e.preventDefault();
+                togglePressVisibility();
+            });
+            
+            console.log('[PRESS HANDLER] Button listener attached');
+        } else {
+            console.log('[PRESS HANDLER] NOT showing toggle button');
+            hideElement('press-button-container');
+        }
     }
-}
-
-window.refreshPress = function() {
-    initializePress();
-};
+    
+    function togglePressVisibility() {
+        console.log('%c[PRESS HANDLER] togglePressVisibility() called', 'color: #FF5722; font-weight: bold');
+        console.log('[PRESS HANDLER] Current state - pressExpanded:', pressExpanded);
+        
+        const pressAdditional = document.getElementById('press-additional');
+        const toggleButton = document.getElementById('togglePress');
+        const buttonText = toggleButton.querySelector('.button-text');
+        const chevronIcon = toggleButton.querySelector('.chevron-icon');
+        
+        if (!pressExpanded) {
+            console.log('%c[PRESS HANDLER] EXPANDING press', 'color: #4CAF50; font-weight: bold');
+            
+            // Mostrar adicionales
+            showElement('press-additional');
+            
+            // Animar
+            setTimeout(() => {
+                applyPressStaggeredAnimations('press-additional');
+            }, 50);
+            
+            // Cambiar botón
+            if (buttonText) buttonText.textContent = 'Show Less';
+            if (toggleButton) toggleButton.classList.add('active');
+            pressExpanded = true;
+            
+            console.log('[PRESS HANDLER] State updated - pressExpanded:', pressExpanded);
+            
+        } else {
+            console.log('%c[PRESS HANDLER] COLLAPSING press', 'color: #FF9800; font-weight: bold');
+            
+            // Ocultar adicionales
+            hideElement('press-additional');
+            
+            // Cambiar botón
+            if (buttonText) buttonText.textContent = 'Load More Articles';
+            if (toggleButton) toggleButton.classList.remove('active');
+            pressExpanded = false;
+            
+            console.log('[PRESS HANDLER] State updated - pressExpanded:', pressExpanded);
+            
+            // Scroll
+            setTimeout(() => {
+                const pressSection = document.getElementById('press');
+                if (pressSection) {
+                    pressSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+    }
+    
+    function applyPressStaggeredAnimations(containerId) {
+        console.log('[PRESS HANDLER] Applying animations to:', containerId);
+        
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.error('[PRESS HANDLER] Animation container not found:', containerId);
+            return;
+        }
+        
+        const items = container.querySelectorAll('.press-item');
+        console.log('[PRESS HANDLER] Animating', items.length, 'items');
+        
+        items.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    }
+    
+    function showNoPressState() {
+        console.log('[PRESS HANDLER] Showing no press state');
+        showElement('no-press-state');
+        hideElement('press-grid');
+        hideElement('press-additional');
+    }
+    
+    function showErrorState() {
+        console.log('[PRESS HANDLER] Showing error state');
+        const pressContainer = document.querySelector('.press-container');
+        if (pressContainer) {
+            pressContainer.innerHTML = `
+                <div class="no-press-state" style="display: flex;">
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="bi bi-newspaper"></i>
+                        </div>
+                        <h3 class="empty-title">Unable to Load Press</h3>
+                        <p class="empty-text">Please try again later</p>
+                        <button class="btn-press-toggle" onclick="location.reload()" style="margin-top: 20px;">
+                            <span class="btn-content">
+                                <i class="bi bi-arrow-clockwise me-2"></i>
+                                <span>Try Again</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    // ========== FUNCIONES AUXILIARES ==========
+    
+    function showElement(elementId) {
+        const element = document.getElementById(elementId);
+        if (!element) {
+            console.error('[PRESS HANDLER] showElement - Element not found:', elementId);
+            return;
+        }
+        
+        console.log('[PRESS HANDLER] Showing element:', elementId);
+        
+        // CRITICAL: Limpiar style inline para que CSS tome control
+        element.style.display = '';
+    }
+    
+    function hideElement(elementId) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        
+        console.log('[PRESS HANDLER] Hiding element:', elementId);
+        element.style.display = 'none';
+    }
+    
+    function escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+    
+    // ========== FUNCIONES GLOBALES ==========
+    
+    window.refreshFrontendPress = function() {
+        console.log('%c[PRESS HANDLER] Refresh requested', 'color: #00BCD4; font-weight: bold');
+        pressExpanded = false;
+        initializePress();
+    };
+    
+    window.debugFrontendPress = function() {
+        console.log('%c=== FRONTEND PRESS DEBUG ===', 'color: #00BCD4; font-weight: bold');
+        console.log('Total press items:', allPressData.length);
+        console.log('Press expanded:', pressExpanded);
+        console.log('Initial to show:', pressToShowInitial);
+        console.log('press-grid display:', document.getElementById('press-grid')?.style.display);
+        console.log('press-additional display:', document.getElementById('press-additional')?.style.display);
+        console.log('%c============================', 'color: #00BCD4; font-weight: bold');
+    };
+    
+    console.log('%c[PRESS HANDLER] Script initialization complete', 'color: #26e3ff; font-weight: bold');
+    
+})();

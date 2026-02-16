@@ -1,35 +1,62 @@
 <?php
 $_inhoud .= "
-    <!-- Sección de Eventos -->
+    <!-- Sección de Eventos Profesional -->
     <section id='events' class='py-5'>
         <div class='container'>
-            <h1 class='text-white display-3 fw-bold text-center py-5' id='nav-events'>Events</h1>
+            <!-- Header de sección mejorado -->
+            <div class='section-header'>
+                <div class='section-icon'>
+                    <i class='bi bi-calendar-event'></i>
+                </div>
+                <h1 class='section-title'>Upcoming Events</h1>
+                <p class='section-subtitle'>Join us live</p>
+                <div class='section-divider'></div>
+            </div>
         </div>
         
         <!-- Container principal para eventos -->
         <div class='events-container'>
-            <!-- Container donde se mostrarán los eventos iniciales -->
-            <div id='events-grid' class='row row-cols-1 row-cols-md-2 g-4' style='display: none;'>
+            <!-- Grid de eventos iniciales (SIN clases de Bootstrap) -->
+            <div id='events-grid' class='events-grid' style='display: none;'>
                 <!-- Los eventos iniciales se cargarán aquí -->
             </div>
             
-            <!-- Container para eventos adicionales (ocultos inicialmente) -->
-            <div id='events-additional' class='row row-cols-1 row-cols-md-2 g-4 pt-4' style='display: none;'>
+            <!-- Grid de eventos adicionales (ocultos inicialmente, SIN clases de Bootstrap) -->
+            <div id='events-additional' class='events-grid' style='display: none;'>
                 <!-- Eventos adicionales se cargarán aquí -->
             </div>
 
             <!-- Botón para ver más/menos eventos -->
-            <div id='events-button-container' class='text-center mt-4' style='display: none;'>
-                <button id='toggleEvents' class='btn btn-light px-4 py-2 fw-bold'>
-                    <i class='bi bi-calendar-event me-2'></i>
-                    <span class='button-text'>View more events</span>
+            <div id='events-button-container' class='text-center mt-5' style='display: none;'>
+                <button id='toggleEvents' class='btn-events-toggle'>
+                    <span class='btn-content'>
+                        <i class='bi bi-calendar-event me-2'></i>
+                        <span class='button-text'>View All Events</span>
+                        <i class='bi bi-chevron-down ms-2 chevron-icon'></i>
+                    </span>
+                    <span class='btn-glow'></span>
                 </button>
             </div>
             
             <!-- Estado cuando no hay eventos -->
-            <div id='no-events-state' class='text-center py-5' style='display: none;'>
-                <i class='bi bi-calendar-x text-white-50' style='font-size: 4rem;'></i>
-                <p class='text-white-50 mt-3 fs-5'>No events available at the moment</p>
+            <div id='no-events-state' class='no-events-state' style='display: none;'>
+                <div class='empty-state'>
+                    <div class='empty-icon'>
+                        <i class='bi bi-calendar-x'></i>
+                    </div>
+                    <h3 class='empty-title'>No Events Scheduled</h3>
+                    <p class='empty-text'>Stay tuned for upcoming shows</p>
+                    <div class='calendar-animation'>
+                        <div class='calendar-page'>
+                            <div class='calendar-header'></div>
+                            <div class='calendar-body'>
+                                <div class='calendar-dot'></div>
+                                <div class='calendar-dot'></div>
+                                <div class='calendar-dot'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.31, created on 2026-02-13 10:59:18
+/* Smarty version 3.1.31, created on 2026-02-16 11:51:51
   from "D:\Alexis Code Projects\The5AM-Website\1-Full-Site\smarty\templates\home.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.31',
-  'unifunc' => 'content_698f0406aeedd5_38510453',
+  'unifunc' => 'content_699304d7e012c8_12537664',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '732375d0136cefebed60c90ddafef918bca84d69' => 
     array (
       0 => 'D:\\Alexis Code Projects\\The5AM-Website\\1-Full-Site\\smarty\\templates\\home.tpl',
-      1 => 1770980353,
+      1 => 1771242690,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_698f0406aeedd5_38510453 (Smarty_Internal_Template $_smarty_tpl) {
+function content_699304d7e012c8_12537664 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +38,7 @@ function content_698f0406aeedd5_38510453 (Smarty_Internal_Template $_smarty_tpl)
     <!-- Bootstrap CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/cross-browser-fixes.css">
 
     <title>The 5 AM</title>
 

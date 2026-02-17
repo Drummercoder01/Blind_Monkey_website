@@ -18,33 +18,96 @@ body {
     overflow-x: hidden;
 }
 
-/* Fondo principal para toda la página */
+/* ========== YOUTUBE BACKGROUND VIDEO STYLES ========== */
+
+/* Container principal del background */
 .background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: 
-        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-        url('../img/big-lights-city-banner.webp') no-repeat center center;
-    background-size: cover;
     z-index: -1;
-    transition: background 0.5s ease;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    overflow: hidden;
 }
 
-/* Ajuste de fondo para móviles */
-@media (max-width: 768px) {
+/* Container del video de YouTube (solo desktop/tablet) */
+#youtube-background-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw; /* 16:9 aspect ratio */
+    min-height: 100vh;
+    min-width: 177.77vh; /* 16:9 */
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    pointer-events: none; /* No clickeable */
+    z-index: 0; /* Asegurar que esté detrás del overlay */
+}
+
+/* Player de YouTube */
+#youtube-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#youtube-player iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
+    pointer-events: none; /* Evitar clicks */
+}
+
+/* Overlay oscuro para mejorar legibilidad del texto */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad según necesites */
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Asegurar que el contenido esté encima del video */
+section {
+    position: relative;
+    z-index: 2;
+}
+
+/* MOBILE: Imagen estática en vez de video */
+@media (max-width: 767px) {
+    #youtube-background-container {
+        display: none !important;
+    }
+    
     .background {
         background: 
             linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-            url('../img/big-lights-city-banner.webp') no-repeat center center;
-        background-size: cover;
-        background-attachment: scroll;
+            url('../img/big-lights-city-banner.webp') no-repeat center center !important;
+        background-size: cover !important;
+        background-attachment: scroll !important;
+    }
+    
+    .video-overlay {
+        display: none;
     }
 }
 
-/* Para tablets en orientación vertical */
+/* TABLET en orientación vertical */
 @media (max-width: 1024px) and (orientation: portrait) {
     .background {
         background-position: center top;
@@ -53,15 +116,10 @@ body {
 
 /* Para pantallas muy anchas */
 @media (min-width: 2000px) {
-    .background {
-        background-size: contain;
-        background-color: #000; /* Fondo negro para los bordes */
+    #youtube-background-container {
+        width: 200vw;
+        min-width: 200vw;
     }
-}
-
-.background {
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
 }
 
 /* Mejorar contraste del texto en todas las secciones */
@@ -148,7 +206,7 @@ body {
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
         0 0 50px rgba(38, 227, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.1);
-    overflow: visible;
+    overflow: hidden; /* Contener el logo dentro */
     width: 550px;
     height: 550px;
     transition: all 0.5s ease;
@@ -163,7 +221,7 @@ body {
     border-color: rgba(38, 227, 255, 0.3);
 }
 
-/* Efecto de partículas decorativas */
+/* Efecto de partículas decorativas - CONTENIDO */
 .particle-effect {
     position: absolute;
     top: 0;
@@ -171,8 +229,9 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 30px;
-    overflow: hidden;
+    overflow: hidden; /* Asegurar que no se salgan */
     pointer-events: none;
+    z-index: 1; /* Debajo del logo */
 }
 
 .particle-effect::before,
@@ -284,19 +343,19 @@ body {
     }
 }
 
-/* Animación sutil continua después de la entrada */
+/* Animación sutil continua después de la entrada - REDUCIDA para evitar "latido" */
 @keyframes logoFloatSubtle {
     0%, 100% {
         transform: scale(1) translateY(0);
     }
     50% {
-        transform: scale(1.02) translateY(-8px);
+        transform: scale(1.01) translateY(-4px); /* Reducido de 1.02 y -8px */
     }
 }
 
-/* Efecto hover en el logo */
+/* Efecto hover en el logo - REDUCIDO para evitar saltos */
 .ticket-logo-overlay:hover .ticket-logo {
-    transform: scale(1.05);
+    transform: scale(1.03); /* Reducido de 1.05 */
     filter: brightness(1.3) contrast(1.2) drop-shadow(0 10px 30px rgba(38, 227, 255, 0.5));
 }
 
@@ -399,9 +458,14 @@ body {
     text-transform: uppercase;
 }
 
-/* ========== SCROLL INDICATOR ========== */
+/* ========== SCROLL INDICATOR (OCULTO) ========== */
 
 .scroll-indicator {
+    display: none !important; /* Oculto para evitar interferencias */
+}
+
+/* Estilos mantenidos por si se necesitan en el futuro */
+.scroll-indicator-disabled {
     position: absolute;
     bottom: 30px;
     left: 50%;
@@ -463,20 +527,26 @@ body {
 
 #home {
     background-color: transparent !important;
+    position: relative;
+    overflow: visible !important; /* Permitir scroll sin restricciones */
 }
 
 .home-content {
     background-color: transparent !important;
     padding: 2rem 0 !important;
+    position: relative;
 }
 
 body {
     background-color: transparent !important;
+    overflow-y: auto !important; /* Asegurar scroll vertical */
+    overflow-x: hidden !important;
 }
 
 .background {
     z-index: -1;
     opacity: 1 !important;
+    pointer-events: none !important; /* No interferir con el scroll */
 }
 
 /* ========== RESPONSIVE PARA HOME SECTION ========== */
@@ -1621,24 +1691,31 @@ body.navbar-is-top {
 
 .btn-about-toggle {
     position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    /* Glassmorphism background */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(20, 20, 30, 0.4) 100%);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    /* Borde con glow cyan */
+    border: 2px solid rgba(38, 227, 255, 0.4);
+    border-radius: 50px;
     padding: 18px 40px;
     font-size: 1.1rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #000;
-    background: linear-gradient(135deg, #26e3ff 0%, #1a9fb8 100%);
-    border: none;
-    border-radius: 50px;
+    letter-spacing: 1px;
     cursor: pointer;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Sombra con glow */
     box-shadow: 
-        0 10px 30px rgba(38, 227, 255, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 5px 20px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(38, 227, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    /* Texto blanco */
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-content {
@@ -1647,12 +1724,13 @@ body.navbar-is-top {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
     width: auto;
 }
 
 .chevron-icon {
     transition: transform 0.3s ease;
+    font-size: 1.2rem;
 }
 
 .btn-about-toggle.active .chevron-icon {
@@ -1665,24 +1743,35 @@ body.navbar-is-top {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
 }
 
 .btn-about-toggle:hover {
-    transform: translateY(-5px) scale(1.05);
+    transform: translateY(-5px) scale(1.02);
+    /* Background más brillante */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(20, 20, 30, 0.5) 100%);
+    /* Borde más intenso */
+    border-color: rgba(38, 227, 255, 0.8);
+    /* Glow más fuerte */
     box-shadow: 
-        0 15px 40px rgba(38, 227, 255, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(38, 227, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .btn-about-toggle:hover .btn-glow {
-    opacity: 1;
+    transform: translateX(100%);
 }
 
 .btn-about-toggle:active {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-2px) scale(1.01);
 }
 
 /* ========== RESPONSIVE PARA ABOUT ========== */
@@ -1847,23 +1936,26 @@ body.navbar-is-top {
     justify-content: center;
     margin: 0 auto 20px;
     border: 2px solid rgba(38, 227, 255, 0.3);
-    animation: iconPulse 3s ease-in-out infinite;
+    position: relative;
+    /* Animación cambiada: solo glow, sin escala */
+    animation: iconGlowOnly 3s ease-in-out infinite;
 }
 
 .section-icon i {
     font-size: 2.5rem;
     color: #26e3ff;
-    animation: iconFloat 3s ease-in-out infinite;
+    /* Animación removida - el icono se queda centrado y fijo */
 }
 
-@keyframes iconPulse {
+/* Animación de glow sin escala - mantiene forma circular perfecta */
+@keyframes iconGlowOnly {
     0%, 100% {
-        transform: scale(1);
         box-shadow: 0 0 0 0 rgba(38, 227, 255, 0.4);
+        border-color: rgba(38, 227, 255, 0.3);
     }
     50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px 10px rgba(38, 227, 255, 0);
+        box-shadow: 0 0 20px 5px rgba(38, 227, 255, 0.2);
+        border-color: rgba(38, 227, 255, 0.6);
     }
 }
 
@@ -1872,7 +1964,7 @@ body.navbar-is-top {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-5px);
+        transform: translateY(-3px); /* Reducido de -5px a -3px */
     }
 }
 
@@ -3874,66 +3966,250 @@ body.navbar-is-top {
     z-index: 2; /* Above shine effect */
 }
 
-/* ========== BOTÓN DE VIDEOS ========== */
+/* ========== BOTONES "SHOW MORE" PROFESIONALES CON GLASSMORPHISM ========== */
 
-.btn-videos-toggle {
+/* Estilos base compartidos para todos los botones */
+.btn-videos-toggle,
+.btn-photos-toggle,
+.btn-music-toggle,
+.btn-events-toggle,
+.btn-press-toggle {
     position: relative;
-    background: linear-gradient(135deg, #26e3ff, #1a9fb8);
-    color: #000;
-    border: none;
+    /* Glassmorphism background */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(20, 20, 30, 0.4) 100%);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    /* Borde con glow cyan */
+    border: 2px solid rgba(38, 227, 255, 0.4);
     border-radius: 50px;
     padding: 18px 40px;
     font-size: 1.1rem;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     cursor: pointer;
     overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 20px rgba(38, 227, 255, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Sombra con glow */
+    box-shadow: 
+        0 5px 20px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(38, 227, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     text-transform: uppercase;
+    /* Texto blanco */
+    color: white;
+    font-family: inherit;
 }
 
-.btn-videos-toggle:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(38, 227, 255, 0.6);
+/* Hover effect */
+.btn-videos-toggle:hover,
+.btn-photos-toggle:hover,
+.btn-music-toggle:hover,
+.btn-events-toggle:hover,
+.btn-press-toggle:hover {
+    transform: translateY(-5px) scale(1.02);
+    /* Background más brillante */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(20, 20, 30, 0.5) 100%);
+    /* Borde más intenso */
+    border-color: rgba(38, 227, 255, 0.8);
+    /* Glow más fuerte */
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(38, 227, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.btn-videos-toggle:active {
-    transform: translateY(-1px);
+/* Active/Click state */
+.btn-videos-toggle:active,
+.btn-photos-toggle:active,
+.btn-music-toggle:active,
+.btn-events-toggle:active,
+.btn-press-toggle:active {
+    transform: translateY(-2px) scale(1.01);
 }
 
-.btn-videos-toggle .btn-content {
+/* Contenido del botón */
+.btn-videos-toggle .btn-content,
+.btn-photos-toggle .btn-content,
+.btn-music-toggle .btn-content,
+.btn-events-toggle .btn-content,
+.btn-press-toggle .btn-content {
     position: relative;
     z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
 }
 
-.btn-videos-toggle .chevron-icon {
+/* Icono chevron */
+.btn-videos-toggle .chevron-icon,
+.btn-photos-toggle .chevron-icon,
+.btn-music-toggle .chevron-icon,
+.btn-events-toggle .chevron-icon,
+.btn-press-toggle .chevron-icon {
     transition: transform 0.3s ease;
+    font-size: 1.2rem;
 }
 
-.btn-videos-toggle.active .chevron-icon {
+/* Rotación del chevron cuando está activo */
+.btn-videos-toggle.active .chevron-icon,
+.btn-photos-toggle.active .chevron-icon,
+.btn-music-toggle.active .chevron-icon,
+.btn-events-toggle.active .chevron-icon,
+.btn-press-toggle.active .chevron-icon {
     transform: rotate(180deg);
 }
 
-.btn-videos-toggle .btn-glow {
+/* Efecto de brillo que se mueve (glow sweep) */
+.btn-videos-toggle .btn-glow,
+.btn-photos-toggle .btn-glow,
+.btn-music-toggle .btn-glow,
+.btn-events-toggle .btn-glow,
+.btn-press-toggle .btn-glow {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
     transform: translateX(-100%);
     transition: transform 0.6s ease;
 }
 
-.btn-videos-toggle:hover .btn-glow {
+/* Activar el brillo al hover */
+.btn-videos-toggle:hover .btn-glow,
+.btn-photos-toggle:hover .btn-glow,
+.btn-music-toggle:hover .btn-glow,
+.btn-events-toggle:hover .btn-glow,
+.btn-press-toggle:hover .btn-glow {
     transform: translateX(100%);
 }
 
+/* Efecto de pulso sutil (opcional - animación continua) */
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 
+            0 5px 20px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(38, 227, 255, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 5px 20px rgba(0, 0, 0, 0.3),
+            0 0 40px rgba(38, 227, 255, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Aplicar pulso solo si quieres animación constante (comentado por defecto) */
+/*
+.btn-videos-toggle,
+.btn-photos-toggle,
+.btn-music-toggle,
+.btn-events-toggle,
+.btn-press-toggle {
+    animation: buttonPulse 3s ease-in-out infinite;
+}
+*/
+
+/* ========== RESPONSIVE - MOBILE ========== */
+@media (max-width: 768px) {
+    .btn-videos-toggle,
+    .btn-photos-toggle,
+    .btn-music-toggle,
+    .btn-events-toggle,
+    .btn-press-toggle {
+        padding: 16px 35px;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-videos-toggle .btn-content,
+    .btn-photos-toggle .btn-content,
+    .btn-music-toggle .btn-content,
+    .btn-events-toggle .btn-content,
+    .btn-press-toggle .btn-content {
+        gap: 8px;
+    }
+    
+    .btn-videos-toggle .chevron-icon,
+    .btn-photos-toggle .chevron-icon,
+    .btn-music-toggle .chevron-icon,
+    .btn-events-toggle .chevron-icon,
+    .btn-press-toggle .chevron-icon {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-videos-toggle,
+    .btn-photos-toggle,
+    .btn-music-toggle,
+    .btn-events-toggle,
+    .btn-press-toggle {
+        padding: 14px 30px;
+        font-size: 0.95rem;
+    }
+}
+
+/* ========== VARIANTES ALTERNATIVAS (COMENTADAS) ========== */
+
+/* OPCIÓN 2: Botón con borde doble */
+/*
+.btn-videos-toggle,
+.btn-photos-toggle {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(20, 20, 30, 0.5) 100%);
+    border: 2px solid rgba(38, 227, 255, 0.6);
+    box-shadow: 
+        0 5px 20px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(38, 227, 255, 0.3),
+        inset 0 0 20px rgba(38, 227, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+*/
+
+/* OPCIÓN 3: Botón con gradient border animado */
+/*
+.btn-videos-toggle::before,
+.btn-photos-toggle::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #26e3ff, #1a9fb8, #26e3ff);
+    background-size: 200% 200%;
+    border-radius: 50px;
+    z-index: -1;
+    animation: gradientBorder 3s ease infinite;
+}
+
+@keyframes gradientBorder {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+*/
+
+/* OPCIÓN 4: Botón con efecto neón */
+/*
+.btn-videos-toggle:hover,
+.btn-photos-toggle:hover {
+    text-shadow: 
+        0 0 10px rgba(38, 227, 255, 0.8),
+        0 0 20px rgba(38, 227, 255, 0.6),
+        0 0 30px rgba(38, 227, 255, 0.4);
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        0 0 60px rgba(38, 227, 255, 0.6),
+        inset 0 0 30px rgba(38, 227, 255, 0.2);
+}
+*/
 /* ========== EMPTY STATE PARA VIDEOS ========== */
 
 .no-videos-state {
@@ -4203,8 +4479,6 @@ body.navbar-is-top {
     display: none !important;
 }
 
-/* ========== PHOTO ITEMS MEJORADOS ========== */
-
 /* ========== PHOTO ITEMS PROFESIONALES CON GLASSMORPHISM ========== */
 
 #photos-1 .photo-item,
@@ -4258,60 +4532,6 @@ body.navbar-is-top {
 }
 
 /* ========== BOTÓN DE PHOTOS ========== */
-
-.btn-photos-toggle {
-    position: relative;
-    background: linear-gradient(135deg, #26e3ff, #1a9fb8);
-    color: #000;
-    border: none;
-    border-radius: 50px;
-    padding: 18px 40px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 20px rgba(38, 227, 255, 0.4);
-    text-transform: uppercase;
-}
-
-.btn-photos-toggle:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(38, 227, 255, 0.6);
-}
-
-.btn-photos-toggle .btn-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.btn-photos-toggle .chevron-icon {
-    transition: transform 0.3s ease;
-}
-
-.btn-photos-toggle.active .chevron-icon {
-    transform: rotate(180deg);
-}
-
-.btn-photos-toggle .btn-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-}
-
-.btn-photos-toggle:hover .btn-glow {
-    transform: translateX(100%);
-}
 
 /* ========== EMPTY STATE PARA PHOTOS ========== */
 
@@ -4444,89 +4664,113 @@ body.navbar-is-top {
 }
 
 /*=============================== FOOTER SECTION ====================================================*/
+/* ========== FOOTER OPTIMIZADO PARA DESKTOP ========== */
+
 .footer-section {
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 60px 0 0;
+    padding: 80px 0 0;
     color: white;
     position: relative;
-    margin-top: 80px;
+    margin-top: 100px;
 }
 
 .footer-container {
-     max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 40px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas fijas */
-    gap: 40px 60px; /* 40px vertical, 60px horizontal */
+    grid-template-columns: 1.5fr 2fr 1fr 1fr; /* 4 columnas: Logo grande, Newsletter grande, Social, Links */
+    gap: 40px 60px;
     align-items: start;
 }
 
-/* Footer Brand Section */
+/* ========== FOOTER BRAND (Columna 1) ========== */
 .footer-brand {
-    text-align: center;
+    text-align: left; /* Alineado a la izquierda en desktop */
+    padding-right: 20px;
 }
 
 .footer-logo {
-    height: 80px;
+    height: 100px; /* Más grande en desktop */
     width: auto;
-    max-width: 200px;
+    max-width: 250px;
     object-fit: contain;
-    margin-bottom: 20px;
-    filter: brightness(1.1);
-    transition: transform 0.3s ease, filter 0.3s ease;
+    margin-bottom: 25px;
+    filter: brightness(1.1) drop-shadow(0 4px 15px rgba(38, 227, 255, 0.3));
+    transition: all 0.4s ease;
 }
 
 .footer-logo:hover {
-    transform: scale(1.05);
-    filter: brightness(1.3);
+    transform: scale(1.08) translateY(-5px);
+    filter: brightness(1.4) drop-shadow(0 8px 25px rgba(38, 227, 255, 0.5));
 }
 
 .footer-logo-text {
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 2.5rem;
+    font-weight: 900;
     color: white;
-    margin-bottom: 20px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 25px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, #fff 0%, #26e3ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .footer-copyright {
     font-size: 1.1rem;
     font-weight: 600;
     color: #ccc;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
 }
 
 .footer-tagline {
     font-style: italic;
-    color: #aaa;
+    color: #888;
     font-size: 0.95rem;
+    line-height: 1.6;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Newsletter Section */
+/* ========== NEWSLETTER (Columna 2 - MÁS ANCHA) ========== */
 .footer-newsletter {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(38, 227, 255, 0.08) 0%, rgba(38, 227, 255, 0.03) 100%);
+    border-radius: 16px;
+    padding: 35px 30px;
+    border: 1px solid rgba(38, 227, 255, 0.2);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.footer-newsletter:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(38, 227, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .newsletter-title {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.8rem;
+    font-weight: 900;
     color: white;
-    margin-bottom: 12px;
-    text-align: center;
+    margin-bottom: 15px;
+    text-align: left; /* Alineado a izquierda */
+    letter-spacing: 0.5px;
 }
 
 .newsletter-description {
     color: #bbb;
-    text-align: center;
+    text-align: left; /* Alineado a izquierda */
     margin-bottom: 25px;
-    line-height: 1.5;
+    line-height: 1.6;
     font-size: 0.95rem;
 }
 
@@ -4537,54 +4781,56 @@ body.navbar-is-top {
 .newsletter-input-group {
     display: flex;
     gap: 0;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .newsletter-input {
     flex: 1;
-    padding: 14px 16px;
+    padding: 16px 18px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-right: none;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
     color: white;
     font-size: 1rem;
-    border-radius: 8px 0 0 8px;
+    border-radius: 10px 0 0 10px;
     transition: all 0.3s ease;
 }
 
 .newsletter-input::placeholder {
-    color: #aaa;
+    color: #888;
 }
 
 .newsletter-input:focus {
     outline: none;
     border-color: #26e3ff;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 3px rgba(38, 227, 255, 0.2);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 0 3px rgba(38, 227, 255, 0.15);
 }
 
 .newsletter-btn {
-    padding: 14px 20px;
+    padding: 16px 24px;
     background: linear-gradient(135deg, #26e3ff 0%, #1a9fb8 100%);
     border: 2px solid #26e3ff;
     color: white;
-    font-weight: 600;
-    border-radius: 0 8px 8px 0;
+    font-weight: 700;
+    border-radius: 0 10px 10px 0;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 8px;
-    min-width: 120px;
+    gap: 10px;
+    min-width: 140px;
     justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .newsletter-btn:hover {
     background: linear-gradient(135deg, #1a9fb8 0%, #26e3ff 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(38, 227, 255, 0.3);
+    box-shadow: 0 8px 20px rgba(38, 227, 255, 0.4);
 }
 
 .newsletter-btn:active {
@@ -4592,77 +4838,56 @@ body.navbar-is-top {
 }
 
 .newsletter-btn i {
-    font-size: 0.9rem;
-}
-
-.newsletter-message {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 0.9rem;
-    display: none;
-}
-
-.newsletter-message.success {
-    background: rgba(34, 197, 94, 0.2);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    color: #4ade80;
-}
-
-.newsletter-message.error {
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #f87171;
+    font-size: 1rem;
 }
 
 .newsletter-privacy {
     font-size: 0.8rem;
-    color: #888;
-    text-align: center;
+    color: #777;
+    text-align: left; /* Alineado a izquierda */
     margin: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
 }
 
 .newsletter-privacy i {
     font-size: 0.75rem;
+    color: #888;
 }
 
-/* Social Media Section */
+/* ========== SOCIAL MEDIA (Columna 3) ========== */
 .footer-social {
-    text-align: center;
+    text-align: left; /* Alineado a izquierda */
 }
 
 .footer-social-title {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 900;
     color: white;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
 }
 
 .footer-social-icons {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas de iconos */
     gap: 15px;
-    flex-wrap: wrap;
 }
 
 .footer-social-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    width: 55px;
+    height: 55px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
 }
@@ -4674,39 +4899,46 @@ body.navbar-is-top {
     left: 50%;
     width: 0;
     height: 0;
-    background: rgba(38, 227, 255, 0.2);
+    background: radial-gradient(circle, rgba(38, 227, 255, 0.3) 0%, transparent 70%);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     z-index: 0;
 }
 
 .footer-social-link:hover::before {
-    width: 100%;
-    height: 100%;
+    width: 150%;
+    height: 150%;
 }
 
 .footer-social-link:hover {
-    transform: translateY(-3px) scale(1.1);
+    transform: translateY(-5px) scale(1.15);
     border-color: #26e3ff;
-    box-shadow: 0 6px 15px rgba(38, 227, 255, 0.3);
+    box-shadow: 0 8px 20px rgba(38, 227, 255, 0.4);
+    background: rgba(38, 227, 255, 0.1);
 }
 
 .footer-social-link i {
     position: relative;
     z-index: 1;
+    transition: transform 0.3s ease;
 }
 
-/* Quick Links Section */
+.footer-social-link:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* ========== QUICK LINKS (Columna 4) ========== */
 .footer-links {
-    text-align: center;
+    text-align: left; /* Alineado a izquierda */
 }
 
 .footer-links-title {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 900;
     color: white;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
 }
 
 .footer-links-list {
@@ -4716,7 +4948,7 @@ body.navbar-is-top {
 }
 
 .footer-links-list li {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .footer-link {
@@ -4725,56 +4957,56 @@ body.navbar-is-top {
     font-size: 1rem;
     transition: all 0.3s ease;
     position: relative;
-    padding: 8px 0;
+    padding: 6px 0 6px 20px;
     display: inline-block;
+}
+
+.footer-link::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #26e3ff;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover::before {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .footer-link:hover {
     color: #26e3ff;
-    transform: translateX(5px);
+    transform: translateX(8px);
 }
 
-.footer-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #26e3ff;
-    transition: width 0.3s ease;
-}
-
-.footer-link:hover::after {
-    width: 100%;
-}
-
-/* Footer Bottom */
+/* ========== FOOTER BOTTOM ========== */
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 50px;
-    padding: 25px 0;
-    background: rgba(0, 0, 0, 0.3);
+    margin-top: 60px;
+    padding: 30px 0;
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .footer-bottom-content {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
 }
 
 .footer-bottom-text {
     color: #888;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
 }
 
 .footer-heart {
@@ -4783,22 +5015,42 @@ body.navbar-is-top {
 }
 
 @keyframes heartbeat {
-    0%, 50%, 100% { transform: scale(1); }
-    25%, 75% { transform: scale(1.1); }
+    0%, 50%, 100% { 
+        transform: scale(1); 
+    }
+    25%, 75% { 
+        transform: scale(1.2); 
+    }
 }
 
 .footer-bottom-links {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .footer-bottom-link {
     color: #888;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: color 0.3s ease;
+    position: relative;
+}
+
+.footer-bottom-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #26e3ff;
+    transition: width 0.3s ease;
+}
+
+.footer-bottom-link:hover::after {
+    width: 100%;
 }
 
 .footer-bottom-link:hover {
@@ -4809,416 +5061,111 @@ body.navbar-is-top {
     color: #555;
 }
 
-/* Responsive Design */
+/* ========== RESPONSIVE - TABLET ========== */
+@media (max-width: 1200px) {
+    .footer-container {
+        grid-template-columns: 1fr 1.5fr; /* 2 filas de 2 columnas */
+        gap: 40px 50px;
+    }
+}
+
+/* ========== RESPONSIVE - MOBILE ========== */
 @media (max-width: 768px) {
     .footer-section {
-        padding: 40px 0 0;
+        padding: 50px 0 0;
         margin-top: 60px;
     }
     
     .footer-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
+        grid-template-columns: 1fr; /* 1 columna en mobile */
+        gap: 40px;
+        padding: 0 20px;
+    }
+    
+    /* Todo centrado en mobile */
+    .footer-brand,
+    .footer-social,
+    .footer-links {
         text-align: center;
     }
     
     .footer-newsletter {
-        padding: 25px 20px;
+        padding: 30px 20px;
     }
     
-    .newsletter-input-group {
-        flex-direction: column;
-        gap: 10px;
+    .newsletter-title,
+    .newsletter-description,
+    .newsletter-privacy {
+        text-align: center;
     }
     
-    .newsletter-input,
-    .newsletter-btn {
-        border-radius: 8px;
-        border: 2px solid rgba(255, 255, 255, 0.2);
-    }
-    
+    /* Grid social de 3 columnas en mobile */
     .footer-social-icons {
-        gap: 12px;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+        gap: 12px; /* Reducido de 15px a 12px */
+        max-width: 250px; /* Limitar ancho máximo para juntar iconos */
+        margin: 0 auto; /* Centrar el grid */
     }
     
     .footer-social-link {
-        width: 45px;
-        height: 45px;
-        font-size: 1.1rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    /* Links centrados en mobile */
+    .footer-link {
+        padding-left: 0;
+    }
+    
+    .footer-link::before {
+        display: none; /* Sin flecha en mobile */
+    }
+    
+    .footer-link:hover {
+        transform: translateX(0); /* Sin movimiento en mobile */
+    }
+    
+    .footer-logo {
+        height: 80px;
+        margin: 0 auto 20px;
+        display: block;
     }
     
     .footer-bottom-content {
         flex-direction: column;
         text-align: center;
-        gap: 10px;
+        padding: 0 20px;
+    }
+    
+    .footer-bottom-links {
+        justify-content: center;
     }
 }
 
+/* ========== RESPONSIVE - MOBILE PEQUEÑO ========== */
 @media (max-width: 480px) {
-    .footer-logo {
-        height: 60px;
+    .newsletter-input-group {
+        flex-direction: column;
+        border-radius: 10px;
     }
     
-    .newsletter-title {
-        font-size: 1.3rem;
-    }
-    
-    .newsletter-btn-text {
-        display: none;
+    .newsletter-input {
+        border-radius: 10px 10px 0 0;
+        border-right: 2px solid rgba(255, 255, 255, 0.2);
+        border-bottom: none;
     }
     
     .newsletter-btn {
-        min-width: 60px;
-        padding: 14px 16px;
-    }
-}
-
-/* ========== ESTILOS ACTUALIZADOS PARA BOTONES - NEGRO CON BORDES BLANCOS ========== */
-
-/* Estilo base para todos los botones principales de secciones - INCLUYENDO #toggleMusic */
-#toggle-button,
-#toggleMusic,
-#load-more-music,
-#togglePress,
-#toggleEvents,
-#toggleVideos,
-#togglePhotos {
-    display: block;
-    max-width: 300px;
-    margin: 0 auto;
-    text-align: center;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    padding: 12px 24px;
-    font-weight: 600;
-    border-radius: 8px;
-    background-color: #000000 !important; /* Fondo negro sólido */
-    color: #ffffff !important; /* Texto e icono blanco */
-    font-size: 1rem;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Efecto hover elegante - brillo sutil */
-#toggle-button:hover,
-#toggleMusic:hover,
-#load-more-music:hover,
-#togglePress:hover,
-#toggleEvents:hover,
-#toggleVideos:hover,
-#togglePhotos:hover {
-    background-color: #111111 !important; /* Negro ligeramente más claro */
-    border-color: #ffffff !important;
-    color: #ffffff !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15); /* Sombra sutil blanca */
-}
-
-/* Efecto activo/presionado */
-#toggle-button:active,
-#toggleMusic:active,
-#load-more-music:active,
-#togglePress:active,
-#toggleEvents:active,
-#toggleVideos:active,
-#togglePhotos:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
-}
-
-/* Estados disabled */
-#toggleMusic:disabled,
-#load-more-music:disabled,
-#togglePress:disabled,
-#toggleEvents:disabled,
-#toggleVideos:disabled,
-#togglePhotos:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-    background-color: #333333 !important;
-    border-color: #666666 !important;
-}
-
-/* Efecto de transición suave para íconos */
-#toggle-button i,
-#toggleMusic i,
-#load-more-music i,
-#togglePress i,
-#toggleEvents i,
-#toggleVideos i,
-#togglePhotos i {
-    transition: transform 0.3s ease;
-    color: #ffffff !important; /* Asegurar que los íconos sean blancos */
-}
-
-/* Efecto hover para íconos */
-#toggle-button:hover i,
-#toggleMusic:hover i,
-#load-more-music:hover i,
-#togglePress:hover i,
-#toggleEvents:hover i,
-#toggleVideos:hover i,
-#togglePhotos:hover i {
-    transform: scale(1.1);
-    color: #ffffff !important; /* Mantener blancos en hover */
-}
-
-/* CORRECCIÓN ESPECÍFICA: Evitar que las tarjetas de música hereden estilos de botón */
-/* CORRECCIÓN ESPECÍFICA: Tarjetas de música con transiciones suaves */
-/* NOTA: Estilos de music-card ahora están en la sección MUSIC SECTION PROFESIONAL (línea ~1268)
-   Los estilos duplicados aquí han sido comentados para evitar conflictos */
-
-/* .music-card,
-.music-card.bg-black,
-.music-card.border-white,
-.card.music-card,
-.music-item .card {
-    background-color: rgba(0, 0, 0, 0.678) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    color: white !important;
-    padding: 15px !important;
-    cursor: default !important;
-    transform: translateY(0px) !important;
-    box-shadow: none !important;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
-}
-
-.music-card:hover,
-.music-card.bg-black:hover,
-.music-card.border-white:hover,
-.card.music-card:hover,
-.music-item .card:hover {
-    transform: translateY(-5px) !important;
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1) !important;
-    background-color: rgba(0, 0, 0, 0.8) !important;
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
-}
-
-.music-card .card-body,
-.music-item .card .card-body {
-    transition: none !important;
-}
-
-.song,
-.music-item .song {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
-}
-
-.music-card:hover,
-.card.music-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-    background-color: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-.song {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-.music-item .card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-} */
-
-/* Contenedores de botones - estructura consistente */
-#music-button-container,
-#press-button-container,
-#events-button-container,
-#videos-button-container,
-#photos-button-container,
-#about-button-container {
-    margin-top: 25px;
-    text-align: center;
-}
-
-/* Animación sutil al hacer clic */
-@keyframes elegantClick {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(0.98);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-#toggle-button:active,
-#toggleMusic:active,
-#load-more-music:active,
-#togglePress:active,
-#toggleEvents:active,
-#toggleVideos:active,
-#togglePhotos:active {
-    animation: elegantClick 0.2s ease;
-}
-
-/* Efecto de brillo sutil en el borde al hacer hover */
-#toggle-button::before,
-#toggleMusic::before,
-#load-more-music::before,
-#togglePress::before,
-#toggleEvents::before,
-#toggleVideos::before,
-#togglePhotos::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border-radius: 10px;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-#toggle-button:hover::before,
-#toggleMusic:hover::before,
-#load-more-music:hover::before,
-#togglePress:hover::before,
-#toggleEvents:hover::before,
-#toggleVideos:hover::before,
-#togglePhotos:hover::before {
-    opacity: 1;
-}
-
-/* Responsive para botones */
-@media (max-width: 768px) {
-    #toggle-button,
-    #toggleMusic,
-    #load-more-music,
-    #togglePress,
-    #toggleEvents,
-    #toggleVideos,
-    #togglePhotos {
-        width: 100%;
-        max-width: 100%;
-        padding: 10px 20px;
-        font-size: 0.9rem;
+        border-radius: 0 0 10px 10px;
+        padding: 14px 20px;
+        min-width: 100%;
     }
     
-    /* Ajustar márgenes en móviles */
-    #music-button-container,
-    #press-button-container,
-    #events-button-container,
-    #videos-button-container,
-    #photos-button-container,
-    #about-button-container {
-        margin-top: 20px;
+    .footer-social-icons {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas muy pequeñas */
+        gap: 15px; /* Gap un poco más grande en 2 columnas */
+        max-width: 180px; /* Más estrecho para 2 columnas */
     }
 }
-
-/* Estilo específico para pantallas muy pequeñas */
-@media (max-width: 480px) {
-    #toggle-button,
-    #toggleMusic,
-    #load-more-music,
-    #togglePress,
-    #toggleEvents,
-    #toggleVideos,
-    #togglePhotos {
-        padding: 8px 16px;
-        font-size: 0.85rem;
-    }
-}
-
-/* Asegurar que los botones mantengan buena legibilidad */
-#toggle-button .button-text,
-#toggleMusic .button-text,
-#load-more-music .button-text,
-#togglePress .button-text,
-#toggleEvents .button-text,
-#toggleVideos .button-text,
-#togglePhotos .button-text {
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: #ffffff !important; /* Asegurar texto blanco */
-}
-
-/* Efecto de transición suave para el texto del botón */
-#toggle-button .button-text,
-#toggleMusic .button-text,
-#load-more-music .button-text,
-#togglePress .button-text,
-#toggleEvents .button-text,
-#toggleVideos .button-text,
-#togglePhotos .button-text {
-    transition: all 0.3s ease;
-}
-
-#toggle-button:hover .button-text,
-#toggleMusic:hover .button-text,
-#load-more-music:hover .button-text,
-#togglePress:hover .button-text,
-#toggleEvents:hover .button-text,
-#toggleVideos:hover .button-text,
-#togglePhotos:hover .button-text {
-    letter-spacing: 0.7px;
-    color: #ffffff !important; /* Mantener blanco en hover */
-}
-
-/* ========== CORRECCIÓN PARA BOTÓN DE FOTOS EN MÓVIL ========== */
-
-/* Asegurar que las imágenes adicionales se muestren correctamente en móviles */
-@media (max-width: 768px) {
-    .gallery-item.additional {
-        display: block !important;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    
-    .gallery-item.additional.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    /* Ajustar el ancho de las columnas para mejor visualización */
-    .gallery-column {
-        width: 100% !important; /* Ocupar todo el ancho */
-        margin: 0 auto;
-    }
-    
-    /* Asegurar que el contenedor muestre correctamente todas las imágenes */
-    .gallery-container {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    /* Ajustar el padding para móviles */
-    #photos-1 {
-        padding: 0 10px;
-    }
-}
-
-/* Corrección específica para cuando se muestran todas las fotos */
-.showing-all-photos .gallery-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.showing-all-photos .gallery-column {
-    width: 100%;
-}
-
-/* Asegurar que las imágenes tengan el mismo estilo en todas las vistas */
-.gallery-item img {
-    width: 100%;
-    display: block;
-    border: 12px solid rgba(0, 0, 0, 0.7);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.gallery-item img:hover {
-    transform: scale(1.02);
-}
-
- /* Esta línea ya existe - añadir después de ella */
-

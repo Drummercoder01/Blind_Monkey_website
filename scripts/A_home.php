@@ -38,8 +38,7 @@ try {
     "../js/background-load.js",
     "../js/collapse_nav_bar.js",
     "../js/navbar_active.js",
-    "../js/newsletter_handler.js",
-    "../js/youtube-background.js"
+    "../js/newsletter_handler.js"
   );
 
   require_once("../code/output.inc.php");

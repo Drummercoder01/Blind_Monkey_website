@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.31, created on 2026-02-16 20:40:34
+/* Smarty version 3.1.31, created on 2026-02-18 10:28:00
   from "D:\Alexis Code Projects\The5AM-Website\1-Full-Site\smarty\templates\admin.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.31',
-  'unifunc' => 'content_699380c2444145_72837335',
+  'unifunc' => 'content_699594307d2bc8_66024995',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dbcca5b90edce051563bb20b54f7a397a1b366ac' => 
     array (
       0 => 'D:\\Alexis Code Projects\\The5AM-Website\\1-Full-Site\\smarty\\templates\\admin.tpl',
-      1 => 1771274356,
+      1 => 1771350484,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_699380c2444145_72837335 (Smarty_Internal_Template $_smarty_tpl) {
+function content_699594307d2bc8_66024995 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +121,7 @@ function content_699380c2444145_72837335 (Smarty_Internal_Template $_smarty_tpl)
 
                     <ul class="nav-list nav-bottom">
                         <li class="nav-item">
-                            <a href="/scripts/A_home.php" class="nav-link nav-link-secondary" target="_blank">
+                            <a href="../scripts/A_home.php" class="nav-link nav-link-secondary" target="_blank">
                                 <i class="bi bi-globe nav-icon text-secondary"></i>
                                 <span class="nav-text text-secondary">View Website</span>
                                 <i class="bi bi-box-arrow-up-right ms-auto text-xs text-secondary"></i>

@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.31, created on 2026-02-18 11:37:15
-  from "D:\Alexis Code Projects\The5AM-Website\1-Full-Site\smarty\templates\logon.tpl" */
+/* Smarty version 3.1.31, created on 2026-02-18 11:50:51
+  from "C:\wamp\www\1-Full-Site\smarty\templates\logon.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.31',
-  'unifunc' => 'content_6995a46b981c05_13453468',
+  'unifunc' => 'content_6995a79b038d87_43953937',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'fd7e86802082657baa84d6fe437e0fa766bfc3e2' => 
+    '888220b36ab79753af51ae055571bb48ceeb7227' => 
     array (
-      0 => 'D:\\Alexis Code Projects\\The5AM-Website\\1-Full-Site\\smarty\\templates\\logon.tpl',
+      0 => 'C:\\wamp\\www\\1-Full-Site\\smarty\\templates\\logon.tpl',
       1 => 1771414620,
       2 => 'file',
     ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6995a46b981c05_13453468 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6995a79b038d87_43953937 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="es">

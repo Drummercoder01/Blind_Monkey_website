@@ -17,8 +17,8 @@
     const CONFIG = {
         videoId: 'b741UP5cbfY',
         minWidth: 768, // Mínimo ancho para mostrar video
-        fallbackImage: '../img/big-lights-city-banner.webp',
-        overlayOpacity: 0.5 // Oscuridad del overlay
+        fallbackImage: 'img/big-lights-city-banner.webp', // Fixed path
+        overlayOpacity: 0.6 // Oscuridad del overlay (aumentado para mobile)
     };
     
     // ========== VARIABLES GLOBALES ==========
@@ -68,14 +68,17 @@
             }, 50);
             
         } else {
-            // MOBILE: Mantener imagen estática
+            // MOBILE: Imagen estática con mejor posicionamiento
             backgroundDiv.style.background = `
                 linear-gradient(rgba(0, 0, 0, ${CONFIG.overlayOpacity}), rgba(0, 0, 0, ${CONFIG.overlayOpacity})),
-                url('${CONFIG.fallbackImage}') no-repeat center center
+                url('${CONFIG.fallbackImage}')
             `;
             backgroundDiv.style.backgroundSize = 'cover';
+            backgroundDiv.style.backgroundPosition = 'center 30%'; // Muestra más de la parte superior
+            backgroundDiv.style.backgroundRepeat = 'no-repeat';
+            backgroundDiv.style.backgroundAttachment = 'fixed'; // Parallax efecto
             
-            console.log('📱 Mobile: Using static image');
+            console.log('📱 Mobile: Using static image with optimized crop');
         }
         
         // Hacer visible el background
@@ -348,12 +351,16 @@
                 youtubeContainer.style.display = 'none';
             }
             
-            // Mostrar imagen de fondo
+            // Mostrar imagen de fondo con mejor posicionamiento
+            const isMobile = window.innerWidth < CONFIG.minWidth;
             backgroundDiv.style.background = `
                 linear-gradient(rgba(0, 0, 0, ${CONFIG.overlayOpacity}), rgba(0, 0, 0, ${CONFIG.overlayOpacity})),
-                url('${CONFIG.fallbackImage}') no-repeat center center
+                url('${CONFIG.fallbackImage}')
             `;
             backgroundDiv.style.backgroundSize = 'cover';
+            backgroundDiv.style.backgroundPosition = isMobile ? 'center 30%' : 'center center';
+            backgroundDiv.style.backgroundRepeat = 'no-repeat';
+            backgroundDiv.style.backgroundAttachment = isMobile ? 'fixed' : 'scroll';
         }
     }
     

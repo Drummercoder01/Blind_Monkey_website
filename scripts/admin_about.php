@@ -1,9 +1,9 @@
 <?php
 try
 {
-	require("../code/initialisatie.inc.php");
+	require(__DIR__ . "/../code/initialisatie.inc.php");
 	// Ruta del archivo a editar
-	$file_path = "../content/Y_about_text_I.html";
+	$file_path = __DIR__ . "/../content/Y_about_text_I.html";
 
 	// Variable para mensajes
 	$_mensaje = "";
@@ -172,6 +172,100 @@ try
 	        background: rgba(38, 227, 255, 0.2) !important;
 	        border-color: rgba(38, 227, 255, 0.5) !important;
 	        color: #26e3ff !important;
+	    }
+	    
+	    /* CKEditor Dropdowns & Panels */
+	    .ck.ck-dropdown__panel {
+	        background: linear-gradient(135deg, 
+	            rgba(15, 23, 42, 0.98) 0%, 
+	            rgba(30, 41, 59, 0.98) 100%) !important;
+	        border: 2px solid rgba(38, 227, 255, 0.3) !important;
+	        border-radius: 12px !important;
+	        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+	        backdrop-filter: blur(20px) !important;
+	    }
+	    
+	    .ck.ck-list__item {
+	        background: transparent !important;
+	        color: rgba(255, 255, 255, 0.9) !important;
+	        border-radius: 8px !important;
+	        margin: 0.25rem 0.5rem !important;
+	        padding: 0.5rem 1rem !important;
+	    }
+	    
+	    .ck.ck-list__item:hover {
+	        background: rgba(38, 227, 255, 0.15) !important;
+	        color: white !important;
+	    }
+	    
+	    .ck.ck-list__item.ck-on {
+	        background: rgba(38, 227, 255, 0.25) !important;
+	        color: #26e3ff !important;
+	    }
+	    
+	    .ck.ck-heading_heading1,
+	    .ck.ck-heading_heading2,
+	    .ck.ck-heading_heading3,
+	    .ck.ck-heading_heading4,
+	    .ck.ck-heading_paragraph {
+	        color: rgba(255, 255, 255, 0.9) !important;
+	    }
+	    
+	    .ck.ck-heading_heading1:hover,
+	    .ck.ck-heading_heading2:hover,
+	    .ck.ck-heading_heading3:hover,
+	    .ck.ck-heading_heading4:hover,
+	    .ck.ck-heading_paragraph:hover {
+	        color: white !important;
+	    }
+	    
+	    /* Table insertion panel */
+	    .ck.ck-insert-table-dropdown__grid {
+	        background: rgba(0, 0, 0, 0.3) !important;
+	        border-radius: 8px !important;
+	        padding: 1rem !important;
+	    }
+	    
+	    .ck.ck-insert-table-dropdown-grid-box {
+	        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+	        background: rgba(255, 255, 255, 0.05) !important;
+	    }
+	    
+	    .ck.ck-insert-table-dropdown-grid-box:hover {
+	        background: rgba(38, 227, 255, 0.3) !important;
+	        border-color: #26e3ff !important;
+	    }
+	    
+	    .ck.ck-insert-table-dropdown-grid-box.ck-on {
+	        background: rgba(38, 227, 255, 0.4) !important;
+	        border-color: #26e3ff !important;
+	    }
+	    
+	    /* Balloon panels (tooltips, link editor, etc) */
+	    .ck.ck-balloon-panel {
+	        background: linear-gradient(135deg, 
+	            rgba(15, 23, 42, 0.98) 0%, 
+	            rgba(30, 41, 59, 0.98) 100%) !important;
+	        border: 2px solid rgba(38, 227, 255, 0.3) !important;
+	        border-radius: 12px !important;
+	        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+	        backdrop-filter: blur(20px) !important;
+	    }
+	    
+	    .ck.ck-balloon-panel .ck-button {
+	        color: rgba(255, 255, 255, 0.9) !important;
+	    }
+	    
+	    .ck.ck-input-text {
+	        background: rgba(0, 0, 0, 0.3) !important;
+	        border: 2px solid rgba(255, 255, 255, 0.2) !important;
+	        color: white !important;
+	        border-radius: 8px !important;
+	    }
+	    
+	    .ck.ck-input-text:focus {
+	        border-color: #26e3ff !important;
+	        box-shadow: 0 0 0 3px rgba(38, 227, 255, 0.15) !important;
 	    }
 	    
 	    /* Alert Messages */
@@ -360,26 +454,73 @@ try
 	                items: [
 	                    'heading',
 	                    '|',
+	                    'fontSize',
+	                    'fontColor',
+	                    'fontBackgroundColor',
+	                    '|',
 	                    'bold',
 	                    'italic',
+	                    'underline',
+	                    'strikethrough',
+	                    '|',
+	                    'alignment',
+	                    '|',
 	                    'link',
+	                    'imageUpload',
 	                    '|',
 	                    'bulletedList',
 	                    'numberedList',
+	                    'outdent',
+	                    'indent',
 	                    '|',
 	                    'blockQuote',
 	                    'insertTable',
+	                    'code',
+	                    'codeBlock',
+	                    '|',
+	                    'horizontalLine',
+	                    'specialCharacters',
 	                    '|',
 	                    'undo',
-	                    'redo'
-	                ]
+	                    'redo',
+	                    '|',
+	                    'sourceEditing'
+	                ],
+	                shouldNotGroupWhenFull: true
 	            },
 	            heading: {
 	                options: [
 	                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
 	                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
 	                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-	                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+	                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+	                    { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' }
+	                ]
+	            },
+	            fontSize: {
+	                options: [
+	                    'tiny',
+	                    'small',
+	                    'default',
+	                    'big',
+	                    'huge'
+	                ]
+	            },
+	            table: {
+	                contentToolbar: [
+	                    'tableColumn',
+	                    'tableRow',
+	                    'mergeTableCells',
+	                    'tableProperties',
+	                    'tableCellProperties'
+	                ]
+	            },
+	            image: {
+	                toolbar: [
+	                    'imageTextAlternative',
+	                    'imageStyle:full',
+	                    'imageStyle:side',
+	                    'linkImage'
 	                ]
 	            }
 	        })
@@ -392,6 +533,14 @@ try
 	                localStorage.setItem('about_draft', content);
 	                console.log('💾 Draft auto-saved');
 	            }, 30000);
+	            
+	            // Load draft on page load if exists
+	            const draft = localStorage.getItem('about_draft');
+	            if (draft && !editor.getData()) {
+	                if (confirm('Found an auto-saved draft. Do you want to restore it?')) {
+	                    editor.setData(draft);
+	                }
+	            }
 	        })
 	        .catch(error => {
 	            console.error('❌ CKEditor initialization error:', error);
@@ -399,12 +548,11 @@ try
 	</script>";
 
 
-	require("../code/output_admin.inc.php");
+	require(__DIR__ . "/../code/output_admin.inc.php");
 }
 catch (Exception $e)
 {
-	// exception handling funtions 
-	include("../php_lib/myExceptionHandling.inc.php"); 
-	echo myExceptionHandling($e,"../logs/error_log.csv");
+	include(__DIR__ . "/../php_lib/myExceptionHandling.inc.php"); 
+	echo myExceptionHandling($e, __DIR__ . "/../logs/error_log.csv");
 }
 ?>

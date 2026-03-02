@@ -1251,3 +1251,4 @@
 "03-09-2025 20:12:58","illegal access","D:\Alexis Code Projects\The5AM-Website\1-Full-Site\scripts\P_reset.php",95
 "27-09-2025 11:39:54","Opening security-log failed","D:\Alexis Code Projects\The5AM-Website\1-Full-Site\scripts\YLS_toon_securityLog.php",69
 "30-09-2025 07:06:45","SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_the5am.t_menu' doesn't exist","D:\Alexis Code Projects\The5AM-Website\1-Full-Site\php_lib\menu.inc.php",47
+"18-02-2026 10:21:38","unable to write file D:\Alexis Code Projects\The5AM-Website\1-Full-Site\smarty\templates_c\dbcca5b90edce051563bb20b54f7a397a1b366ac_0.file.admin.tpl.php","D:\Alexis Code Projects\The5AM-Website\1-Full-Site\smarty\sysplugins\smarty_internal_runtime_writefile.php",80

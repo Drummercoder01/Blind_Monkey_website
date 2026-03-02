@@ -38,7 +38,8 @@ try {
     "../js/collapse_nav_bar.js",
     "../js/navbar_active.js",
     "../js/newsletter_handler.js",
-    "../js/youtube-background.js"
+    "../js/local-video-background.js",
+    "../js/video-controls-toggle.js"
   );
 
   require_once(__DIR__ . "/../code/output.inc.php");

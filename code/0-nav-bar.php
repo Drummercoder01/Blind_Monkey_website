@@ -5,7 +5,7 @@ $_nav= "
             <div class='container'>
                 <!-- Logo mobile -->
                 <a class='navbar-brand mx-auto d-block d-lg-none fw-bold' href='#home' id='mobile-brand'>
-                    <img src='../img/blind_monkey_logo.png' alt='Blind Monkey Logo' class='navbar-logo' id='navbar-logo'>
+                    <img src='../img/blind_monkey_logo.jpg' alt='Blind Monkey Logo' class='navbar-logo' id='navbar-logo'>
                     <span class='navbar-text-fallback'>Blind Monkey</span>
                 </a>
 

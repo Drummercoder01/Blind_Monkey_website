@@ -15,7 +15,7 @@ $_inhoud .= "
                 <div class='ticket-container'>
                     <div class='particle-effect'></div>
                     <div class='ticket-logo-overlay'>
-                        <img src='../img/blind_monkey_logo.png' alt='Blind Monkey Logo' class='ticket-logo'>
+                        <img src='../img/blind_monkey_logo.jpg' alt='Blind Monkey Logo' class='ticket-logo'>
                     </div>
                     <div class='shine-effect'></div>
                 </div>

@@ -1,40 +1,22 @@
 <?php
 $_inhoud .= "
-    <!-- Sección de Videos Profesional -->
     <section id='videos' class='py-5'>
         <div class='container'>
-            <!-- Header de sección mejorado -->
             <div class='section-header'>
                 <div class='section-icon'>
                     <i class='bi bi-camera-video'></i>
                 </div>
                 <h1 class='section-title'>Videos</h1>
-                <p class='section-subtitle'>Watch our latest content</p>
+                <p class='section-subtitle'>Live footage &amp; studio sessions</p>
                 <div class='section-divider'></div>
             </div>
         </div>
-        
-        <!-- Container principal para videos -->
-        <div class='videos-container'>
-            <!-- Loading state inicial -->
-            <div id='videos-loading' class='loading-state' style='display: none;'>
-                <div class='spinner-border text-light' role='status' style='width: 3rem; height: 3rem;'>
-                    <span class='visually-hidden'>Loading videos...</span>
-                </div>
-                <p class='text-white mt-3'>Loading videos...</p>
-            </div>
-            
-            <!-- Grid de videos iniciales (SIN clases de Bootstrap) -->
-            <div id='videos-grid' class='videos-grid' style='display: none;'>
-                <!-- Los videos iniciales se cargarán aquí -->
-            </div>
-            
-            <!-- Grid de videos adicionales (ocultos inicialmente, SIN clases de Bootstrap) -->
-            <div id='videos-additional' class='videos-grid' style='display: none;'>
-                <!-- Videos adicionales se cargarán aquí -->
-            </div>
 
-            <!-- Botón para ver más/menos videos -->
+        <div class='videos-container'>
+            <!-- Grid (auto-populated by admin) -->
+            <div id='videos-grid' class='videos-grid' style='display: none;'></div>
+            <div id='videos-additional' class='videos-grid' style='display: none;'></div>
+
             <div id='videos-button-container' class='text-center mt-5' style='display: none;'>
                 <button id='toggleVideos' class='btn-videos-toggle'>
                     <span class='btn-content'>
@@ -45,19 +27,22 @@ $_inhoud .= "
                     <span class='btn-glow'></span>
                 </button>
             </div>
-            
-            <!-- Estado cuando no hay videos -->
+
+            <!-- Empty state — shown until YouTube content is added -->
             <div id='no-videos-state' class='no-videos-state' style='display: none;'>
                 <div class='empty-state'>
                     <div class='empty-icon'>
-                        <i class='bi bi-camera-video'></i>
+                        <i class='fab fa-youtube'></i>
                     </div>
-                    <h3 class='empty-title'>No Videos Available</h3>
-                    <p class='empty-text'>Check back soon for new content</p>
-                    <div class='video-wave'>
-                        <div class='wave-play'></div>
-                        <div class='wave-play'></div>
-                        <div class='wave-play'></div>
+                    <h3 class='empty-title'>Coming Soon</h3>
+                    <p class='empty-text'>Live footage &amp; clips dropping soon — follow us to be the first to watch</p>
+                    <div class='coming-soon-socials'>
+                        <a href='https://www.youtube.com/@blindmonkey' target='_blank' class='cs-link cs-youtube'>
+                            <i class='fab fa-youtube'></i> YouTube
+                        </a>
+                        <a href='https://www.tiktok.com/@blind.monkey7' target='_blank' class='cs-link cs-tiktok'>
+                            <i class='fab fa-tiktok'></i> TikTok
+                        </a>
                     </div>
                 </div>
             </div>

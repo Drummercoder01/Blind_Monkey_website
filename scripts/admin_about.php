@@ -43,9 +43,9 @@ try
 	    
 	    .admin-page-header {
 	        background: linear-gradient(135deg, 
-	            rgba(38, 227, 255, 0.1) 0%, 
-	            rgba(38, 227, 255, 0.05) 100%);
-	        border-bottom: 2px solid rgba(38, 227, 255, 0.2);
+	            rgba(196, 30, 30, 0.1) 0%, 
+	            rgba(196, 30, 30, 0.05) 100%);
+	        border-bottom: 2px solid rgba(196, 30, 30, 0.2);
 	        padding: 2.5rem 0;
 	        margin-bottom: 2.5rem;
 	        text-align: center;
@@ -61,7 +61,7 @@ try
 	        right: 0;
 	        height: 100%;
 	        background: radial-gradient(circle at top right, 
-	            rgba(38, 227, 255, 0.15), 
+	            rgba(196, 30, 30, 0.15), 
 	            transparent 70%);
 	        pointer-events: none;
 	    }
@@ -78,7 +78,7 @@ try
 	    }
 	    
 	    .admin-page-subtitle {
-	        color: rgba(38, 227, 255, 0.9);
+	        color: rgba(196, 30, 30, 0.9);
 	        font-size: 1rem;
 	        margin-top: 0.5rem;
 	        font-weight: 500;
@@ -106,9 +106,9 @@ try
 	        transform: translateY(-4px);
 	        box-shadow: 
 	            0 12px 40px rgba(0, 0, 0, 0.3),
-	            0 0 30px rgba(38, 227, 255, 0.15),
+	            0 0 30px rgba(196, 30, 30, 0.15),
 	            inset 0 1px 0 rgba(255, 255, 255, 0.15);
-	        border-color: rgba(38, 227, 255, 0.3);
+	        border-color: rgba(196, 30, 30, 0.3);
 	    }
 	    
 	    /* CKEditor Styling */
@@ -116,13 +116,13 @@ try
 	        background: rgba(0, 0, 0, 0.3) !important;
 	        border-radius: 16px !important;
 	        overflow: hidden;
-	        border: 2px solid rgba(38, 227, 255, 0.2) !important;
+	        border: 2px solid rgba(196, 30, 30, 0.2) !important;
 	        transition: all 0.3s ease;
 	    }
 	    
 	    .ck-editor:hover {
-	        border-color: rgba(38, 227, 255, 0.4) !important;
-	        box-shadow: 0 0 20px rgba(38, 227, 255, 0.2);
+	        border-color: rgba(196, 30, 30, 0.4) !important;
+	        box-shadow: 0 0 20px rgba(196, 30, 30, 0.2);
 	    }
 	    
 	    .ck-editor__editable {
@@ -137,7 +137,7 @@ try
 	    
 	    .ck-editor__editable:focus {
 	        background: rgba(0, 0, 0, 0.3) !important;
-	        box-shadow: inset 0 0 20px rgba(38, 227, 255, 0.1) !important;
+	        box-shadow: inset 0 0 20px rgba(196, 30, 30, 0.1) !important;
 	    }
 	    
 	    .ck-toolbar {
@@ -145,7 +145,7 @@ try
 	            rgba(0, 0, 0, 0.5) 0%, 
 	            rgba(0, 0, 0, 0.3) 100%) !important;
 	        border: none !important;
-	        border-bottom: 1px solid rgba(38, 227, 255, 0.2) !important;
+	        border-bottom: 1px solid rgba(196, 30, 30, 0.2) !important;
 	        border-radius: 16px 16px 0 0 !important;
 	        padding: 1rem !important;
 	    }
@@ -163,15 +163,15 @@ try
 	    }
 	    
 	    .ck-button:hover {
-	        background: rgba(38, 227, 255, 0.15) !important;
-	        border-color: rgba(38, 227, 255, 0.4) !important;
+	        background: rgba(196, 30, 30, 0.15) !important;
+	        border-color: rgba(196, 30, 30, 0.4) !important;
 	        color: white !important;
 	    }
 	    
 	    .ck-button.ck-on {
-	        background: rgba(38, 227, 255, 0.2) !important;
-	        border-color: rgba(38, 227, 255, 0.5) !important;
-	        color: #26e3ff !important;
+	        background: rgba(196, 30, 30, 0.2) !important;
+	        border-color: rgba(196, 30, 30, 0.5) !important;
+	        color: #c41e1e !important;
 	    }
 	    
 	    /* CKEditor Dropdowns & Panels */
@@ -179,7 +179,7 @@ try
 	        background: linear-gradient(135deg, 
 	            rgba(15, 23, 42, 0.98) 0%, 
 	            rgba(30, 41, 59, 0.98) 100%) !important;
-	        border: 2px solid rgba(38, 227, 255, 0.3) !important;
+	        border: 2px solid rgba(196, 30, 30, 0.3) !important;
 	        border-radius: 12px !important;
 	        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
 	        backdrop-filter: blur(20px) !important;
@@ -194,13 +194,13 @@ try
 	    }
 	    
 	    .ck.ck-list__item:hover {
-	        background: rgba(38, 227, 255, 0.15) !important;
+	        background: rgba(196, 30, 30, 0.15) !important;
 	        color: white !important;
 	    }
 	    
 	    .ck.ck-list__item.ck-on {
-	        background: rgba(38, 227, 255, 0.25) !important;
-	        color: #26e3ff !important;
+	        background: rgba(196, 30, 30, 0.25) !important;
+	        color: #c41e1e !important;
 	    }
 	    
 	    .ck.ck-heading_heading1,
@@ -232,13 +232,13 @@ try
 	    }
 	    
 	    .ck.ck-insert-table-dropdown-grid-box:hover {
-	        background: rgba(38, 227, 255, 0.3) !important;
-	        border-color: #26e3ff !important;
+	        background: rgba(196, 30, 30, 0.3) !important;
+	        border-color: #c41e1e !important;
 	    }
 	    
 	    .ck.ck-insert-table-dropdown-grid-box.ck-on {
-	        background: rgba(38, 227, 255, 0.4) !important;
-	        border-color: #26e3ff !important;
+	        background: rgba(196, 30, 30, 0.4) !important;
+	        border-color: #c41e1e !important;
 	    }
 	    
 	    /* Balloon panels (tooltips, link editor, etc) */
@@ -246,7 +246,7 @@ try
 	        background: linear-gradient(135deg, 
 	            rgba(15, 23, 42, 0.98) 0%, 
 	            rgba(30, 41, 59, 0.98) 100%) !important;
-	        border: 2px solid rgba(38, 227, 255, 0.3) !important;
+	        border: 2px solid rgba(196, 30, 30, 0.3) !important;
 	        border-radius: 12px !important;
 	        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
 	        backdrop-filter: blur(20px) !important;
@@ -264,8 +264,8 @@ try
 	    }
 	    
 	    .ck.ck-input-text:focus {
-	        border-color: #26e3ff !important;
-	        box-shadow: 0 0 0 3px rgba(38, 227, 255, 0.15) !important;
+	        border-color: #c41e1e !important;
+	        box-shadow: 0 0 0 3px rgba(196, 30, 30, 0.15) !important;
 	    }
 	    
 	    /* Alert Messages */
@@ -322,9 +322,9 @@ try
 	    
 	    /* Save Button */
 	    .btn-save {
-	        background: linear-gradient(135deg, #26e3ff 0%, #1a9fb8 100%);
+	        background: linear-gradient(135deg, #c41e1e 0%, #8b0000 100%);
 	        color: #000;
-	        border: 2px solid #26e3ff;
+	        border: 2px solid #c41e1e;
 	        padding: 1rem 3rem;
 	        font-size: 1.1rem;
 	        font-weight: 700;
@@ -332,7 +332,7 @@ try
 	        letter-spacing: 1px;
 	        text-transform: uppercase;
 	        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	        box-shadow: 0 4px 15px rgba(38, 227, 255, 0.3);
+	        box-shadow: 0 4px 15px rgba(196, 30, 30, 0.3);
 	        position: relative;
 	        overflow: hidden;
 	    }
@@ -352,9 +352,9 @@ try
 	    }
 	    
 	    .btn-save:hover {
-	        background: linear-gradient(135deg, #1a9fb8 0%, #26e3ff 100%);
+	        background: linear-gradient(135deg, #8b0000 0%, #c41e1e 100%);
 	        transform: translateY(-3px);
-	        box-shadow: 0 8px 25px rgba(38, 227, 255, 0.5);
+	        box-shadow: 0 8px 25px rgba(196, 30, 30, 0.5);
 	    }
 	    
 	    .btn-save:hover::before {

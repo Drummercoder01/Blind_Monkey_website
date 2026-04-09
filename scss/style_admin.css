@@ -149,16 +149,19 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .admin-logo {
-    width: 120px;
-    height: auto;
-    object-fit: contain;
-    filter: brightness(1.2) drop-shadow(0 4px 15px rgba(196, 30, 30, 0.4));
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    filter: brightness(1.05) drop-shadow(0 0 12px rgba(196, 30, 30, 0.5));
+    border: 2px solid rgba(196, 30, 30, 0.35);
     transition: all 0.3s ease;
 }
 
 .admin-logo:hover {
-    transform: scale(1.05);
-    filter: brightness(1.4) drop-shadow(0 6px 20px rgba(196, 30, 30, 0.6));
+    transform: scale(1.06);
+    filter: brightness(1.2) drop-shadow(0 0 22px rgba(196, 30, 30, 0.8));
+    border-color: rgba(196, 30, 30, 0.7);
 }
 
 .brand-text {
@@ -471,10 +474,12 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .mobile-logo {
-    width: 45px;
-    height: auto;
-    object-fit: contain;
-    filter: brightness(1.2) drop-shadow(0 2px 8px rgba(196, 30, 30, 0.3));
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+    filter: brightness(1.05) drop-shadow(0 0 8px rgba(196, 30, 30, 0.5));
+    border: 1px solid rgba(196, 30, 30, 0.3);
 }
 
 .mobile-brand-text {

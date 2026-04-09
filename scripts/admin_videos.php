@@ -14,9 +14,9 @@ try {
         /* Page Header */
         .admin-page-header {
             background: linear-gradient(135deg, 
-                rgba(38, 227, 255, 0.1) 0%, 
-                rgba(38, 227, 255, 0.05) 100%);
-            border-bottom: 2px solid rgba(38, 227, 255, 0.2);
+                rgba(196, 30, 30, 0.1) 0%, 
+                rgba(196, 30, 30, 0.05) 100%);
+            border-bottom: 2px solid rgba(196, 30, 30, 0.2);
             padding: 2.5rem 0;
             margin-bottom: 2.5rem;
             text-align: center;
@@ -32,7 +32,7 @@ try {
             right: 0;
             height: 100%;
             background: radial-gradient(circle at top right, 
-                rgba(38, 227, 255, 0.15), 
+                rgba(196, 30, 30, 0.15), 
                 transparent 70%);
             pointer-events: none;
         }
@@ -49,7 +49,7 @@ try {
         }
         
         .admin-page-subtitle {
-            color: rgba(38, 227, 255, 0.9);
+            color: rgba(196, 30, 30, 0.9);
             font-size: 1rem;
             margin-top: 0.5rem;
             font-weight: 500;
@@ -66,16 +66,16 @@ try {
         }
         
         .btn-add-video {
-            background: linear-gradient(135deg, #26e3ff 0%, #1a9fb8 100%);
+            background: linear-gradient(135deg, #c41e1e 0%, #8b0000 100%);
             color: #000;
-            border: 2px solid #26e3ff;
+            border: 2px solid #c41e1e;
             padding: 1rem 2.5rem;
             font-size: 1.1rem;
             font-weight: 700;
             border-radius: 12px;
             letter-spacing: 0.5px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(38, 227, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(196, 30, 30, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -95,9 +95,9 @@ try {
         }
         
         .btn-add-video:hover {
-            background: linear-gradient(135deg, #1a9fb8 0%, #26e3ff 100%);
+            background: linear-gradient(135deg, #8b0000 0%, #c41e1e 100%);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(38, 227, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(196, 30, 30, 0.5);
             color: #000;
         }
         
@@ -121,8 +121,8 @@ try {
         .loading-spinner {
             width: 4rem;
             height: 4rem;
-            border: 4px solid rgba(38, 227, 255, 0.2);
-            border-top-color: #26e3ff;
+            border: 4px solid rgba(196, 30, 30, 0.2);
+            border-top-color: #c41e1e;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 1.5rem;
@@ -145,17 +145,17 @@ try {
                 rgba(15, 23, 42, 0.98) 0%, 
                 rgba(30, 41, 59, 0.98) 100%) !important;
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(38, 227, 255, 0.3);
+            border: 2px solid rgba(196, 30, 30, 0.3);
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
         
         .modal-header {
-            border-bottom: 1px solid rgba(38, 227, 255, 0.2);
+            border-bottom: 1px solid rgba(196, 30, 30, 0.2);
             padding: 1.5rem 2rem;
             background: linear-gradient(135deg, 
-                rgba(38, 227, 255, 0.08) 0%, 
-                rgba(38, 227, 255, 0.03) 100%);
+                rgba(196, 30, 30, 0.08) 0%, 
+                rgba(196, 30, 30, 0.03) 100%);
         }
         
         .modal-title {
@@ -192,7 +192,7 @@ try {
         }
         
         .form-label i {
-            color: #26e3ff;
+            color: #c41e1e;
             font-size: 1.1rem;
         }
         
@@ -221,9 +221,9 @@ try {
         
         .form-control:focus {
             background: rgba(0, 0, 0, 0.4) !important;
-            border-color: #26e3ff !important;
-            box-shadow: 0 0 0 3px rgba(38, 227, 255, 0.15), 
-                        0 0 20px rgba(38, 227, 255, 0.2) !important;
+            border-color: #c41e1e !important;
+            box-shadow: 0 0 0 3px rgba(196, 30, 30, 0.15), 
+                        0 0 20px rgba(196, 30, 30, 0.2) !important;
             color: white !important;
         }
         
@@ -238,16 +238,16 @@ try {
         }
         
         .form-text i {
-            color: #26e3ff;
+            color: #c41e1e;
             margin-top: 0.125rem;
         }
         
         /* Alert Info Box */
         .alert-info-custom {
             background: linear-gradient(135deg, 
-                rgba(38, 227, 255, 0.15) 0%, 
-                rgba(38, 227, 255, 0.08) 100%);
-            border: 1px solid rgba(38, 227, 255, 0.4);
+                rgba(196, 30, 30, 0.15) 0%, 
+                rgba(196, 30, 30, 0.08) 100%);
+            border: 1px solid rgba(196, 30, 30, 0.4);
             border-radius: 12px;
             padding: 1.25rem 1.5rem;
             margin-top: 1.5rem;
@@ -256,7 +256,7 @@ try {
         }
         
         .alert-info-custom strong {
-            color: #26e3ff;
+            color: #c41e1e;
             font-weight: 700;
             display: flex;
             align-items: center;
@@ -266,7 +266,7 @@ try {
         
         .alert-info-custom i {
             font-size: 1.25rem;
-            color: #26e3ff;
+            color: #c41e1e;
         }
         
         .alert-info-custom ol {
@@ -282,22 +282,22 @@ try {
         
         /* Modal Submit Button */
         .btn-modal-save {
-            background: linear-gradient(135deg, #26e3ff 0%, #1a9fb8 100%);
+            background: linear-gradient(135deg, #c41e1e 0%, #8b0000 100%);
             color: #000;
-            border: 2px solid #26e3ff;
+            border: 2px solid #c41e1e;
             padding: 0.875rem 3rem;
             font-size: 1.1rem;
             font-weight: 700;
             border-radius: 10px;
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(38, 227, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(196, 30, 30, 0.3);
         }
         
         .btn-modal-save:hover {
-            background: linear-gradient(135deg, #1a9fb8 0%, #26e3ff 100%);
+            background: linear-gradient(135deg, #8b0000 0%, #c41e1e 100%);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(38, 227, 255, 0.5);
+            box-shadow: 0 6px 20px rgba(196, 30, 30, 0.5);
             color: #000;
         }
         

@@ -34,7 +34,7 @@
             <div class="sidebar-header">
                 <div class="logo-container text-center">
                     <div class="brand-text">
-                        <h5 class="brand-title mb-0"><img src="../img/5am_Logo_01-01.png" alt="The 5 AM"
+                        <h5 class="brand-title mb-0"><img src="../img/blind_monkey_logo.jpg" alt="Blind Monkey"
                                 class="admin-logo"></h5>
                         <small class="brand-subtitle">Admin Dashboard</small>
                     </div>
@@ -122,8 +122,8 @@
                 <div class="container-fluid">
                     <!-- Mobile Brand -->
                     <div class="mobile-brand">
-                        <img src="../img/5am_Logo_01-01.png" alt="The 5 AM" class="mobile-logo">
-                        <span class="mobile-brand-text">The 5 AM Admin</span>
+                        <img src="../img/blind_monkey_logo.jpg" alt="Blind Monkey" class="mobile-logo">
+                        <span class="mobile-brand-text">Blind Monkey Admin</span>
                     </div>
 
                     <!-- Mobile Toggle Button -->

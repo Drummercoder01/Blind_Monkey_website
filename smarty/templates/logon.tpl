@@ -35,7 +35,7 @@
             
             <!-- Logo -->
             <div class="logo-wrapper mb-4">
-              <img src="../img/5am_Logo_01-01.png" class="brand-logo" alt="The 5AM Logo">
+              <img src="../img/blind_monkey_logo.jpg" class="brand-logo" alt="Blind Monkey Logo">
             </div>
             
             <!-- Welcome Text - Desktop Only -->
@@ -60,7 +60,7 @@
             
             <!-- Mobile Logo - Only visible on mobile -->
             <div class="mobile-logo-section d-lg-none text-center mb-4">
-              <img src="../img/5am_Logo_01-01.png" class="mobile-logo" alt="The 5AM Logo">
+              <img src="../img/blind_monkey_logo.jpg" class="mobile-logo" alt="Blind Monkey Logo">
             </div>
             
             <!-- Form Header -->
@@ -155,7 +155,7 @@
             
             <!-- Footer -->
             <div class="form-footer text-center mt-4">
-              <p class="copyright-text">© 2025 The 5 AM. All rights reserved.</p>
+              <p class="copyright-text">© 2025 Blind Monkey. All rights reserved.</p>
             </div>
             
           </div>

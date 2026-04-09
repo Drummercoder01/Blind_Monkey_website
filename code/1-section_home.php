@@ -1,6 +1,23 @@
 <?php
 $_inhoud .= "
 <section id='home' class='min-vh-100 d-flex align-items-center'>
+
+    <!-- ══ Atmospheric hero background ══ -->
+    <div class='hero-bg' aria-hidden='true'>
+        <div class='hero-glow hero-glow--1'></div>
+        <div class='hero-glow hero-glow--2'></div>
+        <div class='hero-glow hero-glow--3'></div>
+        <div class='hero-slashes'></div>
+        <span class='hero-spark' style='left:6%;  animation-duration:8s;  animation-delay:0s;'></span>
+        <span class='hero-spark' style='left:19%; animation-duration:12s; animation-delay:2.5s;'></span>
+        <span class='hero-spark' style='left:34%; animation-duration:9s;  animation-delay:5s;'></span>
+        <span class='hero-spark' style='left:52%; animation-duration:14s; animation-delay:1s;'></span>
+        <span class='hero-spark' style='left:68%; animation-duration:7s;  animation-delay:3s;'></span>
+        <span class='hero-spark' style='left:83%; animation-duration:11s; animation-delay:4.5s;'></span>
+        <span class='hero-spark hero-spark--white' style='left:41%; animation-duration:10s; animation-delay:6s;'></span>
+        <span class='hero-spark hero-spark--white' style='left:76%; animation-duration:6s;  animation-delay:2s;'></span>
+    </div>
+
     <div class='container'>
         <div class='home-content text-center'>
 

@@ -36,9 +36,7 @@ try {
     "../js/photos_handler.js",
     "../js/collapse_nav_bar.js",
     "../js/navbar_active.js",
-    "../js/newsletter_handler.js",
-    "../js/local-video-background.js",
-    "../js/video-controls-toggle.js"
+    "../js/newsletter_handler.js"
   );
 
   require_once(__DIR__ . "/../code/output.inc.php");

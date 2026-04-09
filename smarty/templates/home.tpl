@@ -22,7 +22,6 @@
 </head>
 
 <body>
-    <div class="background"></div>
 
     {$nav}
 

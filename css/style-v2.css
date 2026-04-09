@@ -153,10 +153,10 @@ section {
     letter-spacing: 12px;
     margin-bottom: 10px;
     text-shadow:
-        0 0 10px rgba(200, 144, 42, 0.6),
-        0 0 25px rgba(200, 144, 42, 0.3),
-        0 0 50px rgba(200, 144, 42, 0.15);
-    background: linear-gradient(135deg, #ffffff 0%, #c8902a 100%);
+        0 0 10px rgba(196, 30, 30, 0.6),
+        0 0 25px rgba(196, 30, 30, 0.3),
+        0 0 50px rgba(196, 30, 30, 0.15);
+    background: linear-gradient(135deg, #ffffff 30%, #c41e1e 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -192,34 +192,33 @@ section {
     background-color: transparent;
 }
 
-/* Contenedor del logo con glassmorphism mejorado */
+/* Contenedor del logo — Blind Monkey circular */
 .ticket-container {
     position: relative;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 30px;
-    padding: 50px;
-    display: inline-block;
+    background: transparent;
+    border-radius: 50%;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     margin: 0 auto;
-    box-shadow: 
-        0 15px 50px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 0 50px rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden; /* Contener el logo dentro */
-    width: 550px;
-    height: 550px;
+    box-shadow:
+        0 0 40px rgba(196, 30, 30, 0.5),
+        0 0 80px rgba(196, 30, 30, 0.2),
+        0 20px 60px rgba(0, 0, 0, 0.8);
+    border: none;
+    overflow: visible;
+    width: 420px;
+    height: 420px;
     transition: all 0.5s ease;
 }
 
 .ticket-container:hover {
-    transform: translateY(-10px);
-    box-shadow: 
-        0 25px 70px rgba(0, 0, 0, 0.7),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        0 0 80px rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow:
+        0 0 60px rgba(196, 30, 30, 0.7),
+        0 0 120px rgba(196, 30, 30, 0.3),
+        0 30px 80px rgba(0, 0, 0, 0.9);
 }
 
 /* Efecto de partículas decorativas - CONTENIDO */
@@ -316,8 +315,13 @@ section {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    border-radius: 50%;
     transition: all 0.5s ease;
-    filter: brightness(1.1) contrast(1.1);
+    filter: brightness(1.05) contrast(1.1) drop-shadow(0 0 20px rgba(196, 30, 30, 0.6));
+}
+
+.ticket-logo:hover {
+    filter: brightness(1.15) contrast(1.15) drop-shadow(0 0 35px rgba(196, 30, 30, 0.9));
 }
 
 /* Animación del logo viniendo desde el fondo hacia adelante */
@@ -402,17 +406,17 @@ section {
 }
 
 .cta-primary {
-    background: linear-gradient(135deg, #c8902a 0%, #8a5a14 100%);
+    background: linear-gradient(135deg, #c41e1e 0%, #8b0000 100%);
     color: #fff;
     box-shadow:
-        0 10px 30px rgba(200, 144, 42, 0.4),
+        0 10px 30px rgba(196, 30, 30, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .cta-primary:hover {
     transform: translateY(-5px) scale(1.05);
     box-shadow:
-        0 15px 40px rgba(200, 144, 42, 0.6),
+        0 15px 40px rgba(196, 30, 30, 0.6),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
     color: #fff;
 }
@@ -1977,7 +1981,7 @@ body.navbar-is-top {
     text-transform: uppercase;
     letter-spacing: 6px;
     margin-bottom: 15px;
-    background: linear-gradient(135deg, #ffffff 0%, #c8902a 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #c41e1e 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

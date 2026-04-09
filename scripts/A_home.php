@@ -31,7 +31,6 @@ try {
     "../js/scroll.js",
     "../js/more_about.js",
     "../js/videos_handler.js",
-    "../js/music_handler.js",
     "../js/press_handler.js",
     "../js/event_handler.js",
     "../js/photos_handler.js",

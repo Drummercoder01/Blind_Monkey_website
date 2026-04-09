@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The 5 AM | Admin Dashboard</title>
+    <title>Blind Monkey | Admin Dashboard</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap"
         rel="stylesheet">
 
     <!-- Icons -->
@@ -87,6 +87,12 @@
                                 <span class="nav-text text-secondary">Photos</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="../scripts/admin_newsletter.php" class="nav-link">
+                                <i class="bi bi-envelope-fill nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Newsletter</span>
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="nav-divider"></div>
@@ -163,6 +169,12 @@
                                 <a class="nav-link text-secondary" href="../scripts/admin_photos.php">
                                     <i class="bi bi-camera text-secondary"></i>
                                     Photos
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" href="../scripts/admin_newsletter.php">
+                                    <i class="bi bi-envelope-fill text-secondary"></i>
+                                    Newsletter
                                 </a>
                             </li>
                             

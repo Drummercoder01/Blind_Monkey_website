@@ -15,9 +15,9 @@ try {
             /* Page Header */
             .admin-page-header {
                 background: linear-gradient(135deg, 
-                    rgba(38, 227, 255, 0.1) 0%, 
-                    rgba(38, 227, 255, 0.05) 100%);
-                border-bottom: 2px solid rgba(38, 227, 255, 0.2);
+                    rgba(196, 30, 30, 0.1) 0%, 
+                    rgba(196, 30, 30, 0.05) 100%);
+                border-bottom: 2px solid rgba(196, 30, 30, 0.2);
                 padding: 2.5rem 0;
                 margin-bottom: 2.5rem;
                 text-align: center;
@@ -33,7 +33,7 @@ try {
                 right: 0;
                 height: 100%;
                 background: radial-gradient(circle at top right, 
-                    rgba(38, 227, 255, 0.15), 
+                    rgba(196, 30, 30, 0.15), 
                     transparent 70%);
                 pointer-events: none;
             }
@@ -50,7 +50,7 @@ try {
             }
             
             .admin-page-subtitle {
-                color: rgba(38, 227, 255, 0.9);
+                color: rgba(196, 30, 30, 0.9);
                 font-size: 1rem;
                 margin-top: 0.5rem;
                 font-weight: 500;
@@ -71,16 +71,16 @@ try {
             
             /* Add Song Button */
             .btn-add-song {
-                background: linear-gradient(135deg, #26e3ff 0%, #1a9fb8 100%);
+                background: linear-gradient(135deg, #c41e1e 0%, #8b0000 100%);
                 color: #000;
-                border: 2px solid #26e3ff;
+                border: 2px solid #c41e1e;
                 padding: 1rem 2.5rem;
                 font-size: 1.1rem;
                 font-weight: 700;
                 border-radius: 12px;
                 letter-spacing: 0.5px;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: 0 4px 15px rgba(38, 227, 255, 0.3);
+                box-shadow: 0 4px 15px rgba(196, 30, 30, 0.3);
                 position: relative;
                 overflow: hidden;
             }
@@ -100,9 +100,9 @@ try {
             }
             
             .btn-add-song:hover {
-                background: linear-gradient(135deg, #1a9fb8 0%, #26e3ff 100%);
+                background: linear-gradient(135deg, #8b0000 0%, #c41e1e 100%);
                 transform: translateY(-3px);
-                box-shadow: 0 8px 25px rgba(38, 227, 255, 0.5);
+                box-shadow: 0 8px 25px rgba(196, 30, 30, 0.5);
                 color: #000;
             }
             
@@ -162,8 +162,8 @@ try {
             .loading-spinner {
                 width: 4rem;
                 height: 4rem;
-                border: 4px solid rgba(38, 227, 255, 0.2);
-                border-top-color: #26e3ff;
+                border: 4px solid rgba(196, 30, 30, 0.2);
+                border-top-color: #c41e1e;
                 border-radius: 50%;
                 animation: spin 1s linear infinite;
                 margin: 0 auto 1.5rem;
@@ -187,14 +187,14 @@ try {
                     rgba(255, 255, 255, 0.05) 0%, 
                     rgba(255, 255, 255, 0.02) 100%);
                 border-radius: 20px;
-                border: 2px dashed rgba(38, 227, 255, 0.3);
+                border: 2px dashed rgba(196, 30, 30, 0.3);
                 margin: 2rem auto;
                 max-width: 600px;
             }
             
             .empty-state-icon {
                 font-size: 4rem;
-                color: rgba(38, 227, 255, 0.5);
+                color: rgba(196, 30, 30, 0.5);
                 margin-bottom: 1.5rem;
             }
             
@@ -222,9 +222,9 @@ try {
             /* Info Banner */
             .info-banner {
                 background: linear-gradient(135deg, 
-                    rgba(38, 227, 255, 0.1) 0%, 
-                    rgba(38, 227, 255, 0.05) 100%);
-                border: 1px solid rgba(38, 227, 255, 0.3);
+                    rgba(196, 30, 30, 0.1) 0%, 
+                    rgba(196, 30, 30, 0.05) 100%);
+                border: 1px solid rgba(196, 30, 30, 0.3);
                 border-radius: 12px;
                 padding: 1.25rem 1.5rem;
                 margin-bottom: 2rem;
@@ -238,7 +238,7 @@ try {
             
             .info-banner-icon {
                 font-size: 1.5rem;
-                color: #26e3ff;
+                color: #c41e1e;
                 flex-shrink: 0;
             }
             
@@ -249,7 +249,7 @@ try {
             }
             
             .info-banner-text strong {
-                color: #26e3ff;
+                color: #c41e1e;
             }
             
             /* Responsive */

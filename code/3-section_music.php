@@ -2,33 +2,43 @@
 $_inhoud .= "
     <section id='music' class='py-5'>
         <div class='container'>
-            <!-- Título de sección mejorado -->
+            <!-- Header -->
             <div class='section-header'>
                 <div class='section-icon'>
                     <i class='bi bi-music-note-beamed'></i>
                 </div>
                 <h1 class='section-title'>Our Music</h1>
-                <p class='section-subtitle'>Explore our latest tracks and albums</p>
+                <p class='section-subtitle'>Streaming now on Spotify</p>
                 <div class='section-divider'></div>
+            </div>
+
+            <!-- Spotify Artist Embed -->
+            <div class='spotify-artist-block mb-5'>
+                <iframe
+                    style='border-radius:16px'
+                    src='https://open.spotify.com/embed/artist/6o0z83KmtPJtdpUFwJKhEj?utm_source=generator&theme=0'
+                    width='100%'
+                    height='352'
+                    frameBorder='0'
+                    allowfullscreen=''
+                    allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+                    loading='lazy'>
+                </iframe>
             </div>
         </div>
 
-        <!-- Contenedor principal -->
+        <!-- Tracks from DB -->
         <div class='music-container'>
-            <!-- Contenedor para todas las canciones -->
             <div id='music-content' style='display: none;'>
-                
-                <!-- Grid principal para canciones iniciales con layout mejorado -->
-                <div id='music-grid' class='music-grid'>
-                    <!-- Las canciones iniciales se cargarán aquí -->
-                </div>
-                
-                <!-- Grid adicional para canciones extra (oculto inicialmente) -->
-                <div id='music-additional' class='music-grid' style='display: none;'>
-                    <!-- Canciones adicionales se cargarán aquí -->
+                <div class='container mb-3'>
+                    <h3 class='tracks-label'>
+                        <i class='bi bi-vinyl-fill me-2'></i>Tracks
+                    </h3>
                 </div>
 
-                <!-- Contenedor del botón mejorado -->
+                <div id='music-grid' class='music-grid'></div>
+                <div id='music-additional' class='music-grid' style='display: none;'></div>
+
                 <div id='music-button-container' class='text-center mt-5'>
                     <button id='toggleMusic' class='btn-music-toggle'>
                         <span class='btn-content'>
@@ -41,14 +51,14 @@ $_inhoud .= "
                 </div>
             </div>
 
-            <!-- Estado cuando no hay música - Mejorado -->
+            <!-- No music state -->
             <div id='no-music-state' class='no-music-state' style='display: none;'>
                 <div class='empty-state'>
                     <div class='empty-icon'>
                         <i class='bi bi-music-note-beamed'></i>
                     </div>
-                    <h3 class='empty-title'>No Music Available</h3>
-                    <p class='empty-text'>Check back soon for new releases</p>
+                    <h3 class='empty-title'>More Coming Soon</h3>
+                    <p class='empty-text'>Follow us on Spotify to stay updated</p>
                     <div class='music-wave'>
                         <div class='wave-bar'></div>
                         <div class='wave-bar'></div>

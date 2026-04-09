@@ -525,17 +525,52 @@ function deletePhoto(id) {
     });
 }
 
+// ========== MODAL HELPER ==========
+
+/**
+ * Closes the photo modal safely and removes any orphaned Bootstrap backdrops.
+ * Handles the case where modal.hide() doesn't fire cleanup (race conditions,
+ * fetch errors, etc.) which leaves .modal-backdrop divs blocking the page.
+ */
+function closePhotoModal() {
+    const modalEl = document.getElementById('photoModal');
+    if (!modalEl) return;
+
+    // Try Bootstrap's own hide first
+    const bsModal = bootstrap.Modal.getInstance(modalEl);
+    if (bsModal) {
+        bsModal.hide();
+    }
+
+    // Fallback: force-clean regardless (runs after hide animation ~300ms)
+    setTimeout(() => {
+        // Remove modal open state from body
+        document.body.classList.remove('modal-open');
+        document.body.style.removeProperty('overflow');
+        document.body.style.removeProperty('padding-right');
+
+        // Remove the modal's own show state
+        modalEl.classList.remove('show');
+        modalEl.style.display = 'none';
+        modalEl.removeAttribute('aria-modal');
+        modalEl.setAttribute('aria-hidden', 'true');
+
+        // Nuke every orphaned backdrop
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+    }, 320);
+}
+
 // ========== EVENT LISTENERS ==========
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('📸 Photos Manager initialized');
-    
+
     // Toggle entre upload y link
     document.querySelectorAll('input[name="photo_method"]').forEach(radio => {
         radio.addEventListener('change', function() {
             const uploadSection = document.getElementById('uploadSection');
             const linkSection = document.getElementById('linkSection');
-            
+
             if (this.value === 'upload') {
                 uploadSection.style.display = 'block';
                 linkSection.style.display = 'none';
@@ -545,59 +580,70 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // Form submit
     const photoForm = document.getElementById('photoForm');
     if (photoForm) {
         photoForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const formData = new FormData(this);
             const method = document.querySelector('input[name="photo_method"]:checked').value;
-            
+
             if (method === 'upload' && !document.getElementById('photoFile').files[0]) {
                 showNotification('❌ Please select a file to upload', 'error');
                 return;
             }
-            
+
             if (method === 'link' && !document.getElementById('photoLink').value) {
                 showNotification('❌ Please enter an image URL', 'error');
                 return;
             }
-            
-            // Mostrar loading
+
             showNotification('⏳ Uploading photo...', 'info');
-            
+
             fetch('add_photo.php', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                // Guard: if response is not OK or not JSON, throw a readable error
+                const contentType = response.headers.get('content-type') || '';
+                if (!response.ok) {
+                    throw new Error('Server returned ' + response.status);
+                }
+                if (!contentType.includes('application/json')) {
+                    throw new Error('Unexpected response type: ' + contentType);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.status === 'success') {
                     showNotification('✅ Photo added successfully', 'success');
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('photoModal'));
-                    if (modal) modal.hide();
-                    this.reset();
+                    closePhotoModal();
+                    photoForm.reset();
                     refreshPhotos();
                 } else {
                     showNotification('❌ Error: ' + (data.message || 'Unknown error'), 'error');
+                    // Don't close modal on validation error — let user fix and retry
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                showNotification('❌ Error adding photo', 'error');
+                console.error('Photo upload error:', error);
+                showNotification('❌ Error adding photo: ' + error.message, 'error');
+                // Always close modal and clean backdrops on unrecoverable errors
+                closePhotoModal();
             });
         });
     }
-    
+
     // Save order button
     const saveOrderBtn = document.getElementById('saveOrderBtn');
     if (saveOrderBtn) {
         saveOrderBtn.addEventListener('click', savePhotoOrder);
     }
-    
-    // Reset modal on hide
+
+    // Reset modal fields when hidden
     const photoModal = document.getElementById('photoModal');
     if (photoModal) {
         photoModal.addEventListener('hidden.bs.modal', function() {
@@ -605,9 +651,14 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('uploadSection').style.display = 'block';
             document.getElementById('linkSection').style.display = 'none';
             document.getElementById('methodUpload').checked = true;
+            // Extra safety: remove any stray backdrops after hide animation
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+            document.body.classList.remove('modal-open');
+            document.body.style.removeProperty('overflow');
+            document.body.style.removeProperty('padding-right');
         });
     }
-    
+
     // Cargar fotos al iniciar
     refreshPhotos();
 });

@@ -1,7 +1,7 @@
 <?php
 try
 {
-	require_once("../code/initialisatie.inc.php");
+	require_once("../code/initialisatie_admin.inc.php");
 
 	If (!isset($_POST['submit']))
 	{

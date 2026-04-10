@@ -1,6 +1,6 @@
 <?php
 try {
-    require("../code/initialisatie.inc.php");
+    require("../code/initialisatie_admin.inc.php");
     require("../code/admin_music_modal.php");
 
     $_inhoud .= "

@@ -1,7 +1,7 @@
 <?php
 
 try{
-require("../code/initialisatie.inc.php");
+require("../code/initialisatie_admin.inc.php");
   
 /*******************************************
 *    Input en verwerking

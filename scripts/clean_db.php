@@ -4,7 +4,7 @@
  * Run ONCE via: http://localhost/1.1-Blind-Monkey-site/scripts/clean_db.php
  * DELETE this file immediately after running!
  */
-require("../code/initialisatie.inc.php");
+require("../code/initialisatie_admin.inc.php");
 
 echo "<h2>🧹 Blind Monkey — Database Cleanup</h2>";
 

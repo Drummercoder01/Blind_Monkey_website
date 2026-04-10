@@ -1,12 +1,12 @@
 <?php
 // session opstarten
 session_start();
-// instantiering van $_PDO 
+// instantiering van $_PDO
 // (connectie met dbms en selectie van de datbase)
 require_once("../connections/pdo.inc.php");
-//authorised???
-require_once("../php_lib/authorised.inc.php");
-authorised();
+// authorised() removed — public data scripts (get_photos, get_events, etc.)
+// must be accessible to all visitors without login.
+// Admin scripts use their own initialisatie with auth check.
 
 //$_srv gebruiken we als "action" in onze formulieren
 $_srv = $_SERVER['PHP_SELF'];

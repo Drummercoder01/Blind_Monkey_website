@@ -6,7 +6,7 @@
 @ini_set('max_input_time', '300');
 @ini_set('memory_limit', '256M');
 
-require("../code/initialisatie.inc.php");
+require("../code/initialisatie_admin.inc.php");
 
 header('Content-Type: application/json');
 

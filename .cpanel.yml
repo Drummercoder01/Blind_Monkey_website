@@ -10,5 +10,6 @@ deployment:
     - /bin/cp -Rf php_lib $DEPLOYPATH/
     - /bin/cp -Rf smarty/templates $DEPLOYPATH/smarty/
     - /bin/cp -Rf totZiens $DEPLOYPATH/
+    - /bin/cp -Rf scss $DEPLOYPATH/
     - /bin/cp -f .htaccess $DEPLOYPATH/
     - /bin/cp -f index.php $DEPLOYPATH/

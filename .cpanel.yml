@@ -1,5 +1,13 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/blindmon/public_html/
-    - /bin/cp -R . $DEPLOYPATH
+    - export DEPLOYPATH=/home/blindmon/public_html
+    - /bin/cp -Rf code $DEPLOYPATH/
+    - /bin/cp -Rf css $DEPLOYPATH/
+    - /bin/cp -Rf js $DEPLOYPATH/
+    - /bin/cp -Rf img $DEPLOYPATH/
+    - /bin/cp -Rf scripts $DEPLOYPATH/
+    - /bin/cp -Rf php_lib $DEPLOYPATH/
+    - /bin/cp -Rf smarty/templates $DEPLOYPATH/smarty/
+    - /bin/cp -f .htaccess $DEPLOYPATH/
+    - /bin/cp -f index.php $DEPLOYPATH/

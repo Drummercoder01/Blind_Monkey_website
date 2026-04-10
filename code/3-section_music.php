@@ -1,6 +1,15 @@
 <?php
 $_inhoud .= "
     <section id='music' class='py-5'>
+        <div class='section-sparks' aria-hidden='true'>
+            <span class='hero-spark' style='left:5%;  animation-duration:9s;  animation-delay:2s;'></span>
+            <span class='hero-spark' style='left:22%; animation-duration:13s; animation-delay:0s;'></span>
+            <span class='hero-spark' style='left:44%; animation-duration:8s;  animation-delay:4.5s;'></span>
+            <span class='hero-spark' style='left:66%; animation-duration:11s; animation-delay:1s;'></span>
+            <span class='hero-spark' style='left:85%; animation-duration:7s;  animation-delay:3.5s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:33%; animation-duration:12s; animation-delay:2.5s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:78%; animation-duration:9s;  animation-delay:6s;'></span>
+        </div>
         <div class='container'>
 
             <!-- Header -->

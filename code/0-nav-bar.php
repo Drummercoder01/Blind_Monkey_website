@@ -18,7 +18,7 @@ $_nav= "
                     <li><a class='bm-link' href='#home'   data-section='home'>Home</a></li>
                     <li><a class='bm-link' href='#about'  data-section='about'>About</a></li>
                     <li><a class='bm-link' href='#music'  data-section='music'>Music</a></li>
-                    <li><a class='bm-link' href='#press'  data-section='press'>Press</a></li>
+                    <!-- <li><a class='bm-link' href='#press'  data-section='press'>Press</a></li> -->
                     <li><a class='bm-link' href='#events' data-section='events'>Shows</a></li>
                     <li><a class='bm-link' href='#videos' data-section='videos'>Videos</a></li>
                     <li><a class='bm-link' href='#photos-1' data-section='photos-1'>Photos</a></li>
@@ -46,7 +46,7 @@ $_nav= "
                     <li><a class='bm-link' href='#home'>Home</a></li>
                     <li><a class='bm-link' href='#about'>About</a></li>
                     <li><a class='bm-link' href='#music'>Music</a></li>
-                    <li><a class='bm-link' href='#press'>Press</a></li>
+                    <!-- <li><a class='bm-link' href='#press'>Press</a></li> -->
                     <li><a class='bm-link' href='#events'>Shows</a></li>
                     <li><a class='bm-link' href='#videos'>Videos</a></li>
                     <li><a class='bm-link' href='#photos-1'>Photos</a></li>

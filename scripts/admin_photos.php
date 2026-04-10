@@ -446,7 +446,7 @@ try {
 
             <!-- Action Buttons -->
             <div class='action-buttons-bar'>
-                <button type='button' class='btn-add-photo' data-bs-toggle='modal' data-bs-target='#photoModal'>
+                <button type='button' class='btn-add-photo' id='btnAddPhoto'>
                     <i class='bi bi-plus-circle-fill me-2'></i>
                     Add New Photo
                 </button>
@@ -537,8 +537,6 @@ try {
     </div>
     
     <script>
-        console.log('📸 Photos Manager initialized');
-        
         // Toggle entre upload y link
         document.querySelectorAll('input[name=\"photo_method\"]').forEach(radio => {
             radio.addEventListener('change', function() {

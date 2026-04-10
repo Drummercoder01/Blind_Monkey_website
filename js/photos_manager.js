@@ -1,6 +1,7 @@
 // ========== VARIABLE GLOBAL ==========
 let globalPhotos = [];
 let sortableInstance = null;
+let _photoModalInstance = null; // single owned Bootstrap.Modal instance
 
 // ========== SISTEMA DE NOTIFICACIONES GLASSMORPHISM ==========
 function showNotification(message, type = 'info') {
@@ -525,39 +526,46 @@ function deletePhoto(id) {
     });
 }
 
-// ========== MODAL HELPER ==========
+// ========== MODAL HELPERS ==========
 
 /**
- * Closes the photo modal safely and removes any orphaned Bootstrap backdrops.
- * Handles the case where modal.hide() doesn't fire cleanup (race conditions,
- * fetch errors, etc.) which leaves .modal-backdrop divs blocking the page.
+ * Returns the single Bootstrap.Modal instance we own.
+ * Creates it once, reuses it — avoids the getInstance() ambiguity that
+ * occurs when Bootstrap opens the modal via data-bs-toggle (different
+ * internal key than what getInstance() looks for in BS 5.2.x).
  */
+function getPhotoModalInstance() {
+    if (_photoModalInstance) return _photoModalInstance;
+    const el = document.getElementById('photoModal');
+    if (!el) return null;
+    if (typeof bootstrap === 'undefined' || !bootstrap.Modal) return null;
+    _photoModalInstance = new bootstrap.Modal(el);
+    return _photoModalInstance;
+}
+
+function openPhotoModal() {
+    const m = getPhotoModalInstance();
+    if (m) m.show();
+}
+
 function closePhotoModal() {
-    const modalEl = document.getElementById('photoModal');
-    if (!modalEl) return;
-
-    // Try Bootstrap's own hide first
-    const bsModal = bootstrap.Modal.getInstance(modalEl);
-    if (bsModal) {
-        bsModal.hide();
-    }
-
-    // Fallback: force-clean regardless (runs after hide animation ~300ms)
-    setTimeout(() => {
-        // Remove modal open state from body
+    const m = getPhotoModalInstance();
+    if (m) {
+        m.hide();
+    } else {
+        // Bootstrap unavailable — direct DOM cleanup
+        const el = document.getElementById('photoModal');
+        if (el) {
+            el.classList.remove('show');
+            el.style.display = 'none';
+            el.removeAttribute('aria-modal');
+            el.setAttribute('aria-hidden', 'true');
+        }
+        document.querySelectorAll('.modal-backdrop').forEach(function (b) { b.remove(); });
         document.body.classList.remove('modal-open');
         document.body.style.removeProperty('overflow');
         document.body.style.removeProperty('padding-right');
-
-        // Remove the modal's own show state
-        modalEl.classList.remove('show');
-        modalEl.style.display = 'none';
-        modalEl.removeAttribute('aria-modal');
-        modalEl.setAttribute('aria-hidden', 'true');
-
-        // Nuke every orphaned backdrop
-        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-    }, 320);
+    }
 }
 
 // ========== EVENT LISTENERS ==========
@@ -600,6 +608,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            // Close modal BEFORE the fetch so Bootstrap has its full ~450ms transition
+            // window to finish cleanup before the response even arrives.
+            // This eliminates any race condition between our closePhotoModal() call
+            // and Bootstrap's transitionend/backdrop removal sequence.
+            closePhotoModal();
+
             showNotification('⏳ Uploading photo...', 'info');
 
             fetch('add_photo.php', {
@@ -607,7 +621,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: formData
             })
             .then(response => {
-                // Guard: if response is not OK or not JSON, throw a readable error
                 const contentType = response.headers.get('content-type') || '';
                 if (!response.ok) {
                     throw new Error('Server returned ' + response.status);
@@ -620,21 +633,24 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.status === 'success') {
                     showNotification('✅ Photo added successfully', 'success');
-                    closePhotoModal();
-                    photoForm.reset();
                     refreshPhotos();
                 } else {
-                    showNotification('❌ Error: ' + (data.message || 'Unknown error'), 'error');
-                    // Don't close modal on validation error — let user fix and retry
+                    showNotification('❌ ' + (data.message || 'Upload failed'), 'error');
                 }
             })
             .catch(error => {
                 console.error('Photo upload error:', error);
                 showNotification('❌ Error adding photo: ' + error.message, 'error');
-                // Always close modal and clean backdrops on unrecoverable errors
-                closePhotoModal();
             });
+
+            photoForm.reset();
         });
+    }
+
+    // Open modal button (no data-bs-toggle — we own the instance)
+    const btnAddPhoto = document.getElementById('btnAddPhoto');
+    if (btnAddPhoto) {
+        btnAddPhoto.addEventListener('click', openPhotoModal);
     }
 
     // Save order button
@@ -651,11 +667,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('uploadSection').style.display = 'block';
             document.getElementById('linkSection').style.display = 'none';
             document.getElementById('methodUpload').checked = true;
-            // Extra safety: remove any stray backdrops after hide animation
-            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-            document.body.classList.remove('modal-open');
-            document.body.style.removeProperty('overflow');
-            document.body.style.removeProperty('padding-right');
+            // Bootstrap has already removed the backdrop by the time this event fires,
+            // so no manual removal needed here.  closePhotoModal()'s 600ms safety-net
+            // handles any genuinely orphaned backdrops if Bootstrap's cleanup failed.
         });
     }
 

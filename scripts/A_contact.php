@@ -92,7 +92,7 @@ try {
             <b>Don Mateo</b>";
     
     		// Array of recipients
-    		$recipients = array('bateroale@gmail.com','velazquez.art@gmail.com');
+    		$recipients = array('blindmonkey.be', 'bateroale@gmail.com');
 
     		// Send email to each recipient
     		foreach ($recipients as $_to) {

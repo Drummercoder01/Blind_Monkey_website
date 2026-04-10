@@ -1,12 +1,22 @@
 <?php
+/* PRESS SECTION — comentada temporalmente, descomentar cuando haya contenido
 $_inhoud .= "
     <section id='press' class='py-5'>
+        <div class='section-sparks' aria-hidden='true'>
+            <span class='hero-spark' style='left:11%; animation-duration:11s; animation-delay:0.5s;'></span>
+            <span class='hero-spark' style='left:29%; animation-duration:8s;  animation-delay:3s;'></span>
+            <span class='hero-spark' style='left:51%; animation-duration:14s; animation-delay:1.5s;'></span>
+            <span class='hero-spark' style='left:69%; animation-duration:10s; animation-delay:4s;'></span>
+            <span class='hero-spark' style='left:88%; animation-duration:7s;  animation-delay:2s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:40%; animation-duration:9s;  animation-delay:5.5s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:75%; animation-duration:12s; animation-delay:1s;'></span>
+        </div>
         <div class='container'>
             <div class='section-header'>
                 <div class='section-icon'>
                     <i class='bi bi-newspaper'></i>
                 </div>
-                <h1 class='section-title'>Press &amp; Media</h1>
+                <h1 class='section-title'>Press & Media</h1>
                 <p class='section-subtitle'>What they say about us</p>
                 <div class='section-divider'></div>
             </div>
@@ -34,7 +44,7 @@ $_inhoud .= "
                         <i class='bi bi-newspaper'></i>
                     </div>
                     <h3 class='empty-title'>Press Coverage Coming</h3>
-                    <p class='empty-text'>Reviews, interviews &amp; features on their way — check back soon</p>
+                    <p class='empty-text'>Reviews, interviews & features on their way — check back soon</p>
                     <div class='press-wave'>
                         <div class='wave-line'></div>
                         <div class='wave-line'></div>
@@ -45,4 +55,5 @@ $_inhoud .= "
         </div>
     </section>
 ";
+*/
 ?>

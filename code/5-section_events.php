@@ -1,6 +1,15 @@
 <?php
 $_inhoud .= "
     <section id='events' class='py-5'>
+        <div class='section-sparks' aria-hidden='true'>
+            <span class='hero-spark' style='left:7%;  animation-duration:12s; animation-delay:0s;'></span>
+            <span class='hero-spark' style='left:23%; animation-duration:9s;  animation-delay:2s;'></span>
+            <span class='hero-spark' style='left:48%; animation-duration:7s;  animation-delay:5s;'></span>
+            <span class='hero-spark' style='left:64%; animation-duration:13s; animation-delay:1s;'></span>
+            <span class='hero-spark' style='left:82%; animation-duration:10s; animation-delay:3.5s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:35%; animation-duration:11s; animation-delay:4s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:72%; animation-duration:8s;  animation-delay:2.5s;'></span>
+        </div>
         <div class='container'>
             <div class='section-header'>
                 <div class='section-icon'>
@@ -39,7 +48,7 @@ $_inhoud .= "
                         <a href='https://www.instagram.com/blind_monkey_antwerpen/' target='_blank' class='cs-link cs-instagram'>
                             <i class='fab fa-instagram'></i> Instagram
                         </a>
-                        <a href='https://www.facebook.com/p/Blind-Monkey-100063621306043/' target='_blank' class='cs-link cs-facebook'>
+                        <a href='https://www.facebook.com/people/Blind-Monkey/100066979562626/#' target='_blank' class='cs-link cs-facebook'>
                             <i class='fab fa-facebook-f'></i> Facebook
                         </a>
                     </div>

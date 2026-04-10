@@ -2,6 +2,15 @@
 $_inhoud .= "
     <!-- Sección de Fotos Profesional -->
     <section id='photos-1' class='py-5'>
+        <div class='section-sparks' aria-hidden='true'>
+            <span class='hero-spark' style='left:6%;  animation-duration:11s; animation-delay:2s;'></span>
+            <span class='hero-spark' style='left:21%; animation-duration:7s;  animation-delay:0s;'></span>
+            <span class='hero-spark' style='left:43%; animation-duration:13s; animation-delay:3s;'></span>
+            <span class='hero-spark' style='left:61%; animation-duration:9s;  animation-delay:1.5s;'></span>
+            <span class='hero-spark' style='left:84%; animation-duration:8s;  animation-delay:4.5s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:32%; animation-duration:10s; animation-delay:5s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:74%; animation-duration:12s; animation-delay:2.5s;'></span>
+        </div>
         <div class='container'>
             <!-- Header de sección mejorado -->
             <div class='section-header'>

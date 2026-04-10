@@ -1,0 +1,14 @@
+# ─── Database credentials (NEVER upload to server or commit) ──────────────────
+connections/pdo.inc.php
+
+# ─── Smarty compiled & cache (generated automatically) ────────────────────────
+smarty/templates_c/
+smarty/cache/
+
+# ─── Logs (server-side only) ──────────────────────────────────────────────────
+logs/
+
+# ─── Local dev / OS garbage ───────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log

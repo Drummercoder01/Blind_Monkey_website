@@ -34,7 +34,7 @@ $_footer = "
             <ul class='bm-footer-links'>
                 <li><a href='#about'  class='bm-footer-link'>About</a></li>
                 <li><a href='#music'  class='bm-footer-link'>Music</a></li>
-                <li><a href='#press'  class='bm-footer-link'>Press</a></li>
+                <!-- <li><a href='#press'  class='bm-footer-link'>Press</a></li> -->
                 <li><a href='#events' class='bm-footer-link'>Shows</a></li>
                 <li><a href='#videos' class='bm-footer-link'>Videos</a></li>
                 <li><a href='#photos-1' class='bm-footer-link'>Photos</a></li>

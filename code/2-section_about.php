@@ -3,6 +3,15 @@ $mainPoints = extractMainPoints('Y_about_text_I.html', 5);
 
 $_inhoud .= "
     <section class='about py-5' id='about'>
+        <div class='section-sparks' aria-hidden='true'>
+            <span class='hero-spark' style='left:8%;  animation-duration:10s; animation-delay:1s;'></span>
+            <span class='hero-spark' style='left:25%; animation-duration:7s;  animation-delay:3s;'></span>
+            <span class='hero-spark' style='left:47%; animation-duration:13s; animation-delay:0s;'></span>
+            <span class='hero-spark' style='left:63%; animation-duration:9s;  animation-delay:4s;'></span>
+            <span class='hero-spark' style='left:80%; animation-duration:11s; animation-delay:2s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:36%; animation-duration:8s;  animation-delay:5s;'></span>
+            <span class='hero-spark hero-spark--white' style='left:71%; animation-duration:14s; animation-delay:1.5s;'></span>
+        </div>
         <div class='container'>
 
             <!-- Header -->
@@ -97,7 +106,7 @@ $_inhoud .= "
                     </div>
 
                     <div class='member-card'>
-                        <div class='member-icon'><i class='fas fa-bass-guitar'></i></div>
+                        <div class='member-icon'><i class='fas fa-guitar' style='transform: scaleX(-1);'></i></div>
                         <h4 class='member-name'>Faisal</h4>
                         <p class='member-role'>Bass</p>
                     </div>

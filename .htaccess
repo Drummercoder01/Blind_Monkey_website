@@ -1,16 +1,47 @@
+# ─── Directory Security ───────────────────────────────────────────────────────
+# Disable directory listings
+Options -Indexes
+
+# ─── PHP Settings ─────────────────────────────────────────────────────────────
+<IfModule mod_php.c>
+    php_flag  display_errors        Off
+    php_value error_reporting       22519
+    php_value upload_max_filesize   20M
+    php_value post_max_size         22M
+    php_value max_execution_time    300
+    php_value max_input_time        300
+    php_value memory_limit          256M
+</IfModule>
+
+<IfModule mod_php8.c>
+    php_flag  display_errors        Off
+    php_value error_reporting       22519
+    php_value upload_max_filesize   20M
+    php_value post_max_size         22M
+    php_value max_execution_time    300
+    php_value max_input_time        300
+    php_value memory_limit          256M
+</IfModule>
+
+# ─── Block direct access to sensitive folders ──────────────────────────────────
+# Protect PHP includes / libraries
+<FilesMatch "\.(inc\.php|inc)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block direct access to internal folders
+RedirectMatch 403 ^/code/.*$
+RedirectMatch 403 ^/connections/.*$
+RedirectMatch 403 ^/php_lib/.*$
+RedirectMatch 403 ^/logs/.*$
+RedirectMatch 403 ^/smarty/.*$
+RedirectMatch 403 ^/fatal/.*$
+
+# ─── URL Rewriting ────────────────────────────────────────────────────────────
 RewriteEngine On
+
+# Allow actual files and directories through
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-
-<IfModule mod_php.c>
-    php_value upload_max_filesize 20M
-    php_value post_max_size 22M
-    php_value max_execution_time 300
-    php_value max_input_time 300
-    php_value memory_limit 256M
-</IfModule>
-
-<IfModule mod_suphp.c>
-    suPHP_ConfigPath /usr/local/php5/lib
-</IfModule>

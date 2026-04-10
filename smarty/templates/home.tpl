@@ -13,8 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Bootstrap CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style-v2.css">
-    <link rel="stylesheet" href="/css/cross-browser-fixes.css">
+    <link rel="stylesheet" href="/css/style-v2.css?v={$cssVersion.style}">
+    <link rel="stylesheet" href="/css/cross-browser-fixes.css?v={$cssVersion.cross}">
 
     <title>Blind Monkey</title>
 

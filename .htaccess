@@ -41,6 +41,23 @@ RedirectMatch 403 ^/fatal/.*$
 # ─── URL Rewriting ────────────────────────────────────────────────────────────
 RewriteEngine On
 
+# Redirige la raíz a /home (URL limpia)
+RewriteRule ^$ /home [R=301,L]
+
+# URLs limpias → scripts internos (invisible para el visitante)
+RewriteRule ^home$       scripts/A_home.php [L]
+RewriteRule ^about$      scripts/A_home.php [L]
+RewriteRule ^music$      scripts/A_home.php [L]
+RewriteRule ^shows$      scripts/A_home.php [L]
+RewriteRule ^videos$     scripts/A_home.php [L]
+RewriteRule ^photos$     scripts/A_home.php [L]
+RewriteRule ^contact$    scripts/A_contact.php [L]
+
+# Bloquea acceso directo a /scripts/ desde el browser
+RewriteCond %{THE_REQUEST} /scripts/ [NC]
+RewriteRule ^scripts/A_home\.php$ /home [R=301,L]
+RewriteRule ^scripts/A_contact\.php$ /contact [R=301,L]
+
 # Allow actual files and directories through
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

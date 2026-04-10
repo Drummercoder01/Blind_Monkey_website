@@ -246,7 +246,7 @@ h1, h2, h3, h4, h5, h6,
 
 /* ========== SIDEBAR NAVIGATION ========== */
 .sidebar-content {
-    padding: 0.5rem 0;
+    padding: 0;
     height: calc(100vh - 130px);
     display: flex;
     flex-direction: column;
@@ -258,7 +258,7 @@ h1, h2, h3, h4, h5, h6,
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0.5rem 0;
+    padding: 0;
 }
 
 .nav-list {
@@ -267,14 +267,25 @@ h1, h2, h3, h4, h5, h6,
     padding: 0;
 }
 
+/* Main nav list stretches to fill all available sidebar space */
+.nav-list:not(.nav-bottom) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
 .nav-item {
-    margin: 0.1rem 0;
+    margin: 0;
+    display: flex;
+    align-items: stretch;
 }
 
 .sidebar-nav .nav-link {
     display: flex;
     align-items: center;
-    padding: 0.6rem 1.5rem;
+    padding: 0 1.5rem;
+    flex: 1;
     color: rgba(255, 255, 255, 0.7) !important;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -377,17 +388,16 @@ h1, h2, h3, h4, h5, h6,
 
 .nav-divider {
     height: 1px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(196, 30, 30, 0.3), 
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(196, 30, 30, 0.3),
         transparent);
-    margin: 1rem 1.5rem;
+    margin: 0.5rem 1.5rem;
 }
 
 .nav-bottom {
-    margin-top: auto;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 /* View Website link */
@@ -1057,6 +1067,8 @@ textarea:focus {
     visibility: visible !important;
     opacity: 1 !important;
     color: rgba(255, 255, 255, 0.7) !important;
+    padding: 0.6rem 1.5rem !important;
+    flex: unset !important;
 }
 
 /* Force View Website link visibility */
@@ -1133,10 +1145,6 @@ a.nav-link-logout * {
     color: #f87171 !important;
 }
 
-/* Debug - add a visible background to test */
-.nav-bottom {
-    background: rgba(255, 0, 0, 0.05) !important; /* Temporary red tint to verify section exists */
-}
 
 /* ========== ADMIN NEWSLETTER MANAGEMENT STYLES ========== */
 /* Diseño glassmorphism profesional coherente con admin panel */

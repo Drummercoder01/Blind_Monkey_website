@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom Admin CSS -->
-    <link rel="stylesheet" href="/scss/style_admin.css">
+    <link rel="stylesheet" href="/scss/style_admin.css?v={$adminCssVersion}">
 
     <!-- CKEditor -->
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>

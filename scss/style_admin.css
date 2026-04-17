@@ -1873,6 +1873,12 @@ a.nav-link-logout * {
     }
 }
 
+/* ========== BOOTSTRAP MODAL Z-INDEX GUARDRAIL ========== */
+/* Forzar z-index correcto por si alguna regla anterior lo sobreescribe */
+.modal           { z-index: 1055 !important; }
+.modal-backdrop  { z-index: 1050 !important; }
+.modal-dialog    { z-index: 1056 !important; }
+
 @media (max-width: 768px) {
     .page-title {
         font-size: 1.8rem;

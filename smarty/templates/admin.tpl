@@ -116,91 +116,43 @@
             </div>
         </aside>
 
-        <!-- Mobile Header (shows only on small/medium screens) -->
-        <header class="mobile-header">
-            <nav class="navbar navbar-expand-lg navbar-dark">
-                <div class="container-fluid">
-                    <!-- Mobile Brand -->
-                    <div class="mobile-brand">
-                        <img src="../img/blind_monkey_logo.jpg" alt="Blind Monkey" class="mobile-logo">
-                        <span class="mobile-brand-text">Blind Monkey Admin</span>
-                    </div>
+        <!-- Mobile Header — styled like visitor navbar, visible only on small/medium screens -->
+        <header class="admin-mobile-navbar" id="adminMobileNav">
+            <div class="admin-nav-inner">
 
-                    <!-- Mobile Toggle Button -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav"
-                        aria-controls="mobileNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <!-- Brand -->
+                <a href="/home" class="admin-nav-brand" target="_blank">
+                    <img src="../img/blind_monkey_logo.jpg" alt="Blind Monkey" class="admin-nav-logo">
+                    <span class="admin-nav-brand-name">Blind<br>Monkey</span>
+                </a>
 
-                    <!-- Mobile Navigation Menu -->
-                    <div class="collapse navbar-collapse" id="mobileNav">
-                        <ul class="navbar-nav w-100">
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="../scripts/admin_about.php">
-                                    <i class="bi bi-person-lines-fill text-secondary"></i>
-                                    About
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="../scripts/admin_music.php">
-                                    <i class="bi bi-music-note-beamed text-secondary"></i>
-                                    Music
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="../scripts/admin_press.php">
-                                    <i class="bi bi-newspaper text-secondary"></i>
-                                    Press
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="../scripts/admin_events.php">
-                                    <i class="bi bi-calendar-event text-secondary"></i>
-                                    Events
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="../scripts/admin_videos.php">
-                                    <i class="bi bi-camera-video text-secondary"></i>
-                                    Videos
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="../scripts/admin_photos.php">
-                                    <i class="bi bi-camera text-secondary"></i>
-                                    Photos
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="../scripts/admin_newsletter.php">
-                                    <i class="bi bi-envelope-fill text-secondary"></i>
-                                    Newsletter
-                                </a>
-                            </li>
-                            
-                            <!-- Divider -->
-                            <li class="nav-item">
-                                <hr class="dropdown-divider">
-                            </li>
-                            
-                            <!-- Secondary Links -->
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="/scripts/A_home.php" target="_blank">
-                                    <i class="bi bi-globe text-secondary"></i>
-                                    View Website
-                                    <i class="bi bi-box-arrow-up-right ms-auto text-secondary"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" href="../scripts/Z_uitloggen.php">
-                                    <i class="bi bi-box-arrow-left text-secondary"></i>
-                                    Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+                <!-- Admin badge -->
+                <span class="admin-nav-badge">Admin</span>
+
+                <!-- Hamburger -->
+                <button class="admin-hamburger" id="adminHamburger" aria-label="Menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+            </div>
+
+            <!-- Slide-down menu -->
+            <div class="admin-mobile-menu" id="adminMobileMenu">
+                <ul class="admin-mobile-links">
+                    <li><a class="admin-mobile-link" href="../scripts/admin_about.php"><i class="bi bi-person-lines-fill"></i>About</a></li>
+                    <li><a class="admin-mobile-link" href="../scripts/admin_music.php"><i class="bi bi-music-note-beamed"></i>Music</a></li>
+                    <li><a class="admin-mobile-link" href="../scripts/admin_press.php"><i class="bi bi-newspaper"></i>Press</a></li>
+                    <li><a class="admin-mobile-link" href="../scripts/admin_events.php"><i class="bi bi-calendar-event"></i>Events</a></li>
+                    <li><a class="admin-mobile-link" href="../scripts/admin_videos.php"><i class="bi bi-camera-video"></i>Videos</a></li>
+                    <li><a class="admin-mobile-link" href="../scripts/admin_photos.php"><i class="bi bi-camera"></i>Photos</a></li>
+                    <li><a class="admin-mobile-link" href="../scripts/admin_newsletter.php"><i class="bi bi-envelope-fill"></i>Newsletter</a></li>
+                    <li class="admin-mobile-divider"></li>
+                    <li><a class="admin-mobile-link admin-mobile-link--secondary" href="/home" target="_blank"><i class="bi bi-globe"></i>View Website<i class="bi bi-box-arrow-up-right admin-ext-icon"></i></a></li>
+                    <li><a class="admin-mobile-link admin-mobile-link--logout" href="../scripts/Z_uitloggen.php"><i class="bi bi-box-arrow-left"></i>Logout</a></li>
+                </ul>
+            </div>
         </header>
 
         <!-- Main Content -->
@@ -229,121 +181,74 @@
 
     <!-- Admin Initialization Script -->
     <script>
-        $(document).ready(function() {
-            console.log('✅ Admin Dashboard Ready');
+        document.addEventListener('DOMContentLoaded', function () {
 
-            // Auto-hide success/error messages
-            setTimeout(function() {
-                $('.success, .error, .alert').fadeOut(500);
+            // ── Auto-ocultar mensajes ─────────────────────────────────────
+            setTimeout(function () {
+                document.querySelectorAll('.success, .error, .alert').forEach(function (el) {
+                    el.style.transition = 'opacity 0.5s';
+                    el.style.opacity = '0';
+                    setTimeout(() => el.remove(), 500);
+                });
             }, 4000);
 
-            // Set active navigation based on current path
-            const currentPath = window.location.pathname;
-            const pathSegments = currentPath.split('/');
-            const currentPage = pathSegments[pathSegments.length - 1];
+            // ── Marcar link activo (desktop + mobile) ─────────────────────
+            const currentPage = window.location.pathname.split('/').pop();
 
-            // Desktop nav
-            $('.admin-sidebar .nav-link').each(function() {
-                const href = $(this).attr('href');
+            document.querySelectorAll('.admin-sidebar .nav-link, .admin-mobile-link').forEach(function (link) {
+                const href = link.getAttribute('href');
                 if (href && href.includes(currentPage)) {
-                    $(this).addClass('active');
+                    link.classList.add('active');
                 }
             });
 
-            // Mobile nav
-            $('.mobile-header .nav-link').each(function() {
-                const href = $(this).attr('href');
-                if (href && href.includes(currentPage)) {
-                    $(this).addClass('active');
-                }
-            });
+            // ── Hamburger mobile — mismo sistema que el sitio visitante ───
+            const hamburger   = document.getElementById('adminHamburger');
+            const mobileMenu  = document.getElementById('adminMobileMenu');
+            const mobileNav   = document.getElementById('adminMobileNav');
 
-            // Mobile nav collapse on link click
-            $('.mobile-header .nav-link').on('click', function() {
-                $('.navbar-collapse').collapse('hide');
-            });
+            if (hamburger && mobileMenu) {
 
-            // Handle window resize for navigation
-            let resizeTimer;
-            $(window).resize(function() {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(function() {
-                    // Force recalculation of navigation state
-                    if ($(window).width() >= 992) {
-                        // Desktop mode - ensure sidebar is shown
-                        $('.navbar-collapse').collapse('hide');
-                        $('body').removeClass('nav-switching');
-                    } else {
-                        // Mobile mode
-                        $('body').addClass('nav-switching');
-                        setTimeout(() => {
-                            $('body').removeClass('nav-switching');
-                        }, 300);
+                // Toggle al hacer click en el botón
+                hamburger.addEventListener('click', function () {
+                    const isOpen = this.classList.toggle('open');
+                    this.setAttribute('aria-expanded', isOpen);
+                    mobileMenu.classList.toggle('open', isOpen);
+                });
+
+                // Cerrar al hacer click fuera del navbar
+                document.addEventListener('click', function (e) {
+                    if (mobileNav && !mobileNav.contains(e.target)) {
+                        hamburger.classList.remove('open');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                        mobileMenu.classList.remove('open');
                     }
-                }, 150);
-            });
+                });
 
-            // Sidebar scroll behavior (desktop only)
-            if ($(window).width() >= 992) {
+                // Cerrar al hacer click en un link
+                mobileMenu.querySelectorAll('.admin-mobile-link').forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        hamburger.classList.remove('open');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                        mobileMenu.classList.remove('open');
+                    });
+                });
+            }
+
+            // ── Sidebar scroll compact (solo desktop) ─────────────────────
+            if (window.innerWidth >= 992) {
                 let lastScrollTop = 0;
-                $(window).scroll(function() {
-                    const scrollTop = $(this).scrollTop();
-                    const sidebar = $('.admin-sidebar');
-
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        // Scrolling down
-                        sidebar.addClass('sidebar-compact');
-                    } else {
-                        // Scrolling up
-                        sidebar.removeClass('sidebar-compact');
-                    }
+                window.addEventListener('scroll', function () {
+                    const scrollTop = window.scrollY;
+                    const sidebar   = document.querySelector('.admin-sidebar');
+                    if (!sidebar) return;
+                    sidebar.classList.toggle('sidebar-compact', scrollTop > lastScrollTop && scrollTop > 100);
                     lastScrollTop = scrollTop;
-                });
+                }, { passive: true });
             }
 
-            // Initialize tooltips if any
-            if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
-                const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-                tooltips.forEach(tooltip => {
-                    new bootstrap.Tooltip(tooltip);
-                });
-            }
-
-            // Mobile menu smooth animations
-            $('#mobileNav').on('show.bs.collapse', function() {
-                $(this).find('.nav-link').each(function(index) {
-                    $(this).css('animation-delay', (index * 0.05) + 's');
-                    $(this).addClass('animate-in');
-                });
-            });
-
-            $('#mobileNav').on('hidden.bs.collapse', function() {
-                $(this).find('.nav-link').removeClass('animate-in');
-            });
-
-            console.log('Admin navigation initialized for:', currentPage);
-            console.log('Screen width:', $(window).width(), 'Navigation mode:', $(window).width() >= 992 ? 'Desktop' : 'Mobile');
+            console.log('✅ Admin Dashboard Ready — página:', currentPage);
         });
-
-        // Add CSS animation class
-        const style = document.createElement('style');
-        style.textContent = `
-            .animate-in {
-                animation: slideInLeft 0.3s ease forwards;
-            }
-            
-            @keyframes slideInLeft {
-                from {
-                    opacity: 0;
-                    transform: translateX(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 
 </body>

@@ -1053,7 +1053,7 @@ textarea:focus {
     }
 }
 
-.content-wrapper > * {
+.content-wrapper > *:not(.modal) {
     animation: fadeIn 0.5s ease-out;
 }
 
@@ -1792,29 +1792,18 @@ a.nav-link-logout * {
     padding-top: 20px;
 }
 
-/* ========== MODAL ========== */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
+/* ========== MODAL — compatible con Bootstrap 5 ========== */
+/* NO sobreescribir .modal con background/z-index propios:
+   Bootstrap usa z-index 1055 para .modal y 1050 para .modal-backdrop.
+   Poner z-index: 1000 aquí hace que el backdrop tape el formulario. */
 
 .modal-content {
-    background: linear-gradient(135deg, 
-        rgba(20, 20, 20, 0.95) 0%, 
+    /* Estilo visual — no tocar z-index ni position */
+    background: linear-gradient(135deg,
+        rgba(20, 20, 20, 0.95) 0%,
         rgba(10, 10, 10, 0.95) 100%);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
-    max-width: 500px;
-    width: 90%;
     overflow: hidden;
 }
 

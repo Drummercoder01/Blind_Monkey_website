@@ -1,6 +1,16 @@
 // ========== VARIABLE GLOBAL PARA EVENTOS ==========
 let globalEvents = [];
 
+// ========== LIMPIEZA DE BACKDROP RESIDUAL (Bootstrap 5 bug) ==========
+function cleanupModalBackdrop() {
+    // Eliminar todos los backdrops huérfanos
+    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+    // Restaurar scroll del body
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow   = '';
+    document.body.style.paddingRight = '';
+}
+
 // ========== SISTEMA DE NOTIFICACIONES GLASSMORPHISM ==========
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
@@ -557,12 +567,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     isEdit ? '✅ Event updated successfully' : '✅ Event added successfully',
                     'success'
                 );
-                const modal = bootstrap.Modal.getInstance(document.getElementById('eventModal'));
-                if (modal) modal.hide();
+                // Cerrar modal y limpiar backdrop
+                const modalEl = document.getElementById('eventModal');
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) {
+                    modal.hide();
+                } else {
+                    // Fallback: cerrar manualmente si getInstance falla
+                    modalEl.classList.remove('show');
+                    modalEl.style.display = 'none';
+                    cleanupModalBackdrop();
+                }
                 this.reset();
                 document.getElementById('eventDate').value = getDefaultDate();
                 document.getElementById('eventTime').value = getDefaultTime();
-                refreshEvents();
             } else {
                 showNotification('❌ Error: ' + (data.message || 'Unknown error'), 'error');
             }
@@ -573,20 +591,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Reset modal al cerrar
+    // Reset modal al cerrar — y limpiar backdrop por si quedó pegado
     document.getElementById('eventModal').addEventListener('hidden.bs.modal', function() {
         document.getElementById('eventForm').reset();
         document.getElementById('edit_id').value = '';
-        
+
         const modalLabel = document.getElementById('eventModalLabel');
         if (modalLabel) {
             modalLabel.innerHTML = '<i class="bi bi-calendar-event me-2"></i>Add Event';
         }
-        
+
         document.getElementById('eventDate').value = getDefaultDate();
         document.getElementById('eventTime').value = getDefaultTime();
+
+        // Limpiar backdrop residual (bug conocido de Bootstrap 5)
+        cleanupModalBackdrop();
+
+        refreshEvents();
     });
-    
-    // Cargar eventos
+
+    // Cargar eventos (solo aquí — el script inline ya no llama refreshEvents)
     refreshEvents();
 });

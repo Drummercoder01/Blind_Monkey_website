@@ -400,12 +400,8 @@ try {
     </div>
     
     <script>
-        console.log('📅 Events Manager initialized');
-        
-        $(document).ready(function() {
-            // Cargar eventos al iniciar
-            refreshEvents();
-        });
+        console.log('📅 Events Manager loaded');
+        // refreshEvents() is called by DOMContentLoaded in events_manager.js
     </script>";
 
     $_jsInclude = array("../js/events_manager.js");

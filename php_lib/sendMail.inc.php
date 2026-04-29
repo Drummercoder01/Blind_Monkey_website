@@ -36,7 +36,7 @@ function sendMail($_to, $_onderwerp, $_bericht, $_header = "")
             $mail->SMTPAuth   = true;
             $mail->Username   = MAIL_USERNAME;
             $mail->Password   = MAIL_PASSWORD;
-            $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port       = MAIL_PORT;
             $mail->CharSet    = 'UTF-8';
 

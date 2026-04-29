@@ -538,51 +538,155 @@ function deleteVideo(id) {
     });
 }
 
+// ========== URL PARSER ==========
+
+function parseVideoUrl(url) {
+    url = url.trim();
+
+    // YouTube: watch, short URL, embed, live, shorts
+    let yt = url.match(
+        /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|live\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+    );
+    if (yt) {
+        return {
+            platform : 'youtube',
+            id       : yt[1],
+            embedUrl : 'https://www.youtube.com/embed/' + yt[1] +
+                       '?rel=0&modestbranding=1',
+            thumb    : 'https://img.youtube.com/vi/' + yt[1] + '/hqdefault.jpg',
+            label    : 'YouTube · ' + yt[1]
+        };
+    }
+
+    // Vimeo: vimeo.com/ID or player.vimeo.com/video/ID
+    let vm = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    if (vm) {
+        return {
+            platform : 'vimeo',
+            id       : vm[1],
+            embedUrl : 'https://player.vimeo.com/video/' + vm[1] +
+                       '?dnt=1&color=26e3ff',
+            thumb    : null,
+            label    : 'Vimeo · ' + vm[1]
+        };
+    }
+
+    return null;
+}
+
+function buildIframe(parsed) {
+    if (parsed.platform === 'youtube') {
+        return '<iframe width="560" height="315"' +
+               ' src="' + parsed.embedUrl + '"' +
+               ' frameborder="0"' +
+               ' allow="accelerometer; autoplay; clipboard-write;' +
+               ' encrypted-media; gyroscope; picture-in-picture; web-share"' +
+               ' allowfullscreen></iframe>';
+    }
+    if (parsed.platform === 'vimeo') {
+        return '<iframe src="' + parsed.embedUrl + '"' +
+               ' width="560" height="315"' +
+               ' frameborder="0"' +
+               ' allow="autoplay; fullscreen; picture-in-picture"' +
+               ' allowfullscreen></iframe>';
+    }
+    return '';
+}
+
 // ========== EVENT LISTENERS ==========
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🎥 Videos Manager initialized');
-    
-    // Form submit
+
+    // ── URL input → live preview ────────────────────────────────────────────
+    const urlInput   = document.getElementById('videoUrl');
+    const embedField = document.getElementById('embedCode');
+    const preview    = document.getElementById('videoPreview');
+    const thumb      = document.getElementById('previewThumb');
+    const preLabel   = document.getElementById('previewLabel');
+    const addBtn     = document.getElementById('addVideoBtn');
+    const feedback   = document.getElementById('urlFeedback');
+
+    const VIMEO_PLACEHOLDER = 'https://vumbnail.com/';
+
+    if (urlInput) {
+        urlInput.addEventListener('input', function() {
+            const parsed = parseVideoUrl(this.value);
+
+            if (parsed) {
+                embedField.value = buildIframe(parsed);
+
+                if (parsed.platform === 'youtube') {
+                    thumb.src = parsed.thumb;
+                } else {
+                    thumb.src = VIMEO_PLACEHOLDER + parsed.id + '.jpg';
+                }
+                preLabel.textContent = parsed.label;
+                preview.style.display = 'block';
+                addBtn.disabled = false;
+
+                feedback.innerHTML =
+                    '<i class="bi bi-check-circle-fill" style="color:#10b981"></i>' +
+                    '<span style="color:#10b981"> ' + parsed.platform.charAt(0).toUpperCase() +
+                    parsed.platform.slice(1) + ' video detected</span>';
+            } else {
+                embedField.value = '';
+                preview.style.display = 'none';
+                addBtn.disabled = true;
+
+                if (this.value.length > 10) {
+                    feedback.innerHTML =
+                        '<i class="bi bi-exclamation-triangle-fill" style="color:#f59e0b"></i>' +
+                        '<span style="color:#f59e0b"> URL not recognised — YouTube and Vimeo supported</span>';
+                } else {
+                    feedback.innerHTML =
+                        '<i class="bi bi-info-circle"></i>' +
+                        '<span>Paste the video URL directly from your browser — YouTube and Vimeo supported</span>';
+                }
+            }
+        });
+    }
+
+    // ── Form submit ─────────────────────────────────────────────────────────
     const videoForm = document.getElementById('videoForm');
     if (videoForm) {
         videoForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const formData = new FormData(this);
-            const embedCode = document.getElementById('embedCode').value.trim();
-            
-            if (!embedCode) {
-                showNotification('❌ Please enter a YouTube embed code', 'error');
+
+            if (!embedField.value.trim()) {
+                showNotification('❌ Please paste a valid video URL first', 'error');
                 return;
             }
-            
+
             showNotification('⏳ Adding video...', 'info');
-            
+
             fetch('add_video.php', {
                 method: 'POST',
-                body: formData
+                body: new FormData(this)
             })
-            .then(response => response.json())
+            .then(r => r.json())
             .then(data => {
                 if (data.status === 'success') {
                     showNotification('✅ Video added successfully', 'success');
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('addVideoModal'));
-                    if (modal) modal.hide();
+                    bootstrap.Modal.getInstance(
+                        document.getElementById('addVideoModal')
+                    )?.hide();
                     this.reset();
+                    if (preview) preview.style.display = 'none';
+                    if (addBtn)  addBtn.disabled = true;
+                    if (feedback) feedback.innerHTML =
+                        '<i class="bi bi-info-circle"></i>' +
+                        '<span>Paste the video URL directly from your browser</span>';
                     refreshVideos();
                 } else {
                     showNotification('❌ Error: ' + (data.message || 'Unknown error'), 'error');
                 }
             })
-            .catch(error => {
-                console.error('Error:', error);
-                showNotification('❌ Error adding video', 'error');
-            });
+            .catch(() => showNotification('❌ Error adding video', 'error'));
         });
     }
-    
-    // Reset modal on hide
+
+    // Reset modal on close
     const videoModal = document.getElementById('addVideoModal');
     if (videoModal) {
         videoModal.addEventListener('hidden.bs.modal', function() {

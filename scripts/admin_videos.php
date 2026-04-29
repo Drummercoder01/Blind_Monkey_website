@@ -378,46 +378,55 @@ try {
         <div class='modal-content'>
           <div class='modal-header'>
             <h5 class='modal-title' id='addVideoModalLabel'>
-                <i class='bi bi-youtube me-2'></i>
-                Add YouTube Video
+                <i class='bi bi-camera-video me-2'></i>
+                Add Video
             </h5>
             <button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal' aria-label='Close'></button>
           </div>
           <div class='modal-body'>
             <form id='videoForm'>
+              <!-- Hidden field: filled automatically from the URL -->
+              <input type='hidden' name='embed_code' id='embedCode'>
+
               <div class='mb-3'>
-                <label for='embedCode' class='form-label'>
-                    <i class='bi bi-code-slash me-2'></i>
-                    YouTube Embed Code
+                <label for='videoUrl' class='form-label'>
+                    <i class='bi bi-link-45deg me-2'></i>
+                    Video URL
                 </label>
-                <textarea class='form-control' 
-                          name='embed_code' 
-                          id='embedCode' 
-                          rows='6' 
-                          placeholder='<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/VIDEO_ID\" ...></iframe>' 
-                          required></textarea>
-                <div class='form-text'>
+                <input type='url'
+                       class='form-control'
+                       id='videoUrl'
+                       placeholder='https://www.youtube.com/watch?v=... or https://vimeo.com/...'
+                       autocomplete='off'>
+                <div class='form-text' id='urlFeedback'>
                     <i class='bi bi-info-circle'></i>
-                    <span>Paste the complete YouTube embed iframe code (including &lt;iframe&gt; tags)</span>
+                    <span>Paste the video URL directly from your browser — YouTube and Vimeo supported</span>
                 </div>
               </div>
-              
-              <div class='alert-info-custom'>
-                <strong>
-                    <i class='bi bi-lightbulb-fill'></i>
-                    How to get the embed code:
-                </strong>
-                <ol>
-                    <li>Go to your YouTube video</li>
-                    <li>Click the <strong>Share</strong> button below the video</li>
-                    <li>Select <strong>Embed</strong> from the options</li>
-                    <li>Copy the entire <code>&lt;iframe&gt;</code> code</li>
-                    <li>Paste it in the field above</li>
-                </ol>
+
+              <!-- Live preview -->
+              <div id='videoPreview' style='display:none;margin-bottom:1.25rem;'>
+                <div style='position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;
+                            overflow:hidden;background:#000;box-shadow:0 4px 20px rgba(0,0,0,.5);'>
+                  <img id='previewThumb' src='' alt='Preview'
+                       style='position:absolute;top:0;left:0;width:100%;height:100%;
+                              object-fit:cover;border-radius:12px;'>
+                  <div style='position:absolute;inset:0;display:flex;align-items:center;
+                              justify-content:center;pointer-events:none;'>
+                    <div style='width:64px;height:64px;border-radius:50%;
+                                background:rgba(38,227,255,.85);display:flex;
+                                align-items:center;justify-content:center;
+                                box-shadow:0 4px 20px rgba(38,227,255,.5);'>
+                      <i class='bi bi-play-fill' style='font-size:1.8rem;color:#000;margin-left:4px;'></i>
+                    </div>
+                  </div>
+                </div>
+                <p id='previewLabel' style='color:rgba(38,227,255,.8);font-size:.82rem;
+                   margin-top:.5rem;text-align:center;'></p>
               </div>
-              
+
               <div class='text-center mt-4'>
-                <button type='submit' class='btn-modal-save'>
+                <button type='submit' id='addVideoBtn' class='btn-modal-save' disabled>
                     <i class='bi bi-plus-circle-fill me-2'></i>
                     Add Video
                 </button>

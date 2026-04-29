@@ -1,5 +1,9 @@
 # ─── Database credentials (NEVER upload to server or commit) ──────────────────
 connections/pdo.inc.php
+connections/mail.inc.php
+
+# ─── Claude Code session files ────────────────────────────────────────────────
+.claude/
 
 # ─── Smarty compiled & cache (generated automatically) ────────────────────────
 smarty/templates_c/

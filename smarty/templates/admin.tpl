@@ -93,11 +93,35 @@
                                 <span class="nav-text text-secondary">Newsletter</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="../scripts/admin_users.php" class="nav-link">
+                                <i class="bi bi-people-fill nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Users</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../scripts/admin_analytics.php" class="nav-link">
+                                <i class="bi bi-bar-chart-line-fill nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Analytics</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../scripts/admin_logs.php" class="nav-link">
+                                <i class="bi bi-journal-text nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Logs</span>
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="nav-divider"></div>
 
                     <ul class="nav-list nav-bottom">
+                        <li class="nav-item">
+                            <a href="../scripts/change_password.php" class="nav-link">
+                                <i class="bi bi-key-fill nav-icon text-secondary"></i>
+                                <span class="nav-text text-secondary">Change Password</span>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="../scripts/A_home.php" class="nav-link nav-link-secondary" target="_blank">
                                 <i class="bi bi-globe nav-icon text-secondary"></i>
@@ -148,7 +172,11 @@
                     <li><a class="admin-mobile-link" href="../scripts/admin_videos.php"><i class="bi bi-camera-video"></i>Videos</a></li>
                     <li><a class="admin-mobile-link" href="../scripts/admin_photos.php"><i class="bi bi-camera"></i>Photos</a></li>
                     <li><a class="admin-mobile-link" href="../scripts/admin_newsletter.php"><i class="bi bi-envelope-fill"></i>Newsletter</a></li>
+                    <li><a class="admin-mobile-link" href="../scripts/admin_users.php"><i class="bi bi-people-fill"></i>Users</a></li>
+                    <li><a class="admin-mobile-link" href="../scripts/admin_analytics.php"><i class="bi bi-bar-chart-line-fill"></i>Analytics</a></li>
+                    <li><a class="admin-mobile-link" href="../scripts/admin_logs.php"><i class="bi bi-journal-text"></i>Logs</a></li>
                     <li class="admin-mobile-divider"></li>
+                    <li><a class="admin-mobile-link" href="../scripts/change_password.php"><i class="bi bi-key-fill"></i>Change Password</a></li>
                     <li><a class="admin-mobile-link admin-mobile-link--secondary" href="/home" target="_blank"><i class="bi bi-globe"></i>View Website<i class="bi bi-box-arrow-up-right admin-ext-icon"></i></a></li>
                     <li><a class="admin-mobile-link admin-mobile-link--logout" href="../scripts/Z_uitloggen.php"><i class="bi bi-box-arrow-left"></i>Logout</a></li>
                 </ul>

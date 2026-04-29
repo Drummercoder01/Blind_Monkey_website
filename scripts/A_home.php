@@ -3,6 +3,8 @@ try {
   require_once(__DIR__ . "/../code/initialisatie.inc.php");
   require_once(__DIR__ . "/../php_lib/inlezen.inc.php");
   require_once(__DIR__ . "/../php_lib/mainPoints.php");
+  require_once(__DIR__ . "/../php_lib/trackVisit.inc.php");
+  trackVisit($_PDO);
 
 
   /*******************************************

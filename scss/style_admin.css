@@ -241,11 +241,6 @@ h1, h2, h3, h4, h5, h6,
     margin: 0;
     font-weight: 500;
 }
-*/
-    margin: 0;
-    font-weight: 500;
-}
-
 /* ========== SIDEBAR NAVIGATION ========== */
 
 /* Zone 2: grows to fill remaining height, scrolls when sections overflow */
@@ -273,9 +268,11 @@ h1, h2, h3, h4, h5, h6,
     align-items: stretch;
 }
 
-.sidebar-nav .nav-link {
-    display: flex;
+.admin-sidebar .nav-link {
+    display: flex !important;
     align-items: center;
+    flex: 1;
+    width: 100%;
     padding: 0 1.5rem;
     height: 48px;
     color: rgba(255, 255, 255, 0.7) !important;
@@ -289,21 +286,21 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* CRITICAL: Override Bootstrap .text-secondary in sidebar */
-.sidebar-nav .nav-link .text-secondary,
-.sidebar-nav .nav-link.nav-link-secondary .text-secondary {
+.admin-sidebar .nav-link .text-secondary,
+.admin-sidebar .nav-link.nav-link-secondary .text-secondary {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.sidebar-nav .nav-link:hover .text-secondary {
+.admin-sidebar .nav-link:hover .text-secondary {
     color: white !important;
 }
 
-.sidebar-nav .nav-link.active .text-secondary {
+.admin-sidebar .nav-link.active .text-secondary {
     color: white !important;
 }
 
 /* Hover effect con glassmorphism */
-.sidebar-nav .nav-link::before {
+.admin-sidebar .nav-link::before {
     content: '';
     position: absolute;
     left: 0;
@@ -315,7 +312,7 @@ h1, h2, h3, h4, h5, h6,
     transition: transform 0.3s ease;
 }
 
-.sidebar-nav .nav-link:hover {
+.admin-sidebar .nav-link:hover {
     color: white !important;
     background: linear-gradient(90deg, 
         rgba(196, 30, 30, 0.15) 0%, 
@@ -323,12 +320,12 @@ h1, h2, h3, h4, h5, h6,
     transform: translateX(8px);
 }
 
-.sidebar-nav .nav-link:hover::before {
+.admin-sidebar .nav-link:hover::before {
     transform: scaleY(1);
 }
 
 /* Active state */
-.sidebar-nav .nav-link.active {
+.admin-sidebar .nav-link.active {
     color: white !important;
     background: linear-gradient(90deg, 
         rgba(196, 30, 30, 0.25) 0%, 
@@ -338,7 +335,7 @@ h1, h2, h3, h4, h5, h6,
     box-shadow: inset 0 0 20px rgba(196, 30, 30, 0.2);
 }
 
-.sidebar-nav .nav-link.active::before {
+.admin-sidebar .nav-link.active::before {
     transform: scaleY(1);
 }
 
@@ -361,20 +358,20 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* CRITICAL: Force all nav items to be visible */
-.sidebar-nav .nav-icon.text-secondary {
+.admin-sidebar .nav-icon.text-secondary {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.sidebar-nav .nav-text.text-secondary {
+.admin-sidebar .nav-text.text-secondary {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
 /* Small icon at end of "View Website" link */
-.sidebar-nav .ms-auto {
+.admin-sidebar .ms-auto {
     margin-left: auto !important;
 }
 
-.sidebar-nav .text-xs {
+.admin-sidebar .text-xs {
     font-size: 0.75rem !important;
 }
 
@@ -1115,7 +1112,7 @@ textarea:focus {
 
 /* Force all bottom navigation items to be visible */
 .admin-sidebar .nav-bottom .nav-link,
-.sidebar-nav .nav-bottom .nav-link {
+.admin-sidebar .nav-bottom .nav-link {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -1126,7 +1123,7 @@ textarea:focus {
 
 /* Force View Website link visibility */
 .admin-sidebar .nav-link-secondary,
-.sidebar-nav .nav-link-secondary,
+.admin-sidebar .nav-link-secondary,
 a.nav-link-secondary {
     display: flex !important;
     visibility: visible !important;
@@ -1135,7 +1132,7 @@ a.nav-link-secondary {
 }
 
 .admin-sidebar .nav-link-secondary *,
-.sidebar-nav .nav-link-secondary *,
+.admin-sidebar .nav-link-secondary *,
 a.nav-link-secondary * {
     color: rgba(255, 255, 255, 0.7) !important;
     visibility: visible !important;
@@ -1144,7 +1141,7 @@ a.nav-link-secondary * {
 
 /* Force Logout link visibility */
 .admin-sidebar .nav-link-logout,
-.sidebar-nav .nav-link-logout,
+.admin-sidebar .nav-link-logout,
 a.nav-link-logout {
     display: flex !important;
     visibility: visible !important;
@@ -1153,7 +1150,7 @@ a.nav-link-logout {
 }
 
 .admin-sidebar .nav-link-logout *,
-.sidebar-nav .nav-link-logout *,
+.admin-sidebar .nav-link-logout *,
 a.nav-link-logout * {
     color: #fca5a5 !important;
     visibility: visible !important;
@@ -1162,7 +1159,7 @@ a.nav-link-logout * {
 
 /* Override any Bootstrap .text-secondary that might hide text */
 .admin-sidebar .text-secondary,
-.sidebar-nav .text-secondary,
+.admin-sidebar .text-secondary,
 .nav-bottom .text-secondary {
     color: rgba(255, 255, 255, 0.7) !important;
     opacity: 1 !important;

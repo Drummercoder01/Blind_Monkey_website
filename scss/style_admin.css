@@ -106,19 +106,21 @@ h1, h2, h3, h4, h5, h6,
         overflow: hidden;
         transition: all 0.3s ease;
         z-index: 1000;
-        
+
         /* Borde con glow */
         border-right: 1px solid rgba(196, 30, 30, 0.2);
-        box-shadow: 
+        box-shadow:
             4px 0 30px rgba(0, 0, 0, 0.3),
             0 0 40px rgba(196, 30, 30, 0.1);
-        
+
         flex-direction: column;
+        align-items: stretch;
     }
 }
 
 /* ========== SIDEBAR HEADER ========== */
 .sidebar-header {
+    flex: 0 0 auto;
     padding: 1rem 1.5rem 0.75rem;
     border-bottom: 1px solid rgba(196, 30, 30, 0.2);
     background: linear-gradient(135deg,
@@ -245,47 +247,24 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ========== SIDEBAR NAVIGATION ========== */
-.sidebar-content {
-    padding: 0;
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
 
-.sidebar-nav {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    overflow: hidden;
-}
-
-/* Scrollable main nav area */
+/* Zone 2: grows to fill remaining height, scrolls when sections overflow */
 .sidebar-nav-scroll {
-    flex: 1;
+    flex: 1 1 0;
     min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* Fixed bottom actions — never shrinks */
+/* Zone 3: never shrinks — always pinned to bottom */
 .sidebar-nav-bottom {
-    flex-shrink: 0;
+    flex: 0 0 auto;
 }
 
 .nav-list {
     list-style: none;
     margin: 0;
     padding: 0;
-}
-
-/* Main nav list: stack normally, scroll handled by wrapper */
-.nav-list:not(.nav-bottom) {
-    display: flex;
-    flex-direction: column;
 }
 
 .nav-item {

@@ -31,6 +31,8 @@
 
         <!-- Desktop Sidebar (shows only on large screens) -->
         <aside class="admin-sidebar">
+
+            <!-- Zone 1: Logo header (fixed top) -->
             <div class="sidebar-header">
                 <div class="logo-container text-center">
                     <div class="brand-text">
@@ -41,110 +43,98 @@
                 </div>
             </div>
 
-            <div class="sidebar-content">
-                <div class="welcome-section">
-                    <div class="user-avatar">
-                        <i class="bi bi-person-circle"></i>
-                    </div>
-                    <p class="welcome-text">Welcome back!</p>
-                </div>
-
-                <nav class="sidebar-nav">
-
-                    <!-- Scrollable main sections -->
-                    <div class="sidebar-nav-scroll">
-                        <ul class="nav-list">
-                            <li class="nav-item">
-                                <a href="../scripts/admin_about.php" class="nav-link">
-                                    <i class="bi bi-person-lines-fill nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">About</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/admin_music.php" class="nav-link">
-                                    <i class="bi bi-music-note-beamed nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Music</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/admin_press.php" class="nav-link">
-                                    <i class="bi bi-newspaper nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Press</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/admin_events.php" class="nav-link">
-                                    <i class="bi bi-calendar-event nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Events</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/admin_videos.php" class="nav-link">
-                                    <i class="bi bi-camera-video nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Videos</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/admin_photos.php" class="nav-link">
-                                    <i class="bi bi-camera nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Photos</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/admin_newsletter.php" class="nav-link">
-                                    <i class="bi bi-envelope-fill nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Newsletter</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/admin_users.php" class="nav-link">
-                                    <i class="bi bi-people-fill nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Users</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/admin_analytics.php" class="nav-link">
-                                    <i class="bi bi-bar-chart-line-fill nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Analytics</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/admin_logs.php" class="nav-link">
-                                    <i class="bi bi-journal-text nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Logs</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Fixed bottom actions -->
-                    <div class="sidebar-nav-bottom">
-                        <div class="nav-divider"></div>
-                        <ul class="nav-list nav-bottom">
-                            <li class="nav-item">
-                                <a href="../scripts/change_password.php" class="nav-link">
-                                    <i class="bi bi-key-fill nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Change Password</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/A_home.php" class="nav-link nav-link-secondary" target="_blank">
-                                    <i class="bi bi-globe nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">View Website</span>
-                                    <i class="bi bi-box-arrow-up-right ms-auto text-xs text-secondary"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../scripts/Z_uitloggen.php" class="nav-link nav-link-logout">
-                                    <i class="bi bi-box-arrow-left nav-icon text-secondary"></i>
-                                    <span class="nav-text text-secondary">Logout</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </nav>
+            <!-- Zone 2: Scrollable main sections -->
+            <div class="sidebar-nav-scroll">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../scripts/admin_about.php" class="nav-link">
+                            <i class="bi bi-person-lines-fill nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">About</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/admin_music.php" class="nav-link">
+                            <i class="bi bi-music-note-beamed nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/admin_press.php" class="nav-link">
+                            <i class="bi bi-newspaper nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Press</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/admin_events.php" class="nav-link">
+                            <i class="bi bi-calendar-event nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Events</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/admin_videos.php" class="nav-link">
+                            <i class="bi bi-camera-video nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Videos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/admin_photos.php" class="nav-link">
+                            <i class="bi bi-camera nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Photos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/admin_newsletter.php" class="nav-link">
+                            <i class="bi bi-envelope-fill nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Newsletter</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/admin_users.php" class="nav-link">
+                            <i class="bi bi-people-fill nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Users</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/admin_analytics.php" class="nav-link">
+                            <i class="bi bi-bar-chart-line-fill nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Analytics</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/admin_logs.php" class="nav-link">
+                            <i class="bi bi-journal-text nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Logs</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
+
+            <!-- Zone 3: Fixed bottom actions (always visible) -->
+            <div class="sidebar-nav-bottom">
+                <div class="nav-divider"></div>
+                <ul class="nav-list nav-bottom">
+                    <li class="nav-item">
+                        <a href="../scripts/change_password.php" class="nav-link">
+                            <i class="bi bi-key-fill nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Change Password</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/A_home.php" class="nav-link nav-link-secondary" target="_blank">
+                            <i class="bi bi-globe nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">View Website</span>
+                            <i class="bi bi-box-arrow-up-right ms-auto text-xs text-secondary"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../scripts/Z_uitloggen.php" class="nav-link nav-link-logout">
+                            <i class="bi bi-box-arrow-left nav-icon text-secondary"></i>
+                            <span class="nav-text text-secondary">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         </aside>
 
         <!-- Mobile Header — styled like visitor navbar, visible only on small/medium screens -->

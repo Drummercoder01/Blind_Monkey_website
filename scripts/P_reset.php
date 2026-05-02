@@ -30,7 +30,23 @@ try {
             $_SESSION['logon'] = $_row['d_logon'];
         } else {
             logSecurityInfo("onbekende user", "Ongeldige of verlopen reset-key");
-            header("Location:../fatal/fatalError.html");
+            $_inhoud = "
+            <div class='msg-error'>
+              <i class='bi bi-x-circle-fill me-2'></i>
+              <strong>Invalid or expired link.</strong><br>
+              This reset link is no longer valid. Please request a new one.
+            </div>
+            <a href='../scripts/P_vergeten.php'
+               class='btn-primary-5am'
+               style='display:block;text-align:center;text-decoration:none;margin-top:1rem;'>
+              Request new reset link
+            </a>";
+            require_once("../smarty/mySmarty.inc.php");
+            $_smarty->assign('pagetitle',    'Link Expired');
+            $_smarty->assign('pagesubtitle', 'This reset link is no longer valid');
+            $_smarty->assign('inhoud',       $_inhoud);
+            $_smarty->assign('extrajs',      '');
+            $_smarty->display('password.tpl');
             exit;
         }
 
